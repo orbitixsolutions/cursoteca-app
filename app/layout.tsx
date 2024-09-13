@@ -1,8 +1,10 @@
 import '@/styles/globals.css'
-import { inter } from '@/styles/fonts'
 import { Providers } from './providers'
+import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
 import { cn } from '@/lib/utils'
+
+const inter = Inter({ subsets: ['latin'] })
 
 const title = 'Cursoteca | Platforms.'
 const description = 'Cursoteca es una plataforma de educación.'
@@ -22,7 +24,7 @@ export default function RootLayout({
       lang='es'
       suppressHydrationWarning
     >
-      <body className={cn(inter.variable)}>
+      <body className={cn(inter)}>
         <Providers>{children}</Providers>
       </body>
     </html>

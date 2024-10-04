@@ -19,7 +19,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^2.30.0",
     "focus-trap-react": "^10.2.3",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^11.11.0",
     "gray-matter": "^4.0.3",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.439.0",

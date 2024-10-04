@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button'
+import { Header } from './_components/header'
 
 export default function SiteHomePage() {
   return (
-    <div className='flex flex-col items-center justify-center w-full min-h-dvh'>
-      <div className='space-y-2'>
-        <h2 className='text-2xl text-cente'>Cursoteca App</h2>
-        <Button>Click me</Button>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main className='max-w-7xl container mx-auto py-12 md:py-24'>
+        Cursoteca
+      </main>
+    </>
   )
 }

@@ -24,3 +24,26 @@ export const REGISTRATIONS_STEPS = [
     arrow: false,
   },
 ]
+
+export const ROLES = [
+  {
+    name: 'Directivo',
+    value: 'DIRECTIVE',
+    label: 'directive',
+  },
+  {
+    name: 'Administrador',
+    value: 'ADMIN',
+    label: 'admin',
+  },
+  {
+    name: 'Estudiante',
+    value: 'STUDENT',
+    label: 'student',
+  },
+  {
+    name: 'Usuario',
+    value: 'USER',
+    label: 'user',
+  },
+]

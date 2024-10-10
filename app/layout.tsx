@@ -1,12 +1,14 @@
 import '@/styles/globals.css'
-import { Providers } from './providers'
-import { Inter } from 'next/font/google'
+
+import { Providers } from '@/app/providers'
+import { Onest } from 'next/font/google'
 import { Metadata } from 'next'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
-const inter = Inter({ subsets: ['latin'] })
+const ONEST = Onest({ subsets: ['latin'] })
 
-const title = 'Cursoteca | Platforms.'
+const title = 'Cursoteca | Platforms'
 const description = 'Cursoteca es una plataforma de educación.'
 
 export const metadata: Metadata = {
@@ -20,12 +22,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang='es'
-      suppressHydrationWarning
-    >
-      <body className={cn(inter)}>
-        <Providers>{children}</Providers>
+    <html lang='es'>
+      <body className={cn(ONEST.className)}>
+        <Providers>
+          <Toaster />
+          {children}
+        </Providers>
       </body>
     </html>
   )

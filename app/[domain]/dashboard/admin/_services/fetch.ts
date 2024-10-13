@@ -24,8 +24,6 @@ export async function getUsers(props: FetchUsersProps) {
         role: 'ADMIN',
       },
     })
-    
-    console.log(USERS)
 
     return USERS
   } catch (error) {

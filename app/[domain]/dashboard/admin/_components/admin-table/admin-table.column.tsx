@@ -4,8 +4,8 @@ import { ROLES } from '@/constants'
 import { User } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
-import { Delete } from '@/app/[domain]/admin/_components/actions/delete'
-import { Edit } from '@/app/[domain]/admin/_components/actions/edit'
+import { Delete } from '@/app/[domain]/dashboard/admin/_components/actions/delete'
+import { Edit } from '@/app/[domain]/dashboard/admin/_components/actions/edit'
 
 export type AdminUser = User
 

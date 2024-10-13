@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
-import { DeleteProps } from '@/app/[domain]/admin/_components/actions/delete/delete.type'
+import { DeleteProps } from '@/app/[domain]/dashboard/admin/_components/actions/delete/delete.type'
 import { useTransition } from 'react'
-import { deleteAdmin } from '@/app/[domain]/admin/_services/delete'
+import { deleteAdmin } from '@/app/[domain]/dashboard/admin/_services/delete'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 

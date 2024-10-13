@@ -11,13 +11,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import {
   Form,
   FormControl,
   FormField,
@@ -26,7 +19,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { z } from 'zod'
-import { ROLES } from '@/constants'
 import { Pencil } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Button } from '@/components/ui/button'
@@ -59,7 +51,7 @@ export function SheetAdminForm(props: SheetAdminFormProps) {
       email: '',
       name: '',
       password: '',
-      role: undefined,
+      role: 'ADMIN',
     },
   })
 
@@ -194,39 +186,6 @@ export function SheetAdminForm(props: SheetAdminFormProps) {
                   )}
                 />
               )}
-
-              <FormField
-                control={form.control}
-                name='role'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Rol</FormLabel>
-
-                    <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      disabled={isPending}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Selecciona un rol' />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {ROLES.map(({ name, value }) => (
-                          <SelectItem
-                            key={value}
-                            value={value}
-                          >
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <SheetFooter>
                 <SheetClose asChild>

@@ -1,6 +1,13 @@
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
 import { currentRole } from '@/data/auth'
-import { Header } from '@/app/[domain]/_shared/_components/header'
 import { redirect } from 'next/navigation'
+import { Separator } from '@/components/ui/separator'
+import { DashboardSidebar } from '@/app/[domain]/dashboard/_components/dashboard-sidebar'
+import { DashboardBreadcrumbs } from '@/app/[domain]/dashboard/_components/dashboard-breadcrumbs'
 
 export default async function DashboardLayout({
   children,
@@ -11,11 +18,19 @@ export default async function DashboardLayout({
   if (ROLE === 'USER' || ROLE === 'STUDENT') return redirect('/')
 
   return (
-    <>
-      <Header />
-      <main className='space-y-20 md:space-y-12 py-20 md:p-12 container mx-auto'>
-        {children}
-      </main>
-    </>
+    <SidebarProvider>
+      <DashboardSidebar />
+      <SidebarInset>
+        <header className='flex h-16 shrink-0 items-center gap-2 border-b px-4'>
+          <SidebarTrigger className='-ml-1' />
+          <Separator
+            orientation='vertical'
+            className='mr-2 h-4'
+          />
+          <DashboardBreadcrumbs />
+        </header>
+        <main className='flex flex-1 flex-col gap-4 p-8'>{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }

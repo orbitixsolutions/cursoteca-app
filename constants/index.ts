@@ -1,3 +1,5 @@
+import { Home, Inbox, Settings, SheetIcon, Users } from 'lucide-react'
+
 export const REGISTRATIONS_STEPS = [
   {
     title: '1. Sitio de inscripciones',
@@ -45,5 +47,33 @@ export const ROLES = [
     name: 'Usuario',
     value: 'USER',
     label: 'user',
+  },
+]
+
+export const SIDEBAR_ITEMS = [
+  {
+    title: 'Inicio',
+    url: '/',
+    icon: Home,
+  },
+  {
+    title: 'Administradores',
+    url: '/admin',
+    icon: Users,
+  },
+  {
+    title: 'Cursos',
+    url: '/courses',
+    icon: SheetIcon,
+  },
+  {
+    title: 'Inscriptos',
+    url: '/incriptions',
+    icon: Inbox,
+  },
+  {
+    title: 'Configuraciones',
+    url: '/settings',
+    icon: Settings,
   },
 ]

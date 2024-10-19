@@ -1,6 +1,6 @@
 'use server'
 
-import { currentRole } from '@/data/auth'
+import { currentRole, currentUser } from '@/data/auth'
 import db from '@/lib/db'
 
 type FetchUsersProps = {
@@ -55,6 +55,34 @@ export async function getUserById(props: FetchUserByIdProps) {
     })
 
     return USER
+  } catch (error) {
+    return null
+  }
+}
+
+export async function getAdmins(props: FetchUsersProps) {
+  const { eca } = props
+
+  const ROLE = await currentRole()
+  const SESSION = await currentUser()
+
+  const USER_ID = SESSION?.id
+
+  if (ROLE === 'USER' || ROLE === 'STUDENT') {
+    return null
+  }
+
+  try {
+    const ADMINS = await db.user.findMany({
+      where: {
+        eca_id: eca.replaceAll(' ', '-'),
+        role: 'ADMIN',
+      },
+    })
+
+    const FILTERED_ADMINS = ADMINS.filter((admin) => admin.id !== USER_ID)
+
+    return FILTERED_ADMINS
   } catch (error) {
     return null
   }

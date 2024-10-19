@@ -3,8 +3,9 @@
 import { z } from 'zod'
 import { currentRole } from '@/data/auth'
 import { AdminCreatorSchema } from '@/schemas'
-import db from '@/lib/db'
+import { getUserByEmail } from '@/data/users'
 import bcrypt from 'bcryptjs'
+import db from '@/lib/db'
 
 export async function createAdmin(data: z.infer<typeof AdminCreatorSchema>) {
   const ROLE = await currentRole()
@@ -20,6 +21,10 @@ export async function createAdmin(data: z.infer<typeof AdminCreatorSchema>) {
   }
 
   const { eca_id, email, name, password, role } = VALIDATE_FIELDS.data
+
+  const USER_EXISTS = await getUserByEmail(email)
+
+  if (USER_EXISTS) return { status: 403, message: 'Este usuario ya existe.' }
 
   const hashedPassword = await bcrypt.hash(password, 10)
 

@@ -42,7 +42,7 @@ export function Header() {
             {ROLE === 'DIRECTIVE' && (
               <NavigationMenuItem>
                 <Link
-                  href={`/${DOMAIN}/admin`}
+                  href={`/${DOMAIN}/dashboard/admin`}
                   legacyBehavior
                   passHref
                 >

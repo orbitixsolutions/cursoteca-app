@@ -70,7 +70,7 @@ export function AdminTable<TData, TValue>({
             <TableRow>
               <TableCell
                 colSpan={columns.length}
-                className='h-24 py-20 uppercase text-2xl opacity-70 text-center font-bold'
+                className='py-20 uppercase text-2xl opacity-70 text-center font-bold'
               >
                 No hay resultados
               </TableCell>

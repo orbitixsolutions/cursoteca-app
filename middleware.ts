@@ -47,5 +47,11 @@ export default auth(async (req) => {
 })
 
 export const config = {
-  matcher: ['/auth', '/:path/auth', '/:path/dashboard', '/:path/admin'],
+  matcher: [
+    '/auth',
+    '/:path/auth',
+    '/:path/dashboard',
+    '/:path/dashboard/admin',
+    '/:path/dashboard/courses',
+  ],
 }

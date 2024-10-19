@@ -20,7 +20,7 @@ export async function getUsers(props: FetchUsersProps) {
   try {
     const USERS = await db.user.findMany({
       where: {
-        eca_id: ECA_ID,
+        ecaId: ECA_ID,
         role: 'ADMIN',
       },
     })
@@ -50,7 +50,7 @@ export async function getUserById(props: FetchUserByIdProps) {
     const USER = await db.user.findUnique({
       where: {
         id: id,
-        eca_id: ECA_ID,
+        ecaId: ECA_ID,
       },
     })
 
@@ -75,7 +75,7 @@ export async function getAdmins(props: FetchUsersProps) {
   try {
     const ADMINS = await db.user.findMany({
       where: {
-        eca_id: eca.replaceAll(' ', '-'),
+        ecaId: eca.replaceAll(' ', '-'),
         role: 'ADMIN',
       },
     })

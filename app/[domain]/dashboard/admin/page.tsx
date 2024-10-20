@@ -1,16 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AdminTable } from '@/app/[domain]/dashboard/admin/_components/admin-table'
-import { AdminTableColumns } from '@/app/[domain]/dashboard/admin/_components/admin-table/admin-table.column'
-import { SheetAdminForm } from '@/app/[domain]/dashboard/admin/_components/sheet-admin-form'
+import { AdminColumns } from '@/app/[domain]/dashboard/admin/_components/admin-table/admin.column'
+import { AdminForm } from '@/app/[domain]/dashboard/admin/_components/admin-form'
 import { getAdmins } from '@/app/[domain]/dashboard/admin/_services/fetch'
 import { capitalizeLetters } from '@/services/utils/uppercase-strings'
+import { currentRole } from '@/data/auth'
+import { redirect } from 'next/navigation'
 
 export async function generateMetadata({
-  params,
+  params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const ECA_NAME = capitalizeLetters(params.domain.split('-').join(' '))
+  const ECA_NAME = capitalizeLetters(domain.replaceAll('-', ' '))
 
   return {
     title: `Admin - ${ECA_NAME}`,
@@ -18,11 +20,16 @@ export async function generateMetadata({
 }
 
 export default async function SitePageAdmin({
-  params,
+  params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const DOMAIN = decodeURIComponent(params.domain)
+  const DOMAIN = decodeURIComponent(domain)
+  const ECA_NAME = capitalizeLetters(DOMAIN.replaceAll('-', ' '))
+
+  const ROLE = await currentRole()
+  if (ROLE === 'ADMIN') return redirect(`/${DOMAIN}/dashboard`)
+
   const DATA = await getAdmins({ eca: DOMAIN })
 
   return (
@@ -32,17 +39,15 @@ export default async function SitePageAdmin({
           <div className='flex items-center justify-between gap-4'>
             <CardTitle>
               Administradores:{' '}
-              <span className='uppercase font-extrabold'>
-                {DOMAIN.replaceAll('-', ' ')}
-              </span>
+              <span className='uppercase font-extrabold'>{ECA_NAME}</span>
             </CardTitle>
 
-            <SheetAdminForm />
+            <AdminForm />
           </div>
         </CardHeader>
         <CardContent>
           <AdminTable
-            columns={AdminTableColumns}
+            columns={AdminColumns}
             data={DATA!}
           />
         </CardContent>

@@ -7,9 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Delete } from '@/app/[domain]/dashboard/admin/_components/actions/delete'
 import { Edit } from '@/app/[domain]/dashboard/admin/_components/actions/edit'
 
-export type AdminUser = User
-
-export const AdminTableColumns: ColumnDef<AdminUser>[] = [
+export const AdminColumns: ColumnDef<User>[] = [
   {
     accessorKey: 'name',
     header: 'Nombres',
@@ -30,7 +28,7 @@ export const AdminTableColumns: ColumnDef<AdminUser>[] = [
   },
   {
     accessorKey: 'actions',
-    header: 'Acciones',
+    header: '',
     cell: ({ row }) => {
       const { id } = row.original
 

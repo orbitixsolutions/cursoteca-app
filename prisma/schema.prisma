@@ -79,8 +79,8 @@ model Postulation {
   userId   String
   courseId String
 
-  user   User   @relation(fields: [userId], references: [id], name: "UserToPostulations")
-  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations")
+  user User @relation(fields: [userId], references: [id], name: "UserToPostulations", onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations", onDelete: Cascade)
 
   @@index([userId])
   @@index([courseId])

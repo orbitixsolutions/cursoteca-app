@@ -3,7 +3,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { currentRole } from '@/data/auth'
+import { currentUser } from '@/data/auth'
 import { redirect } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { DashboardSidebar } from '@/app/[domain]/dashboard/_components/dashboard-sidebar'
@@ -11,10 +11,17 @@ import { DashboardBreadcrumbs } from '@/app/[domain]/dashboard/_components/dashb
 
 export default async function DashboardLayout({
   children,
+  params: { domain },
 }: {
   children: React.ReactNode
+  params: { domain: string }
 }) {
-  const ROLE = await currentRole()
+  const USER = await currentUser()
+
+  const USER_ECA = USER?.ecaId
+  const ROLE = USER?.role
+
+  if (USER_ECA !== domain) return redirect(`/${USER_ECA}/dashboard`)
   if (ROLE === 'USER' || ROLE === 'STUDENT') return redirect('/')
 
   return (
@@ -29,7 +36,9 @@ export default async function DashboardLayout({
           />
           <DashboardBreadcrumbs />
         </header>
-        <main className='flex flex-1 flex-col gap-4 p-8'>{children}</main>
+        <main className='flex flex-1 flex-col gap-4 p-8 container mx-auto'>
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   )

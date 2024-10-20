@@ -9,27 +9,79 @@ datasource db {
 
 // ENUMS //
 
-enum ROLES {
+enum ROLES_ENUM {
   DIRECTIVE
   ADMIN
   STUDENT
   USER
 }
 
-enum ECAS {
-  LOS_PINOS
+enum CATEGORIES_ENUM {
+  NONE
+  LOGISTICS
+  PHARMACEUTICALS
+  OTHERS
 }
 
+enum STATE_ENUM {
+  GRADUATE
+  ACCEPTED
+  REJECTED
+  PENDING
+}
+
+// --------------------------------------
 // USER TABLE //
+// --------------------------------------
 
 model User {
-  id       String @id @default(cuid()) 
-  email    String @unique
+  id       String     @id @default(cuid())
+  email    String     @unique
   password String
   name     String
-  role     ROLES  @default(USER)
-  eca_id   String
+  role     ROLES_ENUM @default(USER)
+  ecaId    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  postulations Postulation[] @relation("UserToPostulations")
+}
+
+// --------------------------------------
+// COURSE TABLE //
+// --------------------------------------
+
+model Course {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  ecaId       String
+  isVisible   Boolean         @default(false)
+  imageUrl    String          @default("NO_IMAGE")
+  category    CATEGORIES_ENUM @default(NONE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postulations Postulation[] @relation("CourseToPostulations")
+}
+
+// --------------------------------------
+// POSTULATION TABLE //
+// --------------------------------------
+
+model Postulation {
+  id              String     @id @default(cuid())
+  postulationDate String
+  state           STATE_ENUM @default(PENDING)
+
+  userId   String
+  courseId String
+
+  user   User   @relation(fields: [userId], references: [id], name: "UserToPostulations")
+  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations")
+
+  @@index([userId])
+  @@index([courseId])
 }

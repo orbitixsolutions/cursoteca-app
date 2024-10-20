@@ -1,7 +1,7 @@
 import { EditProps } from '@/app/[domain]/dashboard/admin/_components/actions/edit/edit.type'
-import { SheetAdminForm } from '@/app/[domain]/dashboard/admin/_components/sheet-admin-form'
+import { AdminForm } from '@/app/[domain]/dashboard/admin/_components/admin-form'
 
 export function Edit(props: EditProps) {
   const { id } = props
-  return <SheetAdminForm id={id} />
+  return <AdminForm id={id} />
 }

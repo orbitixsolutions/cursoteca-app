@@ -21,6 +21,7 @@ export const {
 
       if (token.role && session.user) {
         session.user.role = token.role
+        session.user.ecaId = token.ecaId
       }
       return session
     },
@@ -32,6 +33,7 @@ export const {
       if (!existingUser) return token
 
       token.role = existingUser.role
+      token.ecaId = existingUser.ecaId
 
       return token
     }

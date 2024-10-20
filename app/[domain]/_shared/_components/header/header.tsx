@@ -8,7 +8,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { useParams } from 'next/navigation'
-import { useCurrentRole } from '@/services/hooks/use-session'
+import { useCurrentRole } from '@/hooks/use-session'
 import { UserDropdown } from '@/app/[domain]/_shared/_components/user-dropdown'
 import Link from 'next/link'
 

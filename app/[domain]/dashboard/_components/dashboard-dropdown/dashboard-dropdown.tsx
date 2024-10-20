@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { Avatar } from '@/components/ui/avatar'
-import { useCurrentUser } from '@/services/hooks/use-session'
+import { useCurrentUser } from '@/hooks/use-session'
 import { AvatarFallback } from '@/components/ui/avatar'
 import { ChevronsUpDown, LogOut, Sun, User } from 'lucide-react'
 import { SidebarMenuButton } from '@/components/ui/sidebar'

@@ -2,25 +2,25 @@
 
 import { z } from 'zod'
 import { currentRole } from '@/data/auth'
-import { AdminCreatorSchema } from '@/schemas'
+import { AdminSchema } from '@/schemas'
 import { getUserByEmail } from '@/data/users'
 import bcrypt from 'bcryptjs'
 import db from '@/lib/db'
 
-export async function createAdmin(data: z.infer<typeof AdminCreatorSchema>) {
+export async function createAdmin(data: z.infer<typeof AdminSchema>) {
   const ROLE = await currentRole()
 
   if (ROLE === 'USER' || ROLE === 'STUDENT') {
     return { status: 403, message: 'No tienes permisos.' }
   }
 
-  const VALIDATE_FIELDS = AdminCreatorSchema.safeParse(data)
+  const VALIDATE_FIELDS = AdminSchema.safeParse(data)
 
   if (!VALIDATE_FIELDS.success) {
     return { status: 403, message: 'Campos invalidos.' }
   }
 
-  const { eca_id, email, name, password, role } = VALIDATE_FIELDS.data
+  const { ecaId, email, name, password, role } = VALIDATE_FIELDS.data
 
   const USER_EXISTS = await getUserByEmail(email)
 
@@ -31,7 +31,7 @@ export async function createAdmin(data: z.infer<typeof AdminCreatorSchema>) {
   try {
     await db.user.create({
       data: {
-        eca_id,
+        ecaId,
         email,
         name,
         password: hashedPassword,

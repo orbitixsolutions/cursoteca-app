@@ -2,11 +2,11 @@
 
 import { z } from 'zod'
 import { currentRole } from '@/data/auth'
-import { AdminCreatorSchema } from '@/schemas'
+import { AdminSchema } from '@/schemas'
 import db from '@/lib/db'
 
 export async function updateAdmin(
-  data: z.infer<typeof AdminCreatorSchema>,
+  data: z.infer<typeof AdminSchema>,
   id: string
 ) {
   const ROLE = await currentRole()
@@ -15,7 +15,7 @@ export async function updateAdmin(
     return { status: 403, message: 'No tienes permisos.' }
   }
 
-  const VALIDATE_FIELDS = AdminCreatorSchema.safeParse(data)
+  const VALIDATE_FIELDS = AdminSchema.safeParse(data)
 
   if (!VALIDATE_FIELDS.success) {
     return { status: 403, message: 'Campos invalidos.' }

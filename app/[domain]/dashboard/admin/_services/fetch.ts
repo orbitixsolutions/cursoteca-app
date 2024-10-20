@@ -33,13 +33,10 @@ export async function getUsers(props: FetchUsersProps) {
 
 type FetchUserByIdProps = {
   id: string
-  eca: string
 }
 
 export async function getUserById(props: FetchUserByIdProps) {
-  const { id, eca } = props
-  const ECA_ID = eca.replaceAll(' ', '-')
-
+  const { id } = props
   const ROLE = await currentRole()
 
   if (ROLE === 'USER' || ROLE === 'STUDENT') {
@@ -50,7 +47,6 @@ export async function getUserById(props: FetchUserByIdProps) {
     const USER = await db.user.findUnique({
       where: {
         id: id,
-        ecaId: ECA_ID,
       },
     })
 

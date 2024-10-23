@@ -6,6 +6,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Badge } from '@/components/ui/badge'
 import { Delete } from '@/app/[domain]/dashboard/admin/_components/actions/delete'
 import { Edit } from '@/app/[domain]/dashboard/admin/_components/actions/edit'
+import { CopyField } from '@/app/[domain]/dashboard/admin/_components/copy-field'
 
 export const AdminColumns: ColumnDef<User>[] = [
   {
@@ -15,6 +16,10 @@ export const AdminColumns: ColumnDef<User>[] = [
   {
     accessorKey: 'email',
     header: 'Correo electronico',
+    cell: ({ row }) => {
+      const { email } = row.original
+      return <CopyField label={email} />
+    },
   },
   {
     accessorKey: 'role',

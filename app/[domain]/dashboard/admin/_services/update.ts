@@ -21,7 +21,7 @@ export async function updateAdmin(
     return { status: 403, message: 'Campos invalidos.' }
   }
 
-  const { eca_id, email, name, password, role } = VALIDATE_FIELDS.data
+  const { ecaId, email, name, password, role } = VALIDATE_FIELDS.data
 
   try {
     await db.user.update({
@@ -29,7 +29,7 @@ export async function updateAdmin(
         id: id,
       },
       data: {
-        eca_id,
+        ecaId,
         email,
         name,
         password,

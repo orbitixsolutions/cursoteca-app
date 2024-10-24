@@ -5,7 +5,10 @@ import { currentRole } from '@/data/auth'
 import { CourseSchema } from '@/schemas'
 import db from '@/lib/db'
 
-export async function createCourse(data: z.infer<typeof CourseSchema>) {
+export async function createCourse(
+  data: z.infer<typeof CourseSchema>,
+  coruseId: string
+) {
   const ROLE = await currentRole()
 
   if (ROLE === 'USER' || ROLE === 'STUDENT') {
@@ -24,6 +27,7 @@ export async function createCourse(data: z.infer<typeof CourseSchema>) {
   try {
     await db.course.create({
       data: {
+        id: coruseId,
         title,
         description,
         ecaId,

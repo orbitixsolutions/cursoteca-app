@@ -15,6 +15,7 @@ import { DeleteProps } from '@/app/[domain]/dashboard/admin/_components/actions/
 import { deleteCourse } from '@/app/[domain]/dashboard/courses/_services/delete'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import { deleteImage } from '@/services/utils/delete-image'
 import { toast } from 'sonner'
 
 export function Delete(props: DeleteProps) {
@@ -28,8 +29,8 @@ export function Delete(props: DeleteProps) {
       const { status, message } = await deleteCourse(id)
       if (status === 201) {
         toast.success(message)
+        deleteImage({ itemId: id, folder: 'courses', path: 'course' })
         refresh()
-
         return
       }
 

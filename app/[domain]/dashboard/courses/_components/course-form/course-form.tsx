@@ -32,10 +32,18 @@ import { useForm } from 'react-hook-form'
 import { Textarea } from '@/components/ui/text-area'
 import { createCourse } from '@/app/[domain]/dashboard/courses/_services/create'
 import { CourseFormProps } from '@/app/[domain]/dashboard/courses/_components/course-form/course-form.type'
+import { DialogDrop } from '@/components/dialog-drop/dialog-drop'
+import { createId } from '@paralleldrive/cuid2'
+import { useUploadImageToCloud } from '@/hooks/use-upload-to-cloud'
+import { useStore } from '@/services/store/use-store'
+import { useFileImage } from '@/services/store/use-file-image'
 import { toast } from 'sonner'
 
 export function CourseForm(props: CourseFormProps) {
   const { id } = props
+
+  const FILE_STORE = useStore(useFileImage, (state) => state)
+  const { handleUpload } = useUploadImageToCloud()
 
   const { domain } = useParams<{ domain: string }>()
   const [isPending, startTransition] = useTransition()
@@ -70,12 +78,15 @@ export function CourseForm(props: CourseFormProps) {
   }, [IS_EDITING, id, form])
 
   const onSubmit = form.handleSubmit((values) => {
+    const courseId = createId()
+
     startTransition(async () => {
       if (IS_EDITING) {
         const { status, message } = await updateCourse(values, id)
 
         if (status === 201) {
           toast.success(message)
+          handleUpload({ id, folder: 'courses', path: 'course' })
           refresh()
 
           return
@@ -85,11 +96,12 @@ export function CourseForm(props: CourseFormProps) {
         return
       }
 
-      const { status, message } = await createCourse(values)
+      const { status, message } = await createCourse(values, courseId)
 
       if (status === 201) {
         toast.success(message)
         form.reset()
+        handleUpload({ id: courseId, folder: 'courses', path: 'course' })
         refresh()
 
         return
@@ -134,6 +146,11 @@ export function CourseForm(props: CourseFormProps) {
               </FormItem>
             )}
           />
+
+          <FormItem>
+            <FormLabel>Imagen</FormLabel>
+            <DialogDrop isLoading={isPending} />
+          </FormItem>
 
           <FormField
             control={form.control}

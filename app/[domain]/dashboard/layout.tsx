@@ -21,7 +21,10 @@ export default async function DashboardLayout({
   const USER_ECA = USER?.ecaId
   const ROLE = USER?.role
 
+  if (USER_ECA === undefined) return redirect('/')
+
   if (USER_ECA !== domain) return redirect(`/${USER_ECA}/dashboard`)
+
   if (ROLE === 'USER' || ROLE === 'STUDENT') return redirect('/')
 
   return (

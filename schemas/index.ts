@@ -47,7 +47,7 @@ export const CourseSchema = z.object({
   title: z.string().min(1, {
     message: 'Por favor ingresa el nombre del curso.',
   }),
-  category: z.enum(['NONE', 'LOGISTICS', 'PHARMACEUTICALS', 'OTHERS'], {
+  category: z.enum(['ALL', 'NONE', 'LOGISTICS', 'PHARMACEUTICALS', 'OTHERS'], {
     message: 'Selecciona una categoría.',
   }),
   ecaId: z.string().min(1, {

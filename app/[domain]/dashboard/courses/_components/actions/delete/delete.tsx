@@ -28,9 +28,9 @@ export function Delete(props: DeleteProps) {
     startTransition(async () => {
       const { status, message } = await deleteCourse(id)
       if (status === 201) {
+        refresh()
         toast.success(message)
         deleteImage({ itemId: id, folder: 'courses', path: 'course' })
-        refresh()
         return
       }
 

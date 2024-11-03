@@ -1,12 +1,12 @@
-import authConfig from '@/auth.config'
-import NextAuth from 'next-auth'
-import { ecaExists } from '@/services/helpers/eca-exists'
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
 } from '@/routes'
+import { ecaExists } from '@/services/helpers/eca-exists'
+import authConfig from '@/auth.config'
+import NextAuth from 'next-auth'
 
 export const { auth } = NextAuth(authConfig)
 
@@ -24,7 +24,6 @@ export default auth(async (req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      console.log(isLoggedIn)
       const { pathname } = nextUrl
 
       const [DOMAIN] = pathname.split('/').splice(1)

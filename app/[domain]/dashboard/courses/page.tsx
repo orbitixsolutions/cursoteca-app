@@ -1,30 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { capitalizeLetters } from '@/services/utils/uppercase-strings'
 import { CourseForm } from '@/app/[domain]/dashboard/courses/_components/course-form'
 import { CourseTable } from '@/app/[domain]/dashboard/courses/_components/course-table'
 import { courseColumns } from '@/app/[domain]/dashboard/courses/_components/course-table/course.column'
 import { getCourses } from '@/app/[domain]/dashboard/courses/_services/fetch'
+import { getEcaName } from '@/services/helpers/get-eca-name'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export async function generateMetadata({
   params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const ECA_NAME = capitalizeLetters(domain.replaceAll('-', ' '))
+  const { ECA_NAME } = getEcaName(domain)
 
   return {
     title: `Cursos - ${ECA_NAME}`,
   }
 }
 
-export default async function SitePageCourses({
+export default async function CoursesPage({
   params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const DOMAIN = decodeURIComponent(domain)
-  const ECA_NAME = capitalizeLetters(DOMAIN.replaceAll('-', ' '))
-
+  const { DOMAIN, ECA_NAME } = getEcaName(domain)
   const DATA = await getCourses({ ecaId: DOMAIN })
 
   return (
@@ -37,7 +37,18 @@ export default async function SitePageCourses({
               <span className='uppercase font-extrabold'>{ECA_NAME}</span>
             </CardTitle>
 
-            <CourseForm />
+            <div className='flex items-center space-x-2'>
+              <Button asChild>
+                <Link
+                  target='_blank'
+                  href={`/${DOMAIN}/courses?category=all`}
+                >
+                  Ver cursos
+                </Link>
+              </Button>
+
+              <CourseForm />
+            </div>
           </div>
         </CardHeader>
         <CardContent>

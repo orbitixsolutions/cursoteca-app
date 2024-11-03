@@ -1,26 +1,25 @@
 import { ecaExists } from '@/services/helpers/eca-exists'
-import { capitalizeLetters } from '@/services/utils/uppercase-strings'
+import { getEcaName } from '@/services/helpers/get-eca-name'
 import { redirect } from 'next/navigation'
 
 export async function generateMetadata({
-  params,
+  params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const ECA_NAME = capitalizeLetters(params.domain.split('-').join(' '))
+  const { ECA_NAME } = getEcaName(domain)
 
   return {
     title: `Dashboard - ${ECA_NAME}`,
   }
 }
 
-export default function SitePageDashboard({
-  params,
+export default function DashboardPage({
+  params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const DOMAIN = decodeURIComponent(params.domain)
-  const ECA_NAME = capitalizeLetters(DOMAIN.split('-').join(' '))
+  const { DOMAIN, ECA_NAME } = getEcaName(domain)
 
   const ECA_EXISTS = ecaExists(DOMAIN)
   if (!ECA_EXISTS) return redirect('/')

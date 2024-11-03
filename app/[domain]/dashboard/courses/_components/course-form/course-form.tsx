@@ -35,14 +35,10 @@ import { CourseFormProps } from '@/app/[domain]/dashboard/courses/_components/co
 import { DialogDrop } from '@/components/dialog-drop/dialog-drop'
 import { createId } from '@paralleldrive/cuid2'
 import { useUploadImageToCloud } from '@/hooks/use-upload-to-cloud'
-import { useStore } from '@/services/store/use-store'
-import { useFileImage } from '@/services/store/use-file-image'
 import { toast } from 'sonner'
 
 export function CourseForm(props: CourseFormProps) {
   const { id } = props
-
-  const FILE_STORE = useStore(useFileImage, (state) => state)
   const { handleUpload } = useUploadImageToCloud()
 
   const { domain } = useParams<{ domain: string }>()
@@ -58,14 +54,14 @@ export function CourseForm(props: CourseFormProps) {
       title: '',
       description: '',
       isVisible: false,
-      category: undefined,
+      category: 'NONE',
       ecaId: ECA_NAME,
     },
   })
 
   useEffect(() => {
-    startTransition(async () => {
-      if (IS_EDITING) {
+    if (IS_EDITING) {
+      startTransition(async () => {
         const DATA = await getCourseById({ id })
         if (!DATA) return
 
@@ -73,8 +69,8 @@ export function CourseForm(props: CourseFormProps) {
         form.setValue('description', DATA.description)
         form.setValue('category', DATA.category)
         form.setValue('ecaId', DATA.ecaId)
-      }
-    })
+      })
+    }
   }, [IS_EDITING, id, form])
 
   const onSubmit = form.handleSubmit((values) => {
@@ -161,6 +157,7 @@ export function CourseForm(props: CourseFormProps) {
                 <Select
                   disabled={isPending}
                   value={field.value}
+                  defaultValue='none'
                   onValueChange={field.onChange}
                 >
                   <FormControl>

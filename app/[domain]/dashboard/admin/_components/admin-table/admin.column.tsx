@@ -11,7 +11,7 @@ import { CopyField } from '@/app/[domain]/dashboard/admin/_components/copy-field
 export const AdminColumns: ColumnDef<User>[] = [
   {
     accessorKey: 'name',
-    header: 'Nombres',
+    header: 'Nombre',
   },
   {
     accessorKey: 'email',
@@ -33,7 +33,7 @@ export const AdminColumns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'actions',
-    header: '',
+    header: 'Acciones',
     cell: ({ row }) => {
       const { id } = row.original
 

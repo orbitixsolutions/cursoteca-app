@@ -51,7 +51,6 @@ export function AdminForm(props: AdminFormProps) {
 
         form.setValue('name', DATA.name)
         form.setValue('email', DATA.email)
-        form.setValue('password', DATA.password)
         form.setValue('role', DATA.role)
       })
     }
@@ -63,8 +62,8 @@ export function AdminForm(props: AdminFormProps) {
         const { status, message } = await updateAdmin(values, id)
 
         if (status === 201) {
-          toast.success(message)
           refresh()
+          toast.success(message)
 
           return
         }
@@ -76,9 +75,9 @@ export function AdminForm(props: AdminFormProps) {
       const { status, message } = await createAdmin(values)
 
       if (status === 201) {
+        refresh()
         toast.success(message)
         form.reset()
-        refresh()
 
         return
       }
@@ -95,12 +94,13 @@ export function AdminForm(props: AdminFormProps) {
           ? 'Editar un administrador para tu ECA'
           : 'Crear un nuevo administrador para tu ECA'
       }
-      formId='edit-course'
+      formId='course-form'
       isEditing={IS_EDITING}
       disabled={isPending}
     >
       <Form {...form}>
         <form
+          id='course-form'
           onSubmit={onSubmit}
           className='grid gap-4 px-1 py-4'
         >

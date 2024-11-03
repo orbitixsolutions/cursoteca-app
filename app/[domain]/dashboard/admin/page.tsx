@@ -3,29 +3,28 @@ import { AdminTable } from '@/app/[domain]/dashboard/admin/_components/admin-tab
 import { AdminColumns } from '@/app/[domain]/dashboard/admin/_components/admin-table/admin.column'
 import { AdminForm } from '@/app/[domain]/dashboard/admin/_components/admin-form'
 import { getAdmins } from '@/app/[domain]/dashboard/admin/_services/fetch'
-import { capitalizeLetters } from '@/services/utils/uppercase-strings'
 import { currentRole } from '@/data/auth'
 import { redirect } from 'next/navigation'
+import { getEcaName } from '@/services/helpers/get-eca-name'
 
 export async function generateMetadata({
   params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const ECA_NAME = capitalizeLetters(domain.replaceAll('-', ' '))
+  const { ECA_NAME } = getEcaName(domain)
 
   return {
     title: `Admin - ${ECA_NAME}`,
   }
 }
 
-export default async function SitePageAdmin({
+export default async function AdminPage({
   params: { domain },
 }: {
   params: { domain: string }
 }) {
-  const DOMAIN = decodeURIComponent(domain)
-  const ECA_NAME = capitalizeLetters(DOMAIN.replaceAll('-', ' '))
+  const { DOMAIN, ECA_NAME } = getEcaName(domain)
 
   const ROLE = await currentRole()
   if (ROLE === 'ADMIN') return redirect(`/${DOMAIN}/dashboard`)

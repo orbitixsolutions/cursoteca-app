@@ -1,6 +1,6 @@
 'use server'
 
-import { currentRole } from '@/data/auth'
+// import { currentRole } from '@/data/auth'
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary'
 import { updateImage } from '@/services/utils/update-image'
 
@@ -20,11 +20,11 @@ cloudinary.config({
 export async function cloudinaryUpload(props: CloudinaryUploadProps) {
   const { form, itemId, folder, path } = props
 
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return { status: 403, message: 'No tienes permisos.' }
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return { status: 403, message: 'No tienes permisos.' }
+  // }
 
   const FILE = form.get(`${path}-files`) as File
   const ARRAY_BUFFER = await FILE.arrayBuffer()

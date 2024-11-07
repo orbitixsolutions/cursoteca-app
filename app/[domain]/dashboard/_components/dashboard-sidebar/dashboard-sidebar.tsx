@@ -17,14 +17,14 @@ import { AppWindow } from 'lucide-react'
 import { SIDEBAR_ITEMS } from '@/constants'
 import { usePathname } from 'next/navigation'
 import { DashboardDropdown } from '@/app/[domain]/dashboard/_components/dashboard-dropdown'
-import { useCurrentRole } from '@/hooks/use-session'
+// import { useCurrentRole } from '@/hooks/use-session'
 import Link from 'next/link'
 
 export function DashboardSidebar() {
   const pathname = usePathname()
   const NAV_URL = pathname.split('/').slice(0, 3).join('/')
 
-  const ROLE = useCurrentRole()
+  // const ROLE = useCurrentRole()
 
   return (
     <Sidebar>
@@ -42,7 +42,20 @@ export function DashboardSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {ROLE === 'ADMIN' &&
+              {SIDEBAR_ITEMS.map((item) => {
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={`${NAV_URL}${item.url}`}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+
+              {/* {ROLE === 'ADMIN' &&
                 SIDEBAR_ITEMS.filter(
                   (item) => item.title !== 'Administradores'
                 ).map((item) => {
@@ -56,9 +69,9 @@ export function DashboardSidebar() {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )
-                })}
+                })} */}
 
-              {ROLE === 'DIRECTIVE' &&
+              {/* {ROLE === 'DIRECTIVE' &&
                 SIDEBAR_ITEMS.map((item) => {
                   return (
                     <SidebarMenuItem key={item.title}>
@@ -70,7 +83,7 @@ export function DashboardSidebar() {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )
-                })}
+                })} */}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

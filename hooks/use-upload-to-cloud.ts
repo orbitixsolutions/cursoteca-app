@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation'
 import { useStore } from 'zustand'
 import { useFileImage } from '@/services/store/use-file-image'
-import { useCurrentRole } from './use-session'
+// import { useCurrentRole } from './use-session'
 import { cloudinaryUpload } from '@/services/utils/cloudinary-upload'
-import { toast } from 'sonner'
+// import { toast } from 'sonner'
 
 type HandleUploadImageProps = {
   id: string | undefined
@@ -13,7 +13,7 @@ type HandleUploadImageProps = {
 
 export function useUploadImageToCloud() {
   const { refresh } = useRouter()
-  const ROLE = useCurrentRole()
+  // const ROLE = useCurrentRole()
 
   const FILE_STORE = useStore(useFileImage, (state) => state)
 
@@ -21,9 +21,9 @@ export function useUploadImageToCloud() {
     const IMAGE_FILE = FILE_STORE?.imageFile
 
     if (!IMAGE_FILE) return
-    if (ROLE === 'USER' || ROLE === 'STUDENT') {
-      return toast.error('No tienes permisos.')
-    }
+    // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+    //   return toast.error('No tienes permisos.')
+    // }
 
     const formData = new FormData()
     formData.append(`${path}-files`, IMAGE_FILE as File)

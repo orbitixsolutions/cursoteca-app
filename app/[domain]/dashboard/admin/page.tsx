@@ -3,8 +3,8 @@ import { AdminTable } from '@/app/[domain]/dashboard/admin/_components/admin-tab
 import { AdminColumns } from '@/app/[domain]/dashboard/admin/_components/admin-table/admin.column'
 import { AdminForm } from '@/app/[domain]/dashboard/admin/_components/admin-form'
 import { getAdmins } from '@/app/[domain]/dashboard/admin/_services/fetch'
-import { currentRole } from '@/data/auth'
-import { redirect } from 'next/navigation'
+// import { currentRole } from '@/data/auth'
+// import { redirect } from 'next/navigation'
 import { getEcaName } from '@/services/helpers/get-eca-name'
 
 export async function generateMetadata({
@@ -26,10 +26,10 @@ export default async function AdminPage({
 }) {
   const { DOMAIN, ECA_NAME } = getEcaName(domain)
 
-  const ROLE = await currentRole()
-  if (ROLE === 'ADMIN') return redirect(`/${DOMAIN}/dashboard`)
+  // const ROLE = await currentRole()
+  // if (ROLE === 'ADMIN') return redirect(`/${DOMAIN}/dashboard`)
 
-  const DATA = await getAdmins({ eca: DOMAIN })
+  const DATA = await getAdmins({ eca: DOMAIN })     
 
   return (
     <section className='space-y-8'>

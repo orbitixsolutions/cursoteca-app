@@ -1,7 +1,7 @@
 'use server'
 
 import { z } from 'zod'
-import { currentRole } from '@/data/auth'
+// import { currentRole } from '@/data/auth'
 import { CourseSchema } from '@/schemas'
 import db from '@/lib/db'
 
@@ -9,11 +9,11 @@ export async function updateCourse(
   data: z.infer<typeof CourseSchema>,
   courseId: string
 ) {
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return { status: 403, message: 'No tienes permisos.' }
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return { status: 403, message: 'No tienes permisos.' }
+  // }
 
   const VALIDATE_FIELDS = CourseSchema.safeParse(data)
 

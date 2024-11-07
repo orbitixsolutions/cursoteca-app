@@ -1,6 +1,6 @@
 'use server'
 
-import { currentRole, currentUser } from '@/data/auth'
+// import { currentRole, currentUser } from '@/data/auth'
 import db from '@/lib/db'
 
 type FetchUsersProps = {
@@ -11,11 +11,11 @@ export async function getUsers(props: FetchUsersProps) {
   const { eca } = props
   const ECA_ID = eca.replaceAll(' ', '-')
 
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return null
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return null
+  // }
 
   try {
     const USERS = await db.user.findMany({
@@ -37,11 +37,11 @@ type FetchUserByIdProps = {
 
 export async function getUserById(props: FetchUserByIdProps) {
   const { id } = props
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return null
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return null
+  //}
 
   try {
     const USER = await db.user.findUnique({
@@ -59,14 +59,14 @@ export async function getUserById(props: FetchUserByIdProps) {
 export async function getAdmins(props: FetchUsersProps) {
   const { eca } = props
 
-  const ROLE = await currentRole()
-  const SESSION = await currentUser()
+  // const ROLE = await currentRole()
+  // const SESSION = await currentUser()
 
-  const USER_ID = SESSION?.id
+  // const USER_ID = SESSION?.id
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return null
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return null
+  // }
 
   try {
     const ADMINS = await db.user.findMany({
@@ -76,9 +76,9 @@ export async function getAdmins(props: FetchUsersProps) {
       },
     })
 
-    const FILTERED_ADMINS = ADMINS.filter((admin) => admin.id !== USER_ID)
+    // const FILTERED_ADMINS = ADMINS.filter((admin) => admin.id !== USER_ID)
 
-    return FILTERED_ADMINS
+    return ADMINS
   } catch (error) {
     return null
   }

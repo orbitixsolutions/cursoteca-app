@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTransition } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { login } from '@/app/[domain]/auth/_services/login'
+// import { login } from '@/app/[domain]/auth/_services/login'
 import { toast } from 'sonner'
 
 export function LoginForm() {
@@ -33,14 +33,14 @@ export function LoginForm() {
 
   const onSubmit = form.handleSubmit((values) => {
     startTransition(async () => {
-      const { message, status } = await login(values, domain)
+      // const { message, status } = await login(values, domain)
 
-      if (status === 201) {
-        toast.success(message)
-        return
-      }
+      // if (status === 201) {
+      //   toast.success(message)
+      //   return
+      // }
 
-      toast.error(message)
+      // toast.error(message)
     })
   })
 

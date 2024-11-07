@@ -1,18 +1,18 @@
 'use server'
 
 import { z } from 'zod'
-import { currentRole } from '@/data/auth'
+// import { currentRole } from '@/data/auth'
 import { AdminSchema } from '@/schemas'
 import { getUserByEmail } from '@/data/users'
 import bcrypt from 'bcryptjs'
 import db from '@/lib/db'
 
 export async function createAdmin(data: z.infer<typeof AdminSchema>) {
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return { status: 403, message: 'No tienes permisos.' }
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return { status: 403, message: 'No tienes permisos.' }
+  // }
 
   const VALIDATE_FIELDS = AdminSchema.safeParse(data)
 

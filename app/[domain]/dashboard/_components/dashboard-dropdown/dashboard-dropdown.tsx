@@ -8,15 +8,15 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import { Avatar } from '@/components/ui/avatar'
-import { useCurrentUser } from '@/hooks/use-session'
+// import { useCurrentUser } from '@/hooks/use-session'
 import { AvatarFallback } from '@/components/ui/avatar'
-import { ChevronsUpDown, LogOut, Sun, User } from 'lucide-react'
+import { ChevronsUpDown, LogOut, User } from 'lucide-react'
 import { SidebarMenuButton } from '@/components/ui/sidebar'
-import { handleSignout } from '@/services/helpers/sign-out'
+// import { handleSignout } from '@/services/helpers/sign-out'
 import { ModeToggle } from '@/components/mode-toggle/mode-toggle'
 
 export function DashboardDropdown() {
-  const session = useCurrentUser()
+  // const session = useCurrentUser()
 
   return (
     <DropdownMenu>
@@ -31,8 +31,8 @@ export function DashboardDropdown() {
             </AvatarFallback>
           </Avatar>
           <div className='grid flex-1 text-left text-sm leading-tight'>
-            <span className='truncate font-semibold'>{session?.name}</span>
-            <span className='truncate text-xs'>{session?.email}</span>
+          <span className='truncate font-semibold'>Example User</span>
+          <span className='truncate text-xs'>exampleuser@lospinos.com</span>
           </div>
           <ChevronsUpDown className='ml-auto size-4' />
         </SidebarMenuButton>
@@ -51,8 +51,8 @@ export function DashboardDropdown() {
               </AvatarFallback>
             </Avatar>
             <div className='grid flex-1 text-left text-sm leading-tight'>
-              <span className='truncate font-semibold'>{session?.name}</span>
-              <span className='truncate text-xs'>{session?.email}</span>
+              <span className='truncate font-semibold'>Example User</span>
+              <span className='truncate text-xs'>exampleuser@lospinos.com</span>
             </div>
           </div>
         </DropdownMenuLabel>
@@ -61,7 +61,9 @@ export function DashboardDropdown() {
           <DropdownMenuItem>
             <ModeToggle />
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleSignout}>
+          <DropdownMenuItem
+          //onClick={handleSignout}
+          >
             <div className='flex items-center gap-2'>
               <LogOut />
               Cerrar sesión

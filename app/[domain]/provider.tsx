@@ -2,24 +2,24 @@
 
 import { EcaProps } from '@/ecas/ecas.config'
 import { ecaExists } from '@/services/helpers/eca-exists'
-import { AuthUser } from '@/types'
+// import { AuthUser } from '@/types'
 import { useRouter } from 'next/navigation'
 import { createContext, use } from 'react'
 
 type EcaContextProps = {
-  user?: AuthUser | undefined
+  // user?: AuthUser | undefined
   config: EcaProps | undefined
 }
 
 type EcaProviderProps = {
   children: React.ReactNode
-  user?: AuthUser | undefined
+  // user?: AuthUser | undefined
   config: EcaProps | undefined
   isAuthRequired?: boolean
 }
 
 const EcaContext = createContext<EcaContextProps>({
-  user: undefined,
+  // user: undefined,
   config: undefined,
 })
 
@@ -30,7 +30,7 @@ export function useEca() {
 }
 
 export function EcaProvider(props: EcaProviderProps): JSX.Element | any {
-  const { children, user, config, isAuthRequired } = props
+  const { children, config, isAuthRequired } = props
   const { back, replace } = useRouter()
 
   if (!isAuthRequired) {
@@ -39,15 +39,13 @@ export function EcaProvider(props: EcaProviderProps): JSX.Element | any {
     )
   }
 
-  if (!user?.ecaId === undefined) return replace('/')
-  if (user?.ecaId !== config?.id) return back()
+  // if (!user?.ecaId === undefined) return replace('/')
+  // if (user?.ecaId !== config?.id) return back()
 
   const ECA_EXISTS = ecaExists(config?.id)
   if (!ECA_EXISTS) return back()
 
   return (
-    <EcaContext.Provider value={{ config, user }}>
-      {children}
-    </EcaContext.Provider>
+    <EcaContext.Provider value={{ config }}>{children}</EcaContext.Provider>
   )
 }

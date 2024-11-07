@@ -1,6 +1,6 @@
 'use server'
 
-import { currentRole } from '@/data/auth'
+// import { currentRole } from '@/data/auth'
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
@@ -20,8 +20,8 @@ export const deleteImage = async ({
   folder,
   path,
 }: DeleteAvatarProps) => {
-  const ROLE = await currentRole()
-  if (ROLE === 'USER') return { message: 'No tienes permisos.', status: 403 }
+  // const ROLE = await currentRole()
+  // if (ROLE === 'USER') return { message: 'No tienes permisos.', status: 403 }
 
   try {
     cloudinary.uploader.destroy(`${folder}/${path}-${itemId}`, {

@@ -1,14 +1,14 @@
 'use server'
 
-import { currentRole } from "@/data/auth"
+//import { currentRole } from "@/data/auth"
 import db from "@/lib/db"
 
 export async function deleteAdmin(id: string) {
-  const ROLE = await currentRole()
+  // const ROLE = await currentRole()
 
-  if (ROLE === 'USER' || ROLE === 'STUDENT') {
-    return { status: 403, message: 'No tienes permisos.' }
-  }
+  // if (ROLE === 'USER' || ROLE === 'STUDENT') {
+  //   return { status: 403, message: 'No tienes permisos.' }
+  // }
 
   try {
     await db.user.delete({

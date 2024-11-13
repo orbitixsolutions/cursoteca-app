@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,82 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ENUMS //
-
-enum ROLES_ENUM {
+enum Role {
   DIRECTIVE
   ADMIN
-  STUDENT
   USER
 }
 
-enum CATEGORIES_ENUM {
-  NONE
-  ALL
-  LOGISTICS
-  PHARMACEUTICALS
-  OTHERS
-}
-
-enum STATE_ENUM {
-  GRADUATE
-  ACCEPTED
-  REJECTED
-  PENDING
-}
-
-// --------------------------------------
-// USER TABLE //
-// --------------------------------------
-
 model User {
-  id       String     @id @default(cuid())
-  email    String     @unique
-  password String
-  name     String
-  role     ROLES_ENUM @default(USER)
-  ecaId    String
-
+  id        String   @id @default(uuid())
+  name      String?
+  email     String   @unique
+  password  String
+  eca       String?
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  postulations Postulation[] @relation("UserToPostulations")
-}
-
-// --------------------------------------
-// COURSE TABLE //
-// --------------------------------------
-
-model Course {
-  id          String          @id @default(cuid())
-  title       String
-  description String
-  ecaId       String
-  isVisible   Boolean         @default(false)
-  imageUrl    String          @default("NO_IMAGE")
-  category    CATEGORIES_ENUM @default(NONE)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  postulations Postulation[] @relation("CourseToPostulations")
-}
-
-// --------------------------------------
-// POSTULATION TABLE //
-// --------------------------------------
-
-model Postulation {
-  id              String     @id @default(cuid())
-  postulationDate String
-  state           STATE_ENUM @default(PENDING)
-
-  userId   String
-  courseId String
-
-  user User @relation(fields: [userId], references: [id], name: "UserToPostulations", onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations", onDelete: Cascade)
-
-  @@index([userId])
-  @@index([courseId])
 }

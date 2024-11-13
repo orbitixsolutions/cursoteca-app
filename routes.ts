@@ -12,7 +12,7 @@ export const publicRoutes = ['/']
  * @Type {string[]}
  */
 
-export const authRoutes = ['/auth', '/los-pinos/auth']
+export const authRoutes = ['/login']
 
 /**
  * Este es el prefix para la auntenticacion de las rutas API

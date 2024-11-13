@@ -133,8 +133,6 @@ export function CourseForm(props: CourseFormProps) {
     })
   })
 
-  console.log(form.formState.errors)
-
   return (
     <SheetFormWrapper
       title={IS_EDITING ? 'Editar curso' : 'Agregar curso'}

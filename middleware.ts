@@ -1,5 +1,5 @@
 import { apiAuthPrefix, authRoutes, publicRoutes } from '@/routes'
-import { matcher } from '@/data/matcher'
+// import { matcher } from '@/data/matcher'
 import authConfig from '@/auth.config'
 import NextAuth from 'next-auth'
 

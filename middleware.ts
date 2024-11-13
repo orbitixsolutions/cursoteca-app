@@ -1,8 +1,5 @@
-import {
-  apiAuthPrefix,
-  authRoutes,
-  publicRoutes,
-} from '@/routes'
+import { apiAuthPrefix, authRoutes, publicRoutes } from '@/routes'
+import { matcher } from '@/data/matcher'
 import authConfig from '@/auth.config'
 import NextAuth from 'next-auth'
 
@@ -34,10 +31,5 @@ export default auth(async (req) => {
 })
 
 export const config = {
-  matcher: [
-    '/login',
-    '/:path/dashboard',
-    '/:path/dashboard/admin',
-    '/:path/dashboard/courses',
-  ],
+  matcher: matcher,
 }

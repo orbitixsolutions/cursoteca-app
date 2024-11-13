@@ -7,14 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import {
-  ChevronsUpDown,
-  House,
-  LayoutGrid,
-  LogOut,
-  Moon,
-  Sun,
-} from 'lucide-react'
+import { ChevronsUpDown, House, LogOut, Moon, Sun } from 'lucide-react'
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -93,15 +86,6 @@ export function SidebarDropdown() {
                 >
                   <House className='size-4' />
                   Inicio
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  href='/panel'
-                  className='flex items-center gap-3'
-                >
-                  <LayoutGrid className='size-4' />
-                  Resumen
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>

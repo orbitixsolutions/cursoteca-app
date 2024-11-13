@@ -7,7 +7,8 @@ import {
 import { cn } from '@/lib/utils'
 import { EditorBubbleItem, useEditor } from 'novel'
 import { Button } from '@/components/ui/button'
-import { SelectorItem } from '@/shared/components/text-editor/selectors/node-selector/node-selector'
+import { SelectorItem } from '@/components/shared/dashboard/text-editor/selectors/node-selector/node-selector'
+
 
 export const TextButtons = () => {
   const { editor } = useEditor()

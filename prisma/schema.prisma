@@ -10,19 +10,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// --------------------------------------
+// ENUMS //
+// --------------------------------------
+
 enum Role {
   DIRECTIVE
   ADMIN
   USER
 }
 
+enum CATEGORIES_ENUM {
+  ALL
+  LOGISTICS
+  PHARMACEUTICALS
+  OTHERS
+  NONE
+}
+
+// --------------------------------------
+// USER TABLE //
+// --------------------------------------
+
 model User {
-  id        String   @id @default(uuid())
-  name      String?
-  email     String   @unique
-  password  String
-  eca       String?
-  role      Role     @default(USER)
+  id       String  @id @default(uuid())
+  name     String?
+  email    String  @unique
+  password String
+  eca      String?
+  role     Role    @default(USER)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  postulations Postulation[] @relation("UserToPostulations")
+}
+
+// --------------------------------------
+// COURSE TABLE //
+// --------------------------------------
+
+model Course {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  ecaId       String
+  isVisible   Boolean         @default(false)
+  imageUrl    String          @default("NO_IMAGE")
+  category    CATEGORIES_ENUM @default(NONE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postulations Postulation[] @relation("CourseToPostulations")
+}
+
+// --------------------------------------
+// POSTULATION TABLE //
+// --------------------------------------
+
+model Postulation {
+  id              String @id @default(cuid())
+  postulationDate String
+
+  userId   String
+  courseId String
+
+  user   User   @relation(fields: [userId], references: [id], name: "UserToPostulations", onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations", onDelete: Cascade)
+
+  @@index([userId])
+  @@index([courseId])
 }

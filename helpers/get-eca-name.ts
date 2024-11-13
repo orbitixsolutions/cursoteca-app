@@ -1,4 +1,6 @@
-export function getEcaName(domain: string) {
+export function getEcaName(domain: string | undefined) {
+  if (!domain) return { DOMAIN: 'Indefinido', ECA_NAME: 'Indefinido' }
+
   const DOMAIN = decodeURIComponent(domain)
   const ECA_NAME = capitalizeLetters(DOMAIN.split('-').join(' '))
 

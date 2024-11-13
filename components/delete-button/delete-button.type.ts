@@ -2,7 +2,11 @@ export type DeleteButtonProps = {
   children: React.ReactNode
   className?: string
   itemId: string
-  removeImage?: boolean
+  imageSettings?: {
+    removeImage: boolean
+    path: string
+    folder: string
+  }
   onDelete: (
     itemId: string
   ) => Promise<{ message: string; status: boolean | number }>
@@ -11,7 +15,11 @@ export type DeleteButtonProps = {
 
 export type UseDeleteProps = {
   itemId: string
-  removeImage?: boolean
+  imageSettings?: {
+    removeImage: boolean
+    path: string
+    folder: string
+  }
   onDelete: (
     itemId: string
   ) => Promise<{ message: string; status: boolean | number }>

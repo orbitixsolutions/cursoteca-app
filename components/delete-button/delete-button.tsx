@@ -26,9 +26,10 @@ import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { deleteImage } from '@/services/upload-core/delete-image'
 
 function useDelete(props: UseDeleteProps) {
-  const { itemId, removeImage = false, onDelete } = props
+  const { itemId, imageSettings, onDelete } = props
 
   const [isPending, startTransition] = useTransition()
   const { refresh } = useRouter()
@@ -38,7 +39,13 @@ function useDelete(props: UseDeleteProps) {
       const { message, status } = await onDelete(itemId)
 
       if (status === 201) {
-        if (removeImage) {
+        if (imageSettings?.removeImage) {
+          await deleteImage({
+            itemId,
+            folder: imageSettings.folder,
+            path: imageSettings.path,
+          })
+
           refresh()
         }
 
@@ -56,11 +63,12 @@ function useDelete(props: UseDeleteProps) {
 }
 
 export function DeleteButton(props: DeleteButtonProps) {
-  const { children, className, itemId, disabled, removeImage, onDelete } = props
+  const { children, className, itemId, disabled, imageSettings, onDelete } =
+    props
 
   const { isPending, onDeleteItem } = useDelete({
     itemId,
-    removeImage,
+    imageSettings,
     onDelete,
   })
 

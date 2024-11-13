@@ -2,6 +2,7 @@
 
 import { currentRole } from '@/lib/session'
 import { v2 as cloudinary } from 'cloudinary'
+import { updateImage } from '@/services/upload-core/update-image'
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -25,6 +26,8 @@ export const deleteImage = async (props: DeleteAvatarProps) => {
     cloudinary.uploader.destroy(`${folder}/${path}-${itemId}`, {
       invalidate: true,
     })
+
+    await updateImage({ itemId, path, secure_url: 'NO-IMAGE' })
 
     return { message: 'Imagen eliminada.', status: 201 }
   } catch {

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card'
 import { useRouter } from 'next/navigation'
 import { Fragment } from 'react'
-import { useEca } from '@/app/[eca]/(home)/provider'
+import { useEca } from '@/app/[eca]/provider'
 import { CircleArrowRight } from 'lucide-react'
 import { RainbowButton } from '@/components/ui/rainbow-button'
 

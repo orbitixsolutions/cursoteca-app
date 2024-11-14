@@ -1,6 +1,6 @@
 'use client'
 
-import { useEca } from '@/app/[eca]/(home)/provider'
+import { useEca } from '@/app/[eca]/provider'
 import { useRouter } from 'next/navigation'
 import { RainbowButton } from '@/components/ui/rainbow-button'
 import BlurFade from '@/components/ui/blur-fade'

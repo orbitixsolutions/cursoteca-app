@@ -2,7 +2,7 @@ import { EcaFooter } from '@/components/shared/general/eca-footer'
 import { EcaHeader } from '@/components/shared/general/eca-header'
 import { getEcaData } from '@/helpers/get-eca-data'
 import { getEcaName } from '@/helpers/get-eca-name'
-import { EcaProvider } from '@/app/[eca]/(home)/provider'
+import { EcaProvider } from '@/app/[eca]/provider'
 import { redirect } from 'next/navigation'
 
 export default function HomeEcaLayout({

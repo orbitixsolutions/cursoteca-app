@@ -29,7 +29,7 @@ import { createStudent } from '@/app/[eca]/(courses)/course/[id]/_services/creat
 import { z } from 'zod'
 import { es } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
-import { useEffect, useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { StudentSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,12 +38,13 @@ import { DatePicker } from '@/components/ui/date-picker'
 import { EDUCATIONAL_LEVELS, SELECT_PROVINCES } from '@/constants'
 import { useParams, useRouter } from 'next/navigation'
 import { getEcaName } from '@/helpers/get-eca-name'
-import { useLocalStorage } from '@/hooks/use-localstorage'
+import { useInscription } from '@/app/[eca]/(courses)/course/[id]/provider'
 import { toast } from 'sonner'
 
 export function InscriptionForm() {
-  const [documentId, saveDocumentId] = useLocalStorage('documentId', '')
+  const { documentId, saveDocumentId } = useInscription()
   const [isPending, startTransition] = useTransition()
+  const [open, setOpen] = useState(false)
 
   const { eca } = useParams<{ eca: string }>()
   const { refresh } = useRouter()
@@ -77,8 +78,11 @@ export function InscriptionForm() {
       const res = await fetch(`${API_URL}/${DOCUMENT_ID}`)
       const DATA = await res.json()
 
+      setOpen(false)
+
       if (DATA) {
         saveDocumentId(DOCUMENT_ID)
+        toast.success('¡Inscripción exitosa!')
         return
       }
 
@@ -91,7 +95,6 @@ export function InscriptionForm() {
 
           saveDocumentId(DOCUMENT_ID)
           refresh()
-
           return
         }
 
@@ -101,20 +104,11 @@ export function InscriptionForm() {
     })
   })
 
-  useEffect(() => {
-    if (STUDENT) {
-      fetch(`${API_URL}/${documentId}`).then((res) =>
-        res.json().then((DATA) => {
-          if (!DATA) return
-
-          saveDocumentId(DATA.documentId)
-        })
-      )
-    }
-  }, [documentId, form, STUDENT, API_URL, saveDocumentId])
-
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={setOpen}
+    >
       <DialogTrigger asChild>
         <Button>Inscribirse</Button>
       </DialogTrigger>

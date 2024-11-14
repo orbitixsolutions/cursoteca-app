@@ -36,29 +36,9 @@ import { updateCourse } from '@/app/[eca]/dashboard/courses/_services/update'
 import { createCourse } from '@/app/[eca]/dashboard/courses/_services/create'
 import { DialogDrop } from '@/components/dialog-drop/dialog-drop'
 import { useUploadImageToCloud } from '@/services/upload-core/use-upload-to-cloud'
-
-export const COURSE_CATEGORIES = [
-  {
-    name: 'none',
-    value: 'NONE',
-    label: 'Ninguno',
-  },
-  {
-    name: 'logistics',
-    value: 'LOGISTICS',
-    label: 'Logistica',
-  },
-  {
-    name: 'pharmaceuticals',
-    value: 'PHARMACEUTICALS',
-    label: 'Farmaceútica',
-  },
-  {
-    name: 'others',
-    value: 'OTHERS',
-    label: 'Otros',
-  },
-]
+import { Slider } from '@/components/ui/slider'
+import { EDUCATIONAL_LEVELS, SELECT_COURSE_CATEGORIES } from '@/constants'
+import { Separator } from '@/components/ui/separator'
 
 export function CourseForm(props: CourseFormProps) {
   const { id } = props
@@ -80,6 +60,8 @@ export function CourseForm(props: CourseFormProps) {
       category: 'NONE',
       isVisible: false,
       eca: DOMAIN,
+      ageRange: [10, 20],
+      educationalLevel: 'NONE',
     },
   })
 
@@ -96,6 +78,8 @@ export function CourseForm(props: CourseFormProps) {
         form.setValue('category', DATA.category)
         form.setValue('eca', DATA.ecaId)
         form.setValue('isVisible', DATA.isVisible)
+        form.setValue('ageRange', DATA.ageRange)
+        form.setValue('educationalLevel', DATA.educationalLevel)
       })
     }
   }, [IS_EDITING, id, form])
@@ -185,7 +169,7 @@ export function CourseForm(props: CourseFormProps) {
                     <SelectGroup>
                       <SelectLabel>Categorías</SelectLabel>
                       <SelectSeparator />
-                      {COURSE_CATEGORIES.map((category) => (
+                      {SELECT_COURSE_CATEGORIES.map((category) => (
                         <SelectItem
                           value={category.value}
                           key={category.value}
@@ -201,10 +185,68 @@ export function CourseForm(props: CourseFormProps) {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name='educationalLevel'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nivel educativo</FormLabel>
+                <Select
+                  disabled={isPending}
+                  value={field.value}
+                  defaultValue='none'
+                  onValueChange={field.onChange}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Selecciona un nivel educativo' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Niveles</SelectLabel>
+                      <SelectSeparator />
+                      {EDUCATIONAL_LEVELS.map((level) => (
+                        <SelectItem
+                          value={level.value}
+                          key={level.value}
+                        >
+                          {level.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormItem>
             <FormLabel>Imagen</FormLabel>
             <DialogDrop isLoading={isPending} />
           </FormItem>
+
+          <FormField
+            control={form.control}
+            name='ageRange'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rango de edad</FormLabel>
+                <FormControl>
+                  <Slider
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    formatLabel={(value) => `${value} Años`}
+                    disabled={isPending}
+                    max={80}
+                    step={1}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}

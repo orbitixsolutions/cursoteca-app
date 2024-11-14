@@ -7,7 +7,14 @@ export async function getCourseById(id: string) {
         id,
       },
       include: {
-        enrollment: true,
+        enrollment: {
+          where: {
+            courseId: id,
+          },
+          include: {
+            student: true,
+          },
+        },
       },
     })
 

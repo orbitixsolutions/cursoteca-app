@@ -54,7 +54,11 @@ export async function createStudent(data: z.infer<typeof StudentSchema>) {
   }
 }
 
-export async function createInscription(documentId: string, courseId: string) {
+export async function createInscription(
+  documentId: string,
+  courseId: string,
+  ecaId: string
+) {
   const STUDENT = await getStudentByDocumentId(documentId)
   const COURSE = await getCourseById(courseId)
 
@@ -71,17 +75,18 @@ export async function createInscription(documentId: string, courseId: string) {
     return { status: 400, message: 'No cumple con la edad requerida.' }
   }
 
-  const EDUCATIONAL_LEVEL = STUDENT.educationalLevel !== COURSE.educationalLevel
+  // const EDUCATIONAL_LEVEL = STUDENT.educationalLevel !== COURSE.educationalLevel
 
-  if (EDUCATIONAL_LEVEL) {
-    return { status: 400, message: 'No cumple con el nivel educativo.' }
-  }
+  // if (EDUCATIONAL_LEVEL) {
+  //   return { status: 400, message: 'No cumple con el nivel educativo.' }
+  // }
 
   try {
     await db.enrollment.create({
       data: {
         courseId,
         studentId: STUDENT.id,
+        eca: ecaId,
         status: 'PENDING',
       },
     })

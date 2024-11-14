@@ -228,13 +228,12 @@ const DatePicker = React.forwardRef<DatePickerRef, DatePickerProps>(
           <Button
             variant='outline'
             className={cn(
-              'w-full justify-start text-left font-normal',
+              'w-full justify-between text-left font-normal',
               !value && 'text-muted-foreground',
               classNames?.calendarButton
             )}
             ref={buttonRef}
           >
-            <CalendarIcon className='mr-2 h-4 w-4' />
             {value ? (
               <span className='capitalize'>
                 {format(value, 'PP', { locale })}
@@ -242,6 +241,7 @@ const DatePicker = React.forwardRef<DatePickerRef, DatePickerProps>(
             ) : (
               <span>{placeholder}</span>
             )}
+            <CalendarIcon className='h-4 w-4' />
           </Button>
         </PopoverTrigger>
         <PopoverContent className={cn('w-auto p-0', classNames?.wrapper)}>

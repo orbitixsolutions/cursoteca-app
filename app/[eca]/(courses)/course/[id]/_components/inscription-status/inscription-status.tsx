@@ -10,12 +10,11 @@ export function InscriptionStatus(props: InscriptionProps) {
   const { data } = props
 
   const { id: courseId } = useParams<{ id: string }>()
-  const [documentId] = useLocalStorage('documentId', '')
+  const [documentId, saveDocumentId] = useLocalStorage('documentId', '')
   const [isPending, startTransition] = useTransition()
-  
+
   const ENROLLMENT = data.enrollment.find((e) => e.courseId === courseId)
   const IS_POSTULATED = data.enrollment.some((e) => e.courseId === courseId)
-
 
   const onInscription = () => {
     startTransition(async () => {
@@ -31,6 +30,7 @@ export function InscriptionStatus(props: InscriptionProps) {
         return
       }
 
+      saveDocumentId('')
       toast.error(message)
     })
   }

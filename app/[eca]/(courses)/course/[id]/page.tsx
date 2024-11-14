@@ -5,6 +5,7 @@ import { BorderBeam } from '@/components/ui/border-beam'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { Badge } from '@/components/ui/badge'
 import { InscriptionInfo } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-info'
+import { InscriptionProvider } from '@/app/[eca]/(courses)/course/[id]/provider'
 import { redirect } from 'next/navigation'
 import parse from 'html-react-parser'
 import Image from 'next/image'
@@ -61,7 +62,9 @@ export default async function CoursePage({
           <div className='tiptap'>{parse(COURSE?.description)}</div>
         </article>
 
-        <InscriptionInfo data={COURSE} />
+        <InscriptionProvider>
+          <InscriptionInfo data={COURSE} />
+        </InscriptionProvider>
       </div>
     </section>
   )

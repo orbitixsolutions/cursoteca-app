@@ -27,7 +27,7 @@ export const deleteImage = async (props: DeleteAvatarProps) => {
       invalidate: true,
     })
 
-    await updateImage({ itemId, path, secure_url: 'NO-IMAGE' })
+    await updateImage({ itemId, path, secure_url: 'NO_IMAGE' })
 
     return { message: 'Imagen eliminada.', status: 201 }
   } catch {

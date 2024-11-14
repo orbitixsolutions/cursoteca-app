@@ -23,6 +23,7 @@ export function CourseItem(props: CourseItemProps) {
           <Image
             src={imageUrl}
             alt={`Curso: ${title}`}
+            priority
             width={1600}
             height={900}
             className='size-full object-cover rounded-lg'

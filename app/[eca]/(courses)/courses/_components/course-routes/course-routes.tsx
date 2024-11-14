@@ -8,7 +8,12 @@ import { CourseItem } from '../course-item'
 export function CourseRoutes() {
   const { courses } = useEca()
 
-  if (!courses) return null
+  if (!courses?.length)
+    return (
+      <p className='text-center text-2xl font-bold opacity-60'>
+        No hay cursos disponibles.
+      </p>
+    )
 
   return (
     <ul className='grid gap-5'>

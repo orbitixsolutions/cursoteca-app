@@ -41,4 +41,20 @@ export const CreateCourseSchema = z.object({
   eca: z.string().min(1, {
     message: 'La ECA es obligatoria.',
   }),
+  ageRange: z.array(
+    z
+      .number()
+      .min(1, {
+        message: 'El rango de edad es obligatorio.',
+      })
+      .max(80, {
+        message: 'El rango de edad no puede superar los 80 años.',
+      })
+  ),
+  educationalLevel: z.enum(
+    ['PRIMARY', 'BASIC_CYCLE', 'SECONDARY', 'UNIVERSITY', 'NONE'],
+    {
+      message: 'Selecciona un nivel educativo.',
+    }
+  ),
 })

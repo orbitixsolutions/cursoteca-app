@@ -10,19 +10,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { SheetFormWrapperProps } from '@/components/sheet-from-wrapper/sheet-form-wrapper.type'
 import { Pencil } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function SheetFormWrapper(props: SheetFormWrapperProps) {
-  const {
-    title,
-    disabled,
-    isEditing,
-    formId,
-    children,
-    isSubmitted,
-  } = props
+  const { title, disabled, isEditing, formId, children, isSubmitted } = props
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -51,7 +45,9 @@ export function SheetFormWrapper(props: SheetFormWrapperProps) {
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
 
-        {children}
+        <ScrollArea className='w-full h-[800px]'>
+          <div className='px-1'>{children}</div>
+        </ScrollArea>
 
         <SheetFooter>
           <SheetClose asChild>

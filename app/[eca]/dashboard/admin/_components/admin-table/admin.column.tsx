@@ -5,7 +5,7 @@ import { getRole } from '@/helpers/get-role'
 import { User } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { AdminActions } from '@/app/[eca]/dashboard/admin/_components/admin-actions'
-import { CopyField } from '../copy-field'
+import { CopyField } from '@/components/shared/general/copy-field'
 
 export type Admins = User
 

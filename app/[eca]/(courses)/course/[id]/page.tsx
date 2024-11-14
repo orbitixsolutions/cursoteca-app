@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import { BorderBeam } from '@/components/ui/border-beam'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { Badge } from '@/components/ui/badge'
-import { InscriptionForm } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-form'
+import { InscriptionInfo } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-info'
 import { redirect } from 'next/navigation'
 import parse from 'html-react-parser'
 import Image from 'next/image'
@@ -61,7 +61,7 @@ export default async function CoursePage({
           <div className='tiptap'>{parse(COURSE?.description)}</div>
         </article>
 
-        <InscriptionForm data={COURSE} />
+        <InscriptionInfo data={COURSE} />
       </div>
     </section>
   )

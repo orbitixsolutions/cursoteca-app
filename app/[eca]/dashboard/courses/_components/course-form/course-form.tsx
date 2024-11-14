@@ -38,7 +38,6 @@ import { DialogDrop } from '@/components/dialog-drop/dialog-drop'
 import { useUploadImageToCloud } from '@/services/upload-core/use-upload-to-cloud'
 import { Slider } from '@/components/ui/slider'
 import { EDUCATIONAL_LEVELS, SELECT_COURSE_CATEGORIES } from '@/constants'
-import { Separator } from '@/components/ui/separator'
 
 export function CourseForm(props: CourseFormProps) {
   const { id } = props

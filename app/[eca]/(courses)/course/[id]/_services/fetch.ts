@@ -9,7 +9,7 @@ export async function getCourseById(id: string) {
     })
 
     return COURSE
-  } catch (error) {
+  } catch {
     return null
   }
 }

@@ -15,7 +15,7 @@ export async function getCourses(eca: string) {
 
     const GROUPED_COURSES = groupedCourses(COURSES)
     return GROUPED_COURSES
-  } catch (error) {
+  } catch {
     return null
   }
 }

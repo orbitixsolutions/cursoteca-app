@@ -89,7 +89,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const { ageRange } = row.original
       const AGE_RANGE = ageRange.join(' a ')
 
-      return <Badge>{AGE_RANGE}</Badge>
+      return <Badge>{AGE_RANGE} Años</Badge>
     },
   },
   {

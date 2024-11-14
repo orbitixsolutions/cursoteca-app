@@ -5,18 +5,19 @@ import { BorderBeam } from '@/components/ui/border-beam'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { Badge } from '@/components/ui/badge'
 import { InscriptionForm } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-form'
+import { redirect } from 'next/navigation'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 
 export default async function CoursePage({
   params,
 }: {
-  params: { id: string }
+  params: { id: string; eca: string }
 }) {
-  const { id } = params
+  const { id, eca } = params
   const COURSE = await getCourseById(id)
 
-  if (!COURSE) return null
+  if (!COURSE) return redirect(`/${eca}/courses`)
 
   const IMAGE_EXISTS =
     COURSE.imageUrl === 'NO_IMAGE' ? CoursePlaceholderImg.src : COURSE.imageUrl
@@ -30,6 +31,7 @@ export default async function CoursePage({
         <Image
           src={IMAGE_EXISTS}
           alt='Curso'
+          priority
           width={1600}
           height={900}
           className='aspect-square size-full object-cover'
@@ -59,7 +61,7 @@ export default async function CoursePage({
           <div className='tiptap'>{parse(COURSE?.description)}</div>
         </article>
 
-        <InscriptionForm />
+        <InscriptionForm data={COURSE} />
       </div>
     </section>
   )

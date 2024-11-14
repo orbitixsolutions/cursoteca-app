@@ -88,10 +88,10 @@ body {
     --destructive: 348 100% 56%;
     --destructive-foreground: 0 0% 98%;
 
-    --warning: 34 91% 55%;
+    --warning: 34 91% 40%;
     --warning-foreground: 0 0% 98%;
     
-    --success: 125 91% 55%;
+    --success: 125 91% 35%;
     --success-foreground: 0 0% 98%;
 
     --border: 0 0% 12%;

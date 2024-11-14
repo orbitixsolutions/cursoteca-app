@@ -36,6 +36,13 @@ enum EDUCATIONAL_LEVELS_ENUM {
   UNIVERSITY
 }
 
+enum STATUS_ENUM {
+  PENDING
+  APPROVED
+  FINISHED
+  CANCELLED
+}
+
 // --------------------------------------
 // USER TABLE //
 // --------------------------------------
@@ -50,8 +57,6 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  postulations Postulation[] @relation("UserToPostulations")
 }
 
 // --------------------------------------
@@ -59,7 +64,7 @@ model User {
 // --------------------------------------
 
 model Course {
-  id               String                  @id @default(cuid())
+  id               String                  @id @default(uuid())
   title            String
   description      String
   ecaId            String
@@ -72,23 +77,51 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  postulations Postulation[] @relation("CourseToPostulations")
+  enrollment Enrollment[]
 }
 
 // --------------------------------------
-// POSTULATION TABLE //
+// STUDENTS TABLE //
 // --------------------------------------
 
-model Postulation {
-  id              String @id @default(cuid())
-  postulationDate String
+model Student {
+  id                  String                  @id @default(uuid())
+  firstNames          String
+  lastNames           String
+  phoneNumber         String
+  email               String
+  documentId          String                  @unique
+  eca                 String
+  dateOfBorn          DateTime
+  province            String
+  address             String
+  lastNameInstitution String
+  educationalLevel    EDUCATIONAL_LEVELS_ENUM @default(NONE)
 
-  userId   String
-  courseId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], name: "UserToPostulations", onDelete: Cascade)
-  course Course @relation(fields: [courseId], references: [id], name: "CourseToPostulations", onDelete: Cascade)
+  enrollment Enrollment[]
+}
 
-  @@index([userId])
-  @@index([courseId])
+// --------------------------------------
+// ENROLLMENTS TABLE //
+// --------------------------------------
+
+model Enrollment {
+  id String @id @default(uuid())
+
+  courseId  String
+  studentId String
+
+  isCompleted Boolean     @default(false)
+  status      STATUS_ENUM @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id])
+  course  Course  @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
 }

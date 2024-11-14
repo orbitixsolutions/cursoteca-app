@@ -11,6 +11,7 @@ import { Separator } from '@/components/ui/separator'
 import { Course } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { CourseActions } from '@/app/[eca]/dashboard/courses/_components/course-actions'
+import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { getCategoryName } from '@/helpers/get-course-category'
 import { Badge } from '@/components/ui/badge'
 import parse from 'html-react-parser'
@@ -79,6 +80,26 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const CATEGORY = getCategoryName(category)
 
       return <Badge>{CATEGORY}</Badge>
+    },
+  },
+  {
+    accessorKey: 'ageRange',
+    header: 'Rango de edad',
+    cell: ({ row }) => {
+      const { ageRange } = row.original
+      const AGE_RANGE = ageRange.join(' a ')
+
+      return <Badge>{AGE_RANGE}</Badge>
+    },
+  },
+  {
+    accessorKey: 'educationalLevel',
+    header: 'Nivel educativo',
+    cell: ({ row }) => {
+      const { educationalLevel } = row.original
+      const EDUCATIONAL_LEVEL = getEducationalLevelName(educationalLevel)
+
+      return <Badge>{EDUCATIONAL_LEVEL}</Badge>
     },
   },
   {

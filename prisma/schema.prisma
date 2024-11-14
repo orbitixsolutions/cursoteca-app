@@ -28,6 +28,14 @@ enum CATEGORIES_ENUM {
   NONE
 }
 
+enum EDUCATIONAL_LEVELS_ENUM {
+  NONE
+  PRIMARY
+  BASIC_CYCLE
+  SECONDARY
+  UNIVERSITY
+}
+
 // --------------------------------------
 // USER TABLE //
 // --------------------------------------
@@ -51,13 +59,15 @@ model User {
 // --------------------------------------
 
 model Course {
-  id          String          @id @default(cuid())
-  title       String
-  description String
-  ecaId       String
-  isVisible   Boolean         @default(false)
-  imageUrl    String          @default("NO_IMAGE")
-  category    CATEGORIES_ENUM @default(NONE)
+  id               String                  @id @default(cuid())
+  title            String
+  description      String
+  ecaId            String
+  isVisible        Boolean                 @default(false)
+  imageUrl         String                  @default("NO_IMAGE")
+  category         CATEGORIES_ENUM         @default(NONE)
+  ageRange         Int[]                   @default([10, 20])
+  educationalLevel EDUCATIONAL_LEVELS_ENUM @default(NONE)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -21,7 +21,7 @@ export async function createCourse(
     return { status: 400, message: 'Campos inválidos.' }
   }
 
-  const { category, description, eca, isVisible, title } = VALIDATION.data
+  const { category, description, eca, isVisible, title, ageRange, educationalLevel } = VALIDATION.data
 
   try {
     await db.course.create({
@@ -32,6 +32,8 @@ export async function createCourse(
         ecaId: eca,
         isVisible,
         category,
+        ageRange,
+        educationalLevel,
       },
     })
 

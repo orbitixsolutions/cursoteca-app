@@ -21,7 +21,15 @@ export async function updateCourse(
     return { status: 403, message: 'Campos inválidos.' }
   }
 
-  const { title, description, category, eca, isVisible } = data
+  const {
+    title,
+    description,
+    category,
+    eca,
+    isVisible,
+    ageRange,
+    educationalLevel,
+  } = data
 
   try {
     await db.course.update({
@@ -34,6 +42,8 @@ export async function updateCourse(
         category,
         isVisible,
         ecaId: eca,
+        ageRange,
+        educationalLevel,
       },
     })
 

@@ -2,12 +2,11 @@ import { getCourseById } from '@/app/[eca]/(courses)/course/[id]/_services/fetch
 import { CoursePlaceholderImg } from '@/assets/misc'
 import { Separator } from '@/components/ui/separator'
 import { BorderBeam } from '@/components/ui/border-beam'
+import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
+import { Badge } from '@/components/ui/badge'
 import { InscriptionForm } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-form'
 import parse from 'html-react-parser'
 import Image from 'next/image'
-import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
-import { Badge } from '@/components/ui/badge'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 export default async function CoursePage({
   params,
@@ -26,7 +25,7 @@ export default async function CoursePage({
   const AGE_RANGE = COURSE?.ageRange.join(' a ')
 
   return (
-    <section className='flex justify-between gap-8'>
+    <section className='flex justify-between gap-12'>
       <figure className='flex flex-1 relative rounded-lg overflow-hidden'>
         <Image
           src={IMAGE_EXISTS}
@@ -38,11 +37,6 @@ export default async function CoursePage({
 
         <BorderBeam />
       </figure>
-
-      <Separator
-        orientation='vertical'
-        className='h-full w-1'
-      />
 
       <div className='flex flex-1 flex-col justify-between'>
         <article className='space-y-5'>

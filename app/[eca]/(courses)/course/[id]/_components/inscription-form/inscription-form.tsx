@@ -56,17 +56,17 @@ export function InscriptionForm() {
   const form = useForm<z.infer<typeof StudentSchema>>({
     resolver: zodResolver(StudentSchema),
     defaultValues: {
-      firstNames: 'Miguel Angel',
-      lastNames: 'Jimenez',
-      phoneNumber: '3005003000',
-      email: 'miguelangel1047@email.com',
+      firstNames: '',
+      lastNames: '',
+      phoneNumber: '',
+      email: '',
       eca: DOMAIN,
-      documentId: '3005003000',
+      documentId: '',
       dateOfBorn: new Date(),
-      province: 'MONTEVIDEO',
-      address: 'Calle 123',
-      lastNameInstitution: 'Olga Sanchez',
-      educationalLevel: 'SECONDARY',
+      province: '',
+      address: '',
+      lastNameInstitution: '',
+      educationalLevel: 'NONE',
     },
   })
 

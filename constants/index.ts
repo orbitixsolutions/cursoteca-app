@@ -61,3 +61,22 @@ export const SELECT_PROVINCES = [
   { label: 'Tacuarembó', value: 'TACUAREMBO' },
   { label: 'Treinta y Tres', value: 'TREINTA_Y_TRES' },
 ]
+
+export const INSCRIPTION_STATUS = [
+  {
+    label: 'Pendiente',
+    value: 'PENDING',
+  },
+  {
+    label: 'Aprobado',
+    value: 'APPROVED',
+  },
+  {
+    label: 'Finalizado',
+    value: 'FINISHED',
+  },
+  {
+    label: 'Cancelado',
+    value: 'CANCELLED',
+  },
+]

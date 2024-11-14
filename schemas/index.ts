@@ -58,3 +58,42 @@ export const CreateCourseSchema = z.object({
     }
   ),
 })
+
+export const StudentSchema = z.object({
+  firstNames: z.string().min(1, {
+    message: 'Ingrese su nombre.',
+  }),
+  lastNames: z.string().min(1, {
+    message: 'Ingrese su apellido.',
+  }),
+  phoneNumber: z.string().min(1, {
+    message: 'Ingrese su número de teléfono.',
+  }),
+  email: z.string().email({
+    message: 'Ingrese su email.',
+  }),
+  documentId: z.string().min(1, {
+    message: 'Ingrese su documento.',
+  }),
+  eca: z.string().min(1, {
+    message: 'La ECA es obligatoria.',
+  }),
+  dateOfBorn: z.date({
+    message: 'Ingrese la fecha de nacimiento.',
+  }),
+  province: z.string().min(1, {
+    message: 'Ingrese el provincia.',
+  }),
+  address: z.string().min(1, {
+    message: 'Ingrese la dirección.',
+  }),
+  lastNameInstitution: z.string().min(1, {
+    message: 'Ingrese el nombre de su ultima institución.',
+  }),
+  educationalLevel: z.enum(
+    ['PRIMARY', 'BASIC_CYCLE', 'SECONDARY', 'UNIVERSITY', 'NONE'],
+    {
+      message: 'Debes seleccionar un nivel educativo.',
+    }
+  ),
+})

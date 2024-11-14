@@ -6,9 +6,25 @@ export async function getCourseById(id: string) {
       where: {
         id,
       },
+      include: {
+        enrollment: true,
+      },
     })
 
     return COURSE
+  } catch {
+    return null
+  }
+}
+
+export async function getStudentByDocumentId(documentId: string) {
+  try {
+    const STUDENT = await db.student.findUnique({
+      where: {
+        documentId,
+      },
+    })
+    return STUDENT
   } catch {
     return null
   }

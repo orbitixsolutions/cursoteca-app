@@ -113,6 +113,7 @@ model Enrollment {
 
   courseId  String
   studentId String
+  eca       String
 
   isCompleted Boolean     @default(false)
   status      STATUS_ENUM @default(PENDING)

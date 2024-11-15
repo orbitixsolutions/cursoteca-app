@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Check, Copy } from 'lucide-react'
-import { CopyFieldType } from '@/app/[eca]/dashboard/admin/_components/copy-field/copy-field.type'
+import { CopyFieldType } from '@/components/shared/general/copy-field/copy-field.type'
 import { toast } from 'sonner'
 
 export function CopyField(props: CopyFieldType) {

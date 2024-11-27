@@ -12,7 +12,8 @@ export async function getCourseById(id: string) {
             courseId: id,
           },
           include: {
-            student: true,
+            inscription: true,
+            enrollmentStatus: true,
           },
         },
       },
@@ -24,14 +25,14 @@ export async function getCourseById(id: string) {
   }
 }
 
-export async function getStudentByDocumentId(documentId: string) {
+export async function getInscriptionByDocumentId(documentId: string) {
   try {
-    const STUDENT = await db.student.findUnique({
+    const INSCRIPTION = await db.inscriptions.findUnique({
       where: {
         documentId,
       },
     })
-    return STUDENT
+    return INSCRIPTION
   } catch {
     return null
   }

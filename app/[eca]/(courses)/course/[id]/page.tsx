@@ -4,8 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import { BorderBeam } from '@/components/ui/border-beam'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { Badge } from '@/components/ui/badge'
-import { InscriptionInfo } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-info'
-import { InscriptionProvider } from '@/app/[eca]/(courses)/course/[id]/provider'
+import { InscriptionForm } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-form'
 import { redirect } from 'next/navigation'
 import parse from 'html-react-parser'
 import Image from 'next/image'
@@ -24,7 +23,7 @@ export default async function CoursePage({
     COURSE.imageUrl === 'NO_IMAGE' ? CoursePlaceholderImg.src : COURSE.imageUrl
 
   const EDUCATIONAL_LEVEL = getEducationalLevelName(COURSE?.educationalLevel)
-  const AGE_RANGE = COURSE?.ageRange.join(' a ')
+  const AGE_RANGE = COURSE?.ageRange.join(' a ') // [18, 25] => 18 a 25
 
   return (
     <section className='flex justify-between gap-12'>
@@ -62,9 +61,7 @@ export default async function CoursePage({
           <div className='tiptap'>{parse(COURSE?.description)}</div>
         </article>
 
-        <InscriptionProvider>
-          <InscriptionInfo data={COURSE} />
-        </InscriptionProvider>
+        <InscriptionForm />
       </div>
     </section>
   )

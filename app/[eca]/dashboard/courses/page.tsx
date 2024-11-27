@@ -45,7 +45,7 @@ export default async function CoursesDashboardPage(
         </div>
 
         <DataTable
-          data={COURSES!}
+          data={COURSES ?? []}
           columns={CourseColumns}
         />
       </div>

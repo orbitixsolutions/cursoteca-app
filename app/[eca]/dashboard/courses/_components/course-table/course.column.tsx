@@ -37,7 +37,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
                   width={720}
                   height={720}
                   alt='Imagen del curso'
-                  className='rounded-md object-cover'
+                  className='size-full rounded-md object-cover'
                 />
               </AspectRatio>
             </div>

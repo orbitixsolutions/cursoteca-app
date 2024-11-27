@@ -8,14 +8,14 @@ export async function GET(
   { params: { documentId } }: { params: { documentId: string } }
 ) {
   try {
-    const STUDENT = await db.student.findUnique({
+    const INSCRIPTIONS = await db.inscriptions.findUnique({
       where: { documentId },
       include: {
         enrollment: true,
       },
     })
-    
-    return NextResponse.json(STUDENT, { status: 201 })
+
+    return NextResponse.json(INSCRIPTIONS, { status: 201 })
   } catch {
     return NextResponse.json(null, { status: 500 })
   }

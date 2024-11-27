@@ -22,7 +22,7 @@ export const CreateAdminSchema = z.object({
   eca: z.string().min(1, {
     message: 'La ECA es obligatoria.',
   }),
-  role: z.enum(['ADMIN', 'DIRECTIVE', 'USER']),
+  role: z.enum(['ADMIN', 'DIRECTIVE', 'ENROLLED']),
 })
 
 export const CreateCourseSchema = z.object({

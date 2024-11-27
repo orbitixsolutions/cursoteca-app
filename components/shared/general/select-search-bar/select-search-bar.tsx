@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { SelectSearchbarProps } from '@/components/select-search-bar/select-search-bar.type'
+import { SelectSearchbarProps } from '@/components/shared/general/select-search-bar/select-search-bar.type'
 import { Button } from '@/components/ui/button'
 import { useDebouncedCallback } from 'use-debounce'
 import { cn } from '@/lib/utils'

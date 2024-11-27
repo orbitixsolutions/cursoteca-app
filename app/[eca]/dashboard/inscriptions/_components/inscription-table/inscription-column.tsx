@@ -4,13 +4,14 @@ import { Prisma } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { getCategoryName } from '@/helpers/get-course-category'
-import { InscritionStatusForm } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status-form/inscription-status-form'
 import { CopyField } from '@/components/shared/general/copy-field'
 import { Badge } from '@/components/ui/badge'
+import { InscriptionDelete } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-delete'
+import { InscriptionStatus } from '../inscription-status'
 
 export const InscriptionColumns: ColumnDef<
   Prisma.EnrollmentGetPayload<{
-    include: { student: true; course: true }
+    include: { inscription: true; course: true; enrollmentStatus: true }
   }>
 >[] = [
   {
@@ -27,10 +28,10 @@ export const InscriptionColumns: ColumnDef<
     accessorKey: 'name',
     header: 'Nombre',
     cell: ({ row }) => {
-      const { student } = row.original
+      const { inscription } = row.original
       return (
         <p>
-          {student.firstNames} {student.lastNames}
+          {inscription.firstNames} {inscription.lastNames}
         </p>
       )
     },
@@ -39,40 +40,50 @@ export const InscriptionColumns: ColumnDef<
     accessorKey: 'phoneNumber',
     header: 'Número de teléfono',
     cell: ({ row }) => {
-      const { student } = row.original
-      return <CopyField label={student.phoneNumber} />
+      const { inscription } = row.original
+      return <CopyField label={inscription.phoneNumber} />
     },
   },
   {
     accessorKey: 'email',
     header: 'Correo electrónico',
     cell: ({ row }) => {
-      const { student } = row.original
-      return <CopyField label={student.email} />
+      const { inscription } = row.original
+      return <CopyField label={inscription.email} />
     },
   },
   {
     accessorKey: 'educationalLevel',
     header: 'Nivel educativo',
     cell: ({ row }) => {
-      const { student } = row.original
-      const LEVEL_NAME = getEducationalLevelName(student.educationalLevel)
+      const { inscription } = row.original
+      const LEVEL_NAME = getEducationalLevelName(inscription.educationalLevel)
 
       return <Badge>{LEVEL_NAME}</Badge>
     },
   },
   {
     accessorKey: 'status',
-    header: 'Estado',
+    header: 'Estados',
     cell: ({ row }) => {
-      const { status, id } = row.original
+      const { id, enrollmentStatus } = row.original
 
       return (
-        <InscritionStatusForm
+        <InscriptionStatus
           id={id}
-          status={status}
+          status={enrollmentStatus}
         />
       )
+    },
+  },
+  {
+    accessorKey: 'delete',
+    header: 'Eliminar',
+    cell: ({ row }) => {
+      const { inscription } = row.original
+      const INSCRIPTION_ID = inscription.id
+
+      return <InscriptionDelete id={INSCRIPTION_ID} />
     },
   },
 ]

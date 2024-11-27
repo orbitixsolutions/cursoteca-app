@@ -1,3 +1,6 @@
+
+'use client'
+
 import {
   Dialog,
   DialogContent,
@@ -25,37 +28,32 @@ import {
   SelectValue,
   SelectContent,
 } from '@/components/ui/select'
-import { createStudent } from '@/app/[eca]/(courses)/course/[id]/_services/create'
+import { createInscription } from '@/app/[eca]/(courses)/course/[id]/_services/create'
 import { z } from 'zod'
 import { es } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { StudentSchema } from '@/schemas'
+import { InscriptionSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { DatePicker } from '@/components/ui/date-picker'
 import { EDUCATIONAL_LEVELS, SELECT_PROVINCES } from '@/constants'
 import { useParams, useRouter } from 'next/navigation'
 import { getEcaName } from '@/helpers/get-eca-name'
-import { useInscription } from '@/app/[eca]/(courses)/course/[id]/provider'
 import { toast } from 'sonner'
 
 export function InscriptionForm() {
-  const { documentId, saveDocumentId } = useInscription()
   const [isPending, startTransition] = useTransition()
   const [open, setOpen] = useState(false)
 
-  const { eca } = useParams<{ eca: string }>()
+  const { eca, id: courseId } = useParams<{ eca: string; id: string }>()
   const { refresh } = useRouter()
 
   const { DOMAIN } = getEcaName(eca)
 
-  const STUDENT = documentId !== ''
-  const API_URL = `/api/v0/admin/students`
-
-  const form = useForm<z.infer<typeof StudentSchema>>({
-    resolver: zodResolver(StudentSchema),
+  const form = useForm<z.infer<typeof InscriptionSchema>>({
+    resolver: zodResolver(InscriptionSchema),
     defaultValues: {
       firstNames: '',
       lastNames: '',
@@ -75,32 +73,23 @@ export function InscriptionForm() {
     startTransition(async () => {
       const DOCUMENT_ID = values.documentId
 
-      const res = await fetch(`${API_URL}/${DOCUMENT_ID}`)
-      const DATA = await res.json()
+      const { status, message } = await createInscription(values, {
+        courseId: courseId,
+        documentId: DOCUMENT_ID,
+        ecaId: eca,
+      })
 
       setOpen(false)
+      form.reset()
 
-      if (DATA) {
-        saveDocumentId(DOCUMENT_ID)
-        toast.success('¡Inscripción exitosa!')
+      if (status === 201) {
+        toast.success(message)
+        refresh()
         return
       }
 
-      if (!STUDENT) {
-        const { status, message } = await createStudent(values)
-
-        if (status === 201) {
-          toast.success(message)
-          form.reset()
-
-          saveDocumentId(DOCUMENT_ID)
-          refresh()
-          return
-        }
-
-        toast.error(message)
-        return
-      }
+      toast.error(message)
+      return
     })
   })
 

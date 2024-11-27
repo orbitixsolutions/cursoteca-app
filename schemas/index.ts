@@ -59,7 +59,7 @@ export const CreateCourseSchema = z.object({
   ),
 })
 
-export const StudentSchema = z.object({
+export const InscriptionSchema = z.object({
   firstNames: z.string().min(1, {
     message: 'Ingrese su nombre.',
   }),

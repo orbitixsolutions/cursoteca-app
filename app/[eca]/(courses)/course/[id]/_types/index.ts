@@ -5,7 +5,7 @@ export type InscriptionProps = {
     include: {
       enrollment: {
         include: {
-          student: true
+          inscription: true
         }
       }
     }

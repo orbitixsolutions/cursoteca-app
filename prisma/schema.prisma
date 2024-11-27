@@ -17,7 +17,7 @@ datasource db {
 enum Role {
   DIRECTIVE
   ADMIN
-  USER
+  ENROLLED
 }
 
 enum CATEGORIES_ENUM {
@@ -37,10 +37,14 @@ enum EDUCATIONAL_LEVELS_ENUM {
 }
 
 enum STATUS_ENUM {
-  PENDING
+  INTERVIEW
+  STAGE_1
+  STAGE_2
+  STAGE_3
   APPROVED
-  FINISHED
-  CANCELLED
+  NOT_APPROVED
+  ALTERNATE
+  NONE
 }
 
 // --------------------------------------
@@ -53,7 +57,7 @@ model User {
   email    String  @unique
   password String
   eca      String?
-  role     Role    @default(USER)
+  role     Role    @default(ENROLLED)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,7 +88,7 @@ model Course {
 // STUDENTS TABLE //
 // --------------------------------------
 
-model Student {
+model Inscriptions {
   id                  String                  @id @default(uuid())
   firstNames          String
   lastNames           String
@@ -104,25 +108,30 @@ model Student {
   enrollment Enrollment[]
 }
 
-// --------------------------------------
-// ENROLLMENTS TABLE //
-// --------------------------------------
-
 model Enrollment {
   id String @id @default(uuid())
 
-  courseId  String
-  studentId String
-  eca       String
-
-  isCompleted Boolean     @default(false)
-  status      STATUS_ENUM @default(PENDING)
+  inscriptionId String
+  courseId      String
+  eca           String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollmentStatus EnrollmentStatus[]
+  inscription      Inscriptions       @relation(fields: [inscriptionId], references: [documentId], onDelete: Cascade)
+  course           Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-  @@unique([studentId, courseId])
+  @@index([courseId, inscriptionId])
+}
+
+model EnrollmentStatus {
+  id           String @id @default(uuid())
+  enrollmentId String
+
+  status    STATUS_ENUM @default(NONE)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
 }

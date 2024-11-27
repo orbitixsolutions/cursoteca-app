@@ -2,22 +2,27 @@ export const EDUCATIONAL_LEVELS = [
   {
     label: 'Ninguno',
     value: 'NONE',
+    id: 0,
   },
   {
     label: 'Primaria',
     value: 'PRIMARY',
+    id: 1,
   },
   {
     label: 'Ciclo Básico',
     value: 'BASIC_CYCLE',
+    id: 2,
   },
   {
     label: 'Secundaria',
     value: 'SECONDARY',
+    id: 3,
   },
   {
     label: 'Universitaria',
     value: 'UNIVERSITY',
+    id: 4,
   },
 ]
 
@@ -63,20 +68,11 @@ export const SELECT_PROVINCES = [
 ]
 
 export const INSCRIPTION_STATUS = [
-  {
-    label: 'Pendiente',
-    value: 'PENDING',
-  },
-  {
-    label: 'Aprobado',
-    value: 'APPROVED',
-  },
-  {
-    label: 'Finalizado',
-    value: 'FINISHED',
-  },
-  {
-    label: 'Cancelado',
-    value: 'CANCELLED',
-  },
+  { label: 'Entrevista', value: 'INTERVIEW' },
+  { label: 'Etapa 1', value: 'STAGE_1' },
+  { label: 'Etapa 2', value: 'STAGE_2' },
+  { label: 'Etapa 3', value: 'STAGE_3' },
+  { label: 'Aprobado', value: 'APPROVED' },
+  { label: 'No Aprobado', value: 'NOT_APPROVED' },
+  { label: 'Suplente', value: 'ALTERNATE' },
 ]

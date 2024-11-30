@@ -4,6 +4,8 @@ import { getInscriptions } from '@/app/[eca]/dashboard/inscriptions/_services/fe
 import { DataTable } from '@/components/data-table'
 import { InscriptionColumns } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-table/inscription-column'
 import { InscriptionFilter } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-filter'
+import { ExportButton } from '@/components/shared/dashboard/export-button'
+import { Separator } from '@/components/ui/separator'
 
 interface InscriptionsPageProps {
   params: {
@@ -13,6 +15,7 @@ interface InscriptionsPageProps {
     name: string
     age: number
     province: string
+    educationalLevel: string
   }
 }
 
@@ -25,13 +28,18 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
   return (
     <ContentLayout title='Inscripciones'>
       <div className='space-y-5'>
-        <div className='space-y-4 flex items-center justify-between'>
-          <article>
-            <h1 className='text-2xl font-bold'>Inscriptos</h1>
-            <p>Gestiona las inscriptos en este panel.</p>
-          </article>
+        <div className='flex items-center justify-between'>
+          <div className='space-y-4 flex items-center justify-between'>
+            <article>
+              <h1 className='text-2xl font-bold'>Inscriptos</h1>
+              <p>Gestiona las inscriptos en este panel.</p>
+            </article>
+          </div>
+
+          <ExportButton data={INSCRIPTIONS ?? []} />
         </div>
 
+        <Separator />
         <InscriptionFilter />
 
         <DataTable

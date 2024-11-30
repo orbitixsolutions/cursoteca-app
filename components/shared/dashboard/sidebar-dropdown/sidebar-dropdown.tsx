@@ -7,21 +7,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ChevronsUpDown, House, LogOut, Moon, Sun } from 'lucide-react'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
+import { ChevronsUpDown, House, LogOut, Moon, Sun } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Switch } from '@/components/ui/switch'
 import { useCurrentUser } from '@/hooks/use-session'
 import { useTheme } from 'next-themes'
 import { handleSignout } from '@/helpers/sign-out'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export function SidebarDropdown() {
   const SESSION = useCurrentUser()
+  const { push } = useRouter()
+
   const FIRST_LETTER_NAME = SESSION?.name?.slice(0, 1)
 
   const { theme, setTheme } = useTheme()
@@ -106,7 +109,12 @@ export function SidebarDropdown() {
               />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignout}>
+            <DropdownMenuItem
+              onClick={() => {
+                handleSignout()
+                push('/')
+              }}
+            >
               <div className='flex items-center gap-3'>
                 <LogOut className='size-4' />
                 Cerrar sesión

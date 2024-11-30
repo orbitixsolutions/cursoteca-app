@@ -36,7 +36,7 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
   }, WAIT_BEFORE_DEBOUNCE)
 
   return (
-    <div className='flex items-center space-x-2'>
+    <div className='flex items-center space-x-1'>
       <div>
         <Select
           key={DEFAULT_VALUE}
@@ -59,16 +59,15 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
         </Select>
       </div>
 
-      {DEFAULT_VALUE && (
-        <Button
-          variant='ghost'
-          size='icon'
-          className='rounded-full'
-          onClick={() => onChange('')}
-        >
-          <X />
-        </Button>
-      )}
+      <Button
+        variant='ghost'
+        size='icon'
+        disabled={!DEFAULT_VALUE}
+        className='rounded-full'
+        onClick={() => onChange('')}
+      >
+        <X />
+      </Button>
     </div>
   )
 }

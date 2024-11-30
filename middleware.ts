@@ -36,5 +36,6 @@ export const config = {
     '/:path/dashboard',
     '/:path/dashboard/admin',
     '/:path/dashboard/courses',
+    '/:path/dashboard/inscriptions',
   ],
 }

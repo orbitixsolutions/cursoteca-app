@@ -1,5 +1,3 @@
-'use server'
-
 import { getEcaName } from '@/helpers/get-eca-name'
 import { currentRole, currentUser } from '@/lib/session'
 import db from '@/lib/db'
@@ -28,26 +26,6 @@ export async function getAdmins(eca: string) {
 
     const FILTERED_ADMINS = ADMINS.filter((admin) => admin.id !== USER_ID)
     return FILTERED_ADMINS
-  } catch {
-    return null
-  }
-}
-
-export async function getAdminById(id: string) {
-  const ROLE = await currentRole()
-
-  if (ROLE === 'USER') {
-    return null
-  }
-
-  try {
-    const USER = await db.user.findUnique({
-      where: {
-        id: id,
-      },
-    })
-
-    return USER
   } catch {
     return null
   }

@@ -19,7 +19,6 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { createAdmin } from '@/app/[eca]/dashboard/admin/_services/create'
-import { getAdminById } from '@/app/[eca]/dashboard/admin/_services/fetch'
 import { updateAdmin } from '@/app/[eca]/dashboard/admin/_services/update'
 import { toast } from 'sonner'
 
@@ -48,8 +47,10 @@ export function AdminForm(props: AdminFormProps) {
   useEffect(() => {
     if (IS_EDITING) {
       startTransition(async () => {
-        const DATA = await getAdminById(id)
-        if (!DATA) return
+        const res = await fetch(`/api/v0/admin/users/${id}`)
+        const DATA = await res.json()
+
+        if (!res.ok) return
 
         form.setValue('name', DATA.name || '')
         form.setValue('email', DATA.email)

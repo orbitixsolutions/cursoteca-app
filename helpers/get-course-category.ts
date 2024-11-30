@@ -12,7 +12,7 @@ export const COURSE_CATEGORIES = [
   {
     name: 'pharmaceuticals',
     value: 'PHARMACEUTICALS',
-    label: 'Farmaceútica',
+    label: 'Farmaceutica',
   },
   {
     name: 'others',

@@ -5,23 +5,35 @@ import { ColumnDef } from '@tanstack/react-table'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { getCategoryName } from '@/helpers/get-course-category'
 import { CopyField } from '@/components/shared/general/copy-field'
-import { Badge } from '@/components/ui/badge'
 import { InscriptionDelete } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-delete'
-import { InscriptionStatus } from '../inscription-status'
+import { InscriptionStatus } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status'
+import { InscriptionComment } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-comment'
+import { Badge } from '@/components/ui/badge'
 
 export const InscriptionColumns: ColumnDef<
   Prisma.EnrollmentGetPayload<{
-    include: { inscription: true; course: true; enrollmentStatus: true }
+    include: {
+      inscription: true
+      course: true
+      enrollmentStatus: true
+      enrollmentComment: true
+    }
   }>
 >[] = [
   {
-    accessorKey: 'courseCategory',
-    header: 'Categoría',
+    accessorKey: 'info',
+    header: 'Información',
     cell: ({ row }) => {
       const { course } = row.original
+
       const CATEGORY_NAME = getCategoryName(course.category)
 
-      return <p className='font-bold'>{CATEGORY_NAME}</p>
+      return (
+        <div className='flex flex-col gap-1'>
+          <p className='font-bold line-clamp-1'>{course.title}</p>
+          <p className='font-bold line-clamp-1'>{CATEGORY_NAME}</p>
+        </div>
+      )
     },
   },
   {
@@ -29,13 +41,15 @@ export const InscriptionColumns: ColumnDef<
     header: 'Nombre',
     cell: ({ row }) => {
       const { inscription } = row.original
+
       return (
-        <p>
+        <p className='line-clamp-1'>
           {inscription.firstNames} {inscription.lastNames}
         </p>
       )
     },
   },
+
   {
     accessorKey: 'phoneNumber',
     header: 'Número de teléfono',
@@ -63,6 +77,20 @@ export const InscriptionColumns: ColumnDef<
     },
   },
   {
+    accessorKey: 'comments',
+    header: 'Comentarios',
+    cell: ({ row }) => {
+      const { enrollmentComment, id } = row.original
+
+      return (
+        <InscriptionComment
+          id={id}
+          comments={enrollmentComment}
+        />
+      )
+    },
+  },
+  {
     accessorKey: 'status',
     header: 'Estados',
     cell: ({ row }) => {
@@ -78,7 +106,7 @@ export const InscriptionColumns: ColumnDef<
   },
   {
     accessorKey: 'delete',
-    header: 'Eliminar',
+    header: '',
     cell: ({ row }) => {
       const { inscription } = row.original
       const INSCRIPTION_ID = inscription.id

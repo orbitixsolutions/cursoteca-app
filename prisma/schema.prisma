@@ -118,11 +118,24 @@ model Enrollment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  enrollmentStatus EnrollmentStatus[]
-  inscription      Inscriptions       @relation(fields: [inscriptionId], references: [documentId], onDelete: Cascade)
-  course           Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollmentStatus  EnrollmentStatus[]
+  inscription       Inscriptions        @relation(fields: [inscriptionId], references: [documentId], onDelete: Cascade)
+  course            Course              @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollmentComment EnrollmentComment[]
 
   @@index([courseId, inscriptionId])
+}
+
+model EnrollmentComment {
+  id           String @id @default(uuid())
+  enrollmentId String
+
+  comment String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
 }
 
 model EnrollmentStatus {

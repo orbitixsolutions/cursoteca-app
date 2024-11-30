@@ -30,7 +30,7 @@ export default async function AdminPage(props: AdminPageProps) {
         </div>
 
         <DataTable
-          data={ADMINS!}
+          data={ADMINS ?? []}
           columns={AdminColumns}
         />
       </div>

@@ -59,14 +59,32 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
     const FILTERED_INSCRIPTIONS = INSCRIPTIONS.filter((i) => {
       const { inscription, enrollmentStatus } = i
 
-      const LAST_STATUS = enrollmentStatus.at(-1)?.status
+      const STATUS_FILTER = enrollmentStatus
+        .at(-1)
+        ?.status?.toLowerCase()
+        .includes(status?.toLowerCase())
+
+      const FIRST_NAME_FILTER = inscription.firstNames
+        .toLowerCase()
+        .includes(name?.toLowerCase())
+
+      const PROVINCE_FILTER = inscription.province
+        .toLowerCase()
+        .includes(province?.toLowerCase())
+
+      const DATE_OF_BORN_FILTER = verifiedByYearsOld(
+        inscription.dateOfBorn,
+        age
+      )
+      const EDUCATIONAL_LEVEL_FILTER =
+        inscription.educationalLevel.toLocaleLowerCase() === educationalLevel
 
       return (
-        inscription.firstNames.toLowerCase().includes(name?.toLowerCase()) ||
-        inscription.province.toLowerCase().includes(province?.toLowerCase()) ||
-        verifiedByYearsOld(inscription.dateOfBorn, age) ||
-        inscription.educationalLevel === educationalLevel ||
-        LAST_STATUS?.toLowerCase().includes(status?.toLowerCase())
+        FIRST_NAME_FILTER ||
+        PROVINCE_FILTER ||
+        DATE_OF_BORN_FILTER ||
+        EDUCATIONAL_LEVEL_FILTER ||
+        STATUS_FILTER
       )
     })
 

@@ -97,3 +97,9 @@ export const InscriptionSchema = z.object({
     }
   ),
 })
+
+export const InscriptionComentSchema = z.object({
+  comment: z.string().min(1, {
+    message: 'Ingrese un comentario.',
+  }),
+})

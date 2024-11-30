@@ -1,6 +1,6 @@
-import { InscritionStatusForm } from '../inscription-status-form'
-import { InscriptionStatusHistory } from '../inscription-status-history'
-import { InscriptionStatusProps } from './inscription-status.type'
+import { InscritionStatusForm } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status-form'
+import { InscriptionStatusHistory } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status-history'
+import { InscriptionStatusProps } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status/inscription-status.type'
 
 export function InscriptionStatus(props: InscriptionStatusProps) {
   const { id, status } = props

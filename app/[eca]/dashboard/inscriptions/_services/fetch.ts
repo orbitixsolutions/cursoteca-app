@@ -5,6 +5,7 @@ type ParamsProps = {
   name: string
   age: number
   province: string
+  educationalLevel: string
 }
 
 function verifiedByYearsOld(fechaNacimiento: Date, edadEsperada: number) {
@@ -30,7 +31,7 @@ function verifiedByYearsOld(fechaNacimiento: Date, edadEsperada: number) {
 }
 
 export async function getInscriptions(eca: string, params: ParamsProps) {
-  const { name, age, province } = params
+  const { name, age, province, educationalLevel } = params
 
   const ROLE = await currentRole()
 
@@ -47,10 +48,11 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
         inscription: true,
         course: true,
         enrollmentStatus: true,
+        enrollmentComment: true,
       },
     })
 
-    if (!name && !age && !province) return INSCRIPTIONS
+    if (!name && !age && !province && !educationalLevel) return INSCRIPTIONS
 
     const FILTERED_INSCRIPTIONS = INSCRIPTIONS.filter((i) => {
       const { inscription } = i
@@ -58,7 +60,8 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
       return (
         inscription.firstNames.toLowerCase().includes(name?.toLowerCase()) ||
         inscription.province.toLowerCase().includes(province?.toLowerCase()) ||
-        verifiedByYearsOld(inscription.dateOfBorn, age)
+        verifiedByYearsOld(inscription.dateOfBorn, age) ||
+        inscription.educationalLevel === educationalLevel
       )
     })
 

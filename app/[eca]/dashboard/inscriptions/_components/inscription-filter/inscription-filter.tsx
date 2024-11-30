@@ -3,7 +3,11 @@
 import { RangeBar } from '@/components/shared/general/range-bar/range-bar'
 import { SearchBar } from '@/components/shared/general/search-bar'
 import { SelectSearchBar } from '@/components/shared/general/select-search-bar'
-import { EDUCATIONAL_LEVELS, SELECT_PROVINCES } from '@/constants'
+import {
+  EDUCATIONAL_LEVELS,
+  INSCRIPTION_STATUS,
+  SELECT_PROVINCES,
+} from '@/constants'
 
 export function InscriptionFilter() {
   return (
@@ -22,6 +26,11 @@ export function InscriptionFilter() {
           queryParam='province'
           placeholder='Filtrar por ubicación'
           items={SELECT_PROVINCES}
+        />
+        <SelectSearchBar
+          queryParam='status'
+          placeholder='Filtrar por estado'
+          items={INSCRIPTION_STATUS}
         />
       </div>
       <RangeBar queryParam='age' />

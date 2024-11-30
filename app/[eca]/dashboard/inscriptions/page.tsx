@@ -16,6 +16,7 @@ interface InscriptionsPageProps {
     age: number
     province: string
     educationalLevel: string
+    status: string
   }
 }
 

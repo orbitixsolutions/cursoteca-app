@@ -1,6 +1,6 @@
 import { currentRole } from '@/lib/session'
-import db from '@/lib/db'
 import { NextResponse } from 'next/server'
+import db from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,7 +11,7 @@ export async function GET(
   const ROLE = await currentRole()
 
   if (ROLE === 'ENROLLED') {
-    return null
+    return NextResponse.json({ error: 'No tienes permisos.' }, { status: 401 })
   }
 
   try {

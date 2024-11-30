@@ -1,13 +1,11 @@
 'use client'
 
 import { useEca } from '@/app/[eca]/provider'
-import { useRouter } from 'next/navigation'
-import { RainbowButton } from '@/components/ui/rainbow-button'
+import { Button } from '@/components/ui/button'
 import BlurFade from '@/components/ui/blur-fade'
+import Link from 'next/link'
 
 export function StartingNow() {
-  const router = useRouter()
-
   const { data } = useEca()
   if (!data) return null
 
@@ -27,9 +25,9 @@ export function StartingNow() {
             oportunidades
           </p>
 
-          <RainbowButton onClick={() => router.push(`/${data.path}/courses`)}>
-            Inscribirse
-          </RainbowButton>
+          <Button asChild>
+            <Link href={`/${data.path}/courses`}>Cursos disponibles</Link>
+          </Button>
         </article>
       </section>
     </BlurFade>

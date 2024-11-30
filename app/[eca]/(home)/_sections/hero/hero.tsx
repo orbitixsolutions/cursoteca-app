@@ -1,14 +1,12 @@
 'use client'
 
 import { useEca } from '@/app/[eca]/provider'
-import { RainbowButton } from '@/components/ui/rainbow-button'
-import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
 import BlurFade from '@/components/ui/blur-fade'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export function Hero() {
-  const router = useRouter()
-
   const { data } = useEca()
   if (!data) return null
 
@@ -40,11 +38,9 @@ export function Hero() {
             </p>
 
             <span>
-              <RainbowButton
-                onClick={() => router.push(`/${data.path}/courses`)}
-              >
-                Empezar
-              </RainbowButton>
+              <Button asChild>
+                <Link href={`/${data.path}/courses`}>Cursos disponibles</Link>
+              </Button>
             </span>
           </article>
         </div>

@@ -7,11 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { useRouter } from 'next/navigation'
 import { Fragment } from 'react'
 import { useEca } from '@/app/[eca]/provider'
 import { CircleArrowRight } from 'lucide-react'
-import { RainbowButton } from '@/components/ui/rainbow-button'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export const INSCRIPTIONS_STEPS = [
   {
@@ -41,8 +41,6 @@ export const INSCRIPTIONS_STEPS = [
 ]
 
 export function InscriptionSteps() {
-  const router = useRouter()
-
   const { data } = useEca()
   if (!data) return null
 
@@ -62,11 +60,11 @@ export function InscriptionSteps() {
               </CardContent>
               {step.button && (
                 <CardFooter>
-                  <RainbowButton
-                    onClick={() => router.push(`/${data.path}/courses`)}
-                  >
-                    Cursos disponibles
-                  </RainbowButton>
+                  <Button asChild>
+                    <Link href={`/${data.path}/courses`}>
+                      Cursos disponibles
+                    </Link>
+                  </Button>
                 </CardFooter>
               )}
             </Card>

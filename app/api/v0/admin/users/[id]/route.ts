@@ -1,5 +1,8 @@
 import { currentRole } from '@/lib/session'
 import db from '@/lib/db'
+import { NextResponse } from 'next/server'
+
+export const dynamic = 'force-dynamic'
 
 export async function GET(
   request: Request,
@@ -18,8 +21,8 @@ export async function GET(
       },
     })
 
-    return USER
+    return NextResponse.json(USER, { status: 201 })
   } catch {
-    return null
+    return NextResponse.json(null, { status: 500 })
   }
 }

@@ -21,8 +21,8 @@ export const InscriptionColumns: ColumnDef<
   }>
 >[] = [
   {
-    accessorKey: 'info',
-    header: 'Información',
+    accessorKey: 'course',
+    header: 'Curso',
     cell: ({ row }) => {
       const { course } = row.original
 

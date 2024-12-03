@@ -22,11 +22,11 @@ export function CourseRoutes() {
           key={data.category}
           className='space-y-6'
         >
-          <h2 className='text-xl font-bold'>
+          <h2 className='text-base md:text-xl font-bold'>
             {getCategoryName(data.category)}
           </h2>
 
-          <ul className='grid grid-cols-3 gap-4'>
+          <ul className='grid sm:grid-cols-2 md:grid-cols-3 gap-4'>
             {data.courses.map((course, index) => (
               <BlurFade
                 key={index}

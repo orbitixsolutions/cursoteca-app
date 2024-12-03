@@ -28,7 +28,7 @@ export default async function CourseLayout({
     >
       <EcaHeader data={ECA_DATA} />
 
-      <main className='max-w-[1280px] w-full min-h-[calc(100dvh_-_13rem)] mx-auto py-20 px-8'>
+      <main className='max-w-[1280px] w-full min-h-[calc(100dvh_-_13rem)] mx-auto  py-12 md:py-24 px-4 md:px-8'>
         {children}
       </main>
 

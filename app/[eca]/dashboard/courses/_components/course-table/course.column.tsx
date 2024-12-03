@@ -69,7 +69,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
     header: 'Nombre',
     cell: ({ row }) => {
       const { title } = row.original
-      return title
+      return <p className='line-clamp-1'>{title}</p>
     },
   },
   {
@@ -79,7 +79,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const { category } = row.original
       const CATEGORY = getCategoryName(category)
 
-      return <Badge>{CATEGORY}</Badge>
+      return <Badge className='line-clamp-1'>{CATEGORY}</Badge>
     },
   },
   {
@@ -89,7 +89,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const { ageRange } = row.original
       const AGE_RANGE = ageRange.join(' a ')
 
-      return <Badge>{AGE_RANGE} Años</Badge>
+      return <Badge className='line-clamp-1'>{AGE_RANGE} Años</Badge>
     },
   },
   {
@@ -99,7 +99,7 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const { educationalLevel } = row.original
       const EDUCATIONAL_LEVEL = getEducationalLevelName(educationalLevel)
 
-      return <Badge>{EDUCATIONAL_LEVEL}</Badge>
+      return <Badge className='line-clamp-1'>{EDUCATIONAL_LEVEL}</Badge>
     },
   },
   {
@@ -110,7 +110,12 @@ export const CourseColumns: ColumnDef<Course>[] = [
       const STATUS = isVisible ? 'Publicado' : 'Oculto'
 
       return (
-        <Badge variant={isVisible ? 'success' : 'destructive'}>{STATUS}</Badge>
+        <Badge
+          className='line-clamp-1'
+          variant={isVisible ? 'success' : 'destructive'}
+        >
+          {STATUS}
+        </Badge>
       )
     },
   },

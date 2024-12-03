@@ -21,7 +21,7 @@ export default function HomeEcaLayout({
     <EcaProvider data={ECA_DATA}>
       <EcaHeader data={ECA_DATA} />
 
-      <main className='max-w-[1280px] w-full mx-auto min-h-dvh py-20 px-8'>
+      <main className='max-w-[1280px] w-full mx-auto min-h-dvh'>
         {children}
       </main>
 

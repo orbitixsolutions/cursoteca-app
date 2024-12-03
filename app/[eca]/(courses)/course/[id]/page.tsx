@@ -26,7 +26,7 @@ export default async function CoursePage({
   const AGE_RANGE = COURSE?.ageRange.join(' a ') // [18, 25] => 18 a 25
 
   return (
-    <section className='flex justify-between gap-12'>
+    <section className='flex flex-col md:flex-row justify-between gap-12'>
       <figure className='flex flex-1 relative rounded-lg overflow-hidden'>
         <Image
           src={IMAGE_EXISTS}
@@ -42,7 +42,7 @@ export default async function CoursePage({
 
       <div className='flex flex-1 flex-col justify-between'>
         <article className='space-y-5'>
-          <h2 className='text-[72px] leading-[72px] font-bold text-balance'>
+          <h2 className='text-[36px] md:text-[72px] md:leading-[72px] font-bold text-balance'>
             {COURSE?.title}
           </h2>
 
@@ -58,7 +58,7 @@ export default async function CoursePage({
 
           <Separator />
 
-          <div className='tiptap'>{parse(COURSE?.description)}</div>
+          <div className='tiptap !mb-2'>{parse(COURSE?.description)}</div>
         </article>
 
         <InscriptionForm />

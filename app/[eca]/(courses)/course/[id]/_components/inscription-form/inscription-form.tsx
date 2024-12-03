@@ -104,7 +104,8 @@ export function InscriptionForm() {
         <DialogHeader>
           <DialogTitle>¡Primero ingresa tus datos!</DialogTitle>
           <DialogDescription>
-            Una vez que ingreses tus datos podras acceder al curso.
+            Al ingresar los datos estaras inscripto en el curso. Esta atento que
+            podemos comunicarnos con usted.
           </DialogDescription>
         </DialogHeader>
 
@@ -192,7 +193,7 @@ export function InscriptionForm() {
                   )}
                 />
               </div>
-              <div className='grid grid-cols-4 gap-4'>
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
                 <FormField
                   control={form.control}
                   name='documentId'

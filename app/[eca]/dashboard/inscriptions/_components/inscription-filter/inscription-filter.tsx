@@ -17,10 +17,15 @@ import { Button } from '@/components/ui/button'
 
 export function InscriptionFilter() {
   return (
-    <div className='flex items-center justify-between space-x-4'>
+    <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
       <Popover>
         <PopoverTrigger asChild>
-          <Button>Buscar por nombre</Button>
+          <Button
+            variant='outline'
+            className='justify-start'
+          >
+            Buscar por nombre
+          </Button>
         </PopoverTrigger>
         <PopoverContent className='w-[480px] max-w-[950px]'>
           <div className='flex items-center space-x-2'>
@@ -41,11 +46,7 @@ export function InscriptionFilter() {
         placeholder='Buscar curso'
       />
 
-      <SelectSearchBar
-        queryParam='educationalLevel'
-        placeholder='Filtrar por nivel educativo'
-        items={EDUCATIONAL_LEVELS.slice(1, 5)}
-      />
+      <RangeBar queryParam='age' />
 
       <SelectSearchBar
         queryParam='province'
@@ -59,7 +60,11 @@ export function InscriptionFilter() {
         items={INSCRIPTION_STATUS}
       />
 
-      <RangeBar queryParam='age' />
+      <SelectSearchBar
+        queryParam='educationalLevel'
+        placeholder='Filtrar por nivel educativo'
+        items={EDUCATIONAL_LEVELS.slice(1, 5)}
+      />
     </div>
   )
 }

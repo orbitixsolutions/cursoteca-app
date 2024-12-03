@@ -11,6 +11,7 @@ import { Fragment } from 'react'
 import { useEca } from '@/app/[eca]/provider'
 import { CircleArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useMediaQuery } from '@uidotdev/usehooks'
 import Link from 'next/link'
 
 export const INSCRIPTIONS_STEPS = [
@@ -44,19 +45,23 @@ export function InscriptionSteps() {
   const { data } = useEca()
   if (!data) return null
 
+  const isMediumDevice = useMediaQuery(
+    'only screen and (min-width : 769px) and (max-width : 992px)'
+  )
+
   return (
-    <ul className='flex items-center justify-center space-x-4 md:space-x-8 h-[320px]'>
+    <ul className='grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8'>
       {INSCRIPTIONS_STEPS.map((step, index) => (
         <Fragment key={index}>
-          <li className='flex items-center size-full w-[200px] md:w-[400px] h-full'>
+          <li className='flex items-center size-full'>
             <Card className='size-full flex flex-col items-center justify-center text-center'>
               <CardHeader>
-                <CardTitle className='text-lg md:text-3xl'>
+                <CardTitle className='text-base md:text-3xl'>
                   {step.title}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p>{step.description}</p>
+                <p className='text-xs md:text-base'>{step.description}</p>
               </CardContent>
               {step.button && (
                 <CardFooter>
@@ -69,7 +74,8 @@ export function InscriptionSteps() {
               )}
             </Card>
           </li>
-          {step.arrow && <CircleArrowRight className='size-10' />}
+          {step.arrow ||
+            (isMediumDevice && <CircleArrowRight className='size-10' />)}
         </Fragment>
       ))}
     </ul>

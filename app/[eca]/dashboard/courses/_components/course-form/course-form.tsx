@@ -139,6 +139,7 @@ export function CourseForm(props: CourseFormProps) {
                 <FormControl>
                   <Input
                     disabled={isPending}
+                    placeholder='Título del curso'
                     {...field}
                   />
                 </FormControl>

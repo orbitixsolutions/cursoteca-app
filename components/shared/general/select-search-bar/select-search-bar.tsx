@@ -10,11 +10,8 @@ import {
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { SelectSearchbarProps } from '@/components/shared/general/select-search-bar/select-search-bar.type'
 import { Button } from '@/components/ui/button'
-import { useDebouncedCallback } from 'use-debounce'
 import { cn } from '@/lib/utils'
 import { X } from 'lucide-react'
-
-const WAIT_BEFORE_DEBOUNCE = 500
 
 export function SelectSearchBar(props: SelectSearchbarProps) {
   const { queryParam, placeholder, items, className } = props
@@ -26,14 +23,14 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
   const searchParams = new URLSearchParams(params)
   const DEFAULT_VALUE = searchParams.get(queryParam)?.toString()
 
-  const onChange = useDebouncedCallback((value: string) => {
+  const onChange = (value: string) => {
     if (value) {
       searchParams.set(queryParam, value)
     } else {
       searchParams.delete(queryParam)
     }
     replace(`${pathname}?${searchParams.toString()}`, { scroll: false })
-  }, WAIT_BEFORE_DEBOUNCE)
+  }
 
   return (
     <div className='flex items-center space-x-1'>

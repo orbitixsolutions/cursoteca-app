@@ -1,4 +1,3 @@
-
 'use client'
 
 import {
@@ -99,7 +98,7 @@ export function InscriptionForm() {
       onOpenChange={setOpen}
     >
       <DialogTrigger asChild>
-        <Button>Inscribirse</Button>
+        <Button disabled={isPending}>Inscribirse</Button>
       </DialogTrigger>
       <DialogContent className='max-w-[950px] w-full'>
         <DialogHeader>

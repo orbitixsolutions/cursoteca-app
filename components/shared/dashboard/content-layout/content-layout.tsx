@@ -17,13 +17,10 @@ import { ContentLayoutProps } from '@/components/shared/dashboard/content-layout
 import { getEcaName } from '@/helpers/get-eca-name'
 import { cn } from '@/lib/utils'
 import { useParams } from 'next/navigation'
-import { useMediaQuery } from '@uidotdev/usehooks'
 
 export function ContentLayout(props: ContentLayoutProps) {
   const { title, children } = props
   const { open, isMobile } = useSidebar()
-
-  const isMediumDevice = useMediaQuery('only screen and (max-width : 992px)')
 
   const { eca } = useParams<{ eca: string }>()
   const { ECA_NAME } = getEcaName(eca)

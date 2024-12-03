@@ -43,11 +43,12 @@ export const INSCRIPTIONS_STEPS = [
 
 export function InscriptionSteps() {
   const { data } = useEca()
-  if (!data) return null
 
   const isMediumDevice = useMediaQuery(
     'only screen and (min-width : 769px) and (max-width : 992px)'
   )
+
+  if (!data) return null
 
   return (
     <ul className='grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8'>

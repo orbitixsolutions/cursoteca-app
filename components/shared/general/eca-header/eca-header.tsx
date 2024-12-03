@@ -9,17 +9,16 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { EcaHeaderProps } from '@/components/shared/general/eca-header/eca-header.type'
 import { ModeToggle } from '@/components/shared/general/mode-toggle'
 import { currentRole } from '@/lib/session'
-import Image from 'next/image'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Menu } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export async function EcaHeader(props: EcaHeaderProps) {
   const { data } = props

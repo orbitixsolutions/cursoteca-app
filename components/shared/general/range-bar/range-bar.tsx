@@ -30,7 +30,7 @@ export function RangeBar(props: RangeBarProps) {
         <p>Años: {DEFAULT_VALUE ?? 'Todos'}</p>
       </div>
       <Slider
-        className='w-[300px]'
+        className='w-full'
         defaultValue={[Number(DEFAULT_VALUE)]}
         value={[Number(DEFAULT_VALUE)]}
         onValueChange={handleSearch}

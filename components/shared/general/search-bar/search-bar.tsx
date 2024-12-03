@@ -29,7 +29,7 @@ export function SearchBar(props: SearchBarProps) {
 
   return (
     <Input
-      className={cn('max-w-[320px]', className)}
+      className={cn('w-full', className)}
       defaultValue={DEFAULT_VALUE}
       type={type}
       onChange={(e) => handleSearch(e.target.value.toLowerCase())}

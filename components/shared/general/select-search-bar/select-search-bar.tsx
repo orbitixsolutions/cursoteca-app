@@ -34,7 +34,7 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
 
   return (
     <div className='flex items-center space-x-1'>
-      <div>
+      <div className='flex-1'>
         <Select
           key={DEFAULT_VALUE}
           defaultValue={DEFAULT_VALUE}
@@ -43,7 +43,7 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
           <SelectTrigger>
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
-          <SelectContent className={cn('w-[320px]', className)}>
+          <SelectContent className={cn('w-full', className)}>
             {items.map((item) => (
               <SelectItem
                 key={item.value}

@@ -13,10 +13,10 @@ export function RangeBar(props: RangeBarProps) {
   const DEFAULT_VALUE = searchParams.get(queryParam)
 
   const handleSearch = (value: number[]) => {
-    const N = value.join('-')
+    const NumberValue = value.join('-')
 
-    if (N !== '0') {
-      searchParams.set(queryParam, N)
+    if (NumberValue !== '0') {
+      searchParams.set(queryParam, NumberValue)
     } else {
       searchParams.delete(queryParam)
     }
@@ -24,8 +24,11 @@ export function RangeBar(props: RangeBarProps) {
   }
 
   return (
-    <div className='flex items-center gap-3'>
-      <p className='text-sm'>Rango por edad</p>
+    <div className='flex flex-col gap-2'>
+      <div className='flex items-center justify-between'>
+        <p className='text-sm'>Rango por edad</p>
+        <p>Años: {DEFAULT_VALUE ?? 'Todos'}</p>
+      </div>
       <Slider
         className='w-[300px]'
         defaultValue={[Number(DEFAULT_VALUE)]}

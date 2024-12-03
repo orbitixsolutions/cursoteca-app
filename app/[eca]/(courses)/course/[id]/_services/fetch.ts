@@ -31,6 +31,13 @@ export async function getInscriptionByDocumentId(documentId: string) {
       where: {
         documentId,
       },
+      include: {
+        enrollment: {
+          include: {
+            course: true,
+          },
+        },
+      },
     })
     return INSCRIPTION
   } catch {

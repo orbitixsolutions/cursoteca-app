@@ -2,7 +2,10 @@
 
 import { z } from 'zod'
 import { InscriptionSchema } from '@/schemas'
-import { getCourseById, getInscriptionByDocumentId } from '@/app/[eca]/(courses)/course/[id]/_services/fetch'
+import {
+  getCourseById,
+  getInscriptionByDocumentId,
+} from '@/app/[eca]/(courses)/course/[id]/_services/fetch'
 import { EDUCATIONAL_LEVELS } from '@/constants'
 import { Course } from '@prisma/client'
 import db from '@/lib/db'
@@ -83,46 +86,10 @@ export async function createInscription(
     return { status: 400, message: 'No cumple con el nivel educativo.' }
   }
 
-  // #5 Crear inscripcion si no existe
   if (!INSCRIPTION) {
-    try {
-      await db.inscriptions.create({
-        data: {
-          documentId,
-          address,
-          province,
-          lastNameInstitution,
-          educationalLevel,
-          phoneNumber,
-          firstNames,
-          lastNames,
-          email,
-          dateOfBorn,
-          eca,
-        },
-      })
-
-      await db.enrollment.create({
-        data: {
-          courseId: courseId,
-          inscriptionId: documentId,
-          eca: ecaId,
-        },
-      })
-
-      return { status: 201, message: 'Inscripcion exitosa!' }
-    } catch {
-      return { status: 400, message: 'Ha ocurrido un error.' }
-    }
-  }
-
-  // #6 Actualizar datos en caso de que exista
-  try {
-    await db.inscriptions.update({
-      where: {
-        documentId,
-      },
+    await db.inscriptions.create({
       data: {
+        documentId,
         address,
         province,
         lastNameInstitution,
@@ -136,7 +103,57 @@ export async function createInscription(
       },
     })
 
-    return { status: 201, message: 'Informacion actualizada!' }
+    await db.enrollment.create({
+      data: {
+        courseId: courseId,
+        inscriptionId: documentId,
+        eca: ecaId,
+      },
+    })
+
+    return { status: 201, message: 'Inscripto correctamente!' }
+  }
+
+  // #6 Actualizar datos en caso de que exista
+  const STUDENT = INSCRIPTION?.enrollment.find((i) => i.courseId === courseId)
+  const ALREADY_THIS_COURSE = STUDENT?.courseId === courseId
+
+  if (ALREADY_THIS_COURSE) {
+    try {
+      await db.inscriptions.update({
+        where: {
+          documentId,
+        },
+        data: {
+          address,
+          province,
+          lastNameInstitution,
+          educationalLevel,
+          phoneNumber,
+          firstNames,
+          lastNames,
+          email,
+          dateOfBorn,
+          eca,
+        },
+      })
+
+      return { status: 201, message: 'Informacion actualizada!' }
+    } catch {
+      return { status: 500, message: 'Ha ocurrido un error!' }
+    }
+  }
+
+  try {
+    await db.enrollment.create({
+      data: {
+        courseId: courseId,
+        inscriptionId: documentId,
+        eca: ecaId,
+      },
+    })
+
+    return { status: 201, message: 'Inscripto correctamente!' }
   } catch {
     return { status: 500, message: 'Ha ocurrido un error!' }
   }

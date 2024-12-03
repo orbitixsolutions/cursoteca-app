@@ -2,9 +2,9 @@
 
 import { currentRole } from '@/lib/session'
 import { STATUS_ENUM } from '@prisma/client'
-import db from '@/lib/db'
-import { z } from 'zod'
 import { InscriptionComentSchema } from '@/schemas'
+import { z } from 'zod'
+import db from '@/lib/db'
 
 export async function createInscriptionStatus(
   status: STATUS_ENUM | undefined,

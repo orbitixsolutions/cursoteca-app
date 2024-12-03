@@ -2,7 +2,9 @@ import { currentRole } from '@/lib/session'
 import db from '@/lib/db'
 
 type ParamsProps = {
-  name: string
+  firstName: string
+  secondName: string
+  course: string
   age: number
   province: string
   educationalLevel: string
@@ -16,6 +18,8 @@ function verifiedByYearsOld(fechaNacimiento: Date, edadEsperada: number) {
     month: '2-digit',
     day: '2-digit',
   })
+
+  console.log('asd')
 
   const CURRENT_DATE = new Date()
   const CALCULATE_YEAR = CURRENT_DATE.getFullYear() - edadEsperada
@@ -32,7 +36,15 @@ function verifiedByYearsOld(fechaNacimiento: Date, edadEsperada: number) {
 }
 
 export async function getInscriptions(eca: string, params: ParamsProps) {
-  const { name, age, province, educationalLevel, status } = params
+  const {
+    firstName,
+    secondName,
+    age,
+    province,
+    educationalLevel,
+    status,
+    course,
+  } = params
 
   const ROLE = await currentRole()
 
@@ -53,36 +65,57 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
       },
     })
 
-    if (!name && !age && !province && !educationalLevel && !status)
+    if (
+      !course &&
+      !firstName &&
+      !secondName &&
+      !age &&
+      !province &&
+      !educationalLevel &&
+      !status
+    ) {
       return INSCRIPTIONS
+    }
 
-    const FILTERED_INSCRIPTIONS = INSCRIPTIONS.filter((i) => {
-      const { inscription, enrollmentStatus } = i
+    const FILTERED_INSCRIPTIONS = INSCRIPTIONS.filter((inscription) => {
+      const COURSE_NAME = inscription.course.title
 
-      const STATUS_FILTER = enrollmentStatus
-        .at(-1)
+      const { inscription: STUDENT, enrollmentStatus: STATUS_HISTORY } =
+        inscription
+
+      const STATUS_FILTER = STATUS_HISTORY.at(-1)
         ?.status?.toLowerCase()
         .includes(status?.toLowerCase())
 
-      const FIRST_NAME_FILTER = inscription.firstNames
+      const FIRST_NAME_FILTER = STUDENT.firstNames
         .toLowerCase()
-        .includes(name?.toLowerCase())
+        .includes(firstName?.toLowerCase())
 
-      const PROVINCE_FILTER = inscription.province
+      const SECOND_NAME_FILTER = STUDENT.lastNames
+        .toLowerCase()
+        .includes(secondName?.toLowerCase())
+
+      const COURSE_FILTER = COURSE_NAME.toLowerCase().includes(
+        course?.toLowerCase()
+      )
+
+      const PROVINCE_FILTER = STUDENT.province
         .toLowerCase()
         .includes(province?.toLowerCase())
 
-      const DATE_OF_BORN_FILTER = verifiedByYearsOld(
-        inscription.dateOfBorn,
-        age
-      )
-      const EDUCATIONAL_LEVEL_FILTER =
-        inscription.educationalLevel.toLocaleLowerCase() === educationalLevel
+      const EDUCATIONAL_LEVEL_FILTER = STUDENT.educationalLevel
+        .toLowerCase()
+        .includes(educationalLevel?.toLowerCase())
 
+      const AGE_FILTER = verifiedByYearsOld(STUDENT.dateOfBorn, age)
+
+      // Retorna true si cualquier filtro coincide
       return (
         FIRST_NAME_FILTER ||
+        SECOND_NAME_FILTER ||
         PROVINCE_FILTER ||
-        DATE_OF_BORN_FILTER ||
+        COURSE_FILTER ||
+        AGE_FILTER ||
         EDUCATIONAL_LEVEL_FILTER ||
         STATUS_FILTER
       )

@@ -5,14 +5,15 @@ import { DataTable } from '@/components/data-table'
 import { InscriptionColumns } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-table/inscription-column'
 import { InscriptionFilter } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-filter'
 import { ExportButton } from '@/components/shared/dashboard/export-button'
-import { Separator } from '@/components/ui/separator'
 
 interface InscriptionsPageProps {
   params: {
     eca: string
   }
   searchParams: {
-    name: string
+    firstName: string
+    secondName: string
+    course: string
     age: number
     province: string
     educationalLevel: string
@@ -40,7 +41,6 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
           <ExportButton data={INSCRIPTIONS ?? []} />
         </div>
 
-        <Separator />
         <InscriptionFilter />
 
         <DataTable

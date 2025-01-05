@@ -1,10 +1,14 @@
+import {
+  getCourses,
+  getInscriptions,
+} from '@/app/[eca]/dashboard/inscriptions/_services/fetch'
 import { ContentLayout } from '@/components/shared/dashboard/content-layout'
 import { getEcaName } from '@/helpers/get-eca-name'
-import { getInscriptions } from '@/app/[eca]/dashboard/inscriptions/_services/fetch'
-import { DataTable } from '@/components/data-table'
 import { InscriptionColumns } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-table/inscription-column'
 import { InscriptionFilter } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-filter'
 import { ExportButton } from '@/components/shared/dashboard/export-button'
+import { InscriptionTable } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-table/inscription-table'
+import { InscriptionChart } from '@/components/inscription-chart/inscription-chart'
 
 interface InscriptionsPageProps {
   params: {
@@ -25,7 +29,10 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
   const { params, searchParams: PARAMS } = props
   const { DOMAIN } = getEcaName(params.eca)
 
-  const INSCRIPTIONS = await getInscriptions(DOMAIN, PARAMS)
+  const [INSCRIPTIONS, COURSES] = await Promise.all([
+    getInscriptions(DOMAIN, PARAMS),
+    getCourses(DOMAIN),
+  ])
 
   return (
     <ContentLayout title='Inscripciones'>
@@ -43,10 +50,12 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
 
         <InscriptionFilter />
 
-        <DataTable
+        <InscriptionTable
           data={INSCRIPTIONS ?? []}
           columns={InscriptionColumns}
         />
+
+        <InscriptionChart data={COURSES ?? []} />
       </div>
     </ContentLayout>
   )

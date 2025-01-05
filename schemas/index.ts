@@ -52,7 +52,18 @@ export const CreateCourseSchema = z.object({
       })
   ),
   educationalLevel: z.enum(
-    ['PRIMARY', 'BASIC_CYCLE', 'SECONDARY', 'UNIVERSITY', 'NONE'],
+    [
+      'PRIMARY',
+      'FIRST',
+      'SECOND',
+      'THIRD',
+      'FOURTH',
+      'SEVENTH',
+      'EIGHTH',
+      'NINTH',
+      'THIRD_STUDIES',
+      'NONE',
+    ],
     {
       message: 'Selecciona un nivel educativo.',
     }
@@ -91,14 +102,25 @@ export const InscriptionSchema = z.object({
     message: 'Ingrese el nombre de su ultima institución.',
   }),
   educationalLevel: z.enum(
-    ['PRIMARY', 'BASIC_CYCLE', 'SECONDARY', 'UNIVERSITY', 'NONE'],
+    [
+      'PRIMARY',
+      'FIRST',
+      'SECOND',
+      'THIRD',
+      'FOURTH',
+      'SEVENTH',
+      'EIGHTH',
+      'NINTH',
+      'THIRD_STUDIES',
+      'NONE',
+    ],
     {
       message: 'Debes seleccionar un nivel educativo.',
     }
   ),
 })
 
-export const InscriptionComentSchema = z.object({
+export const CandidateComentSchema = z.object({
   comment: z.string().min(1, {
     message: 'Ingrese un comentario.',
   }),

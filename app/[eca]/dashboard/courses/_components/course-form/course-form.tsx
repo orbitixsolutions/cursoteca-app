@@ -60,7 +60,7 @@ export function CourseForm(props: CourseFormProps) {
       isVisible: false,
       eca: DOMAIN,
       ageRange: [10, 20],
-      educationalLevel: 'NONE',
+      educationalLevel: undefined,
     },
   })
 
@@ -157,7 +157,6 @@ export function CourseForm(props: CourseFormProps) {
                 <Select
                   disabled={isPending}
                   value={field.value}
-                  defaultValue='none'
                   onValueChange={field.onChange}
                 >
                   <FormControl>
@@ -194,7 +193,6 @@ export function CourseForm(props: CourseFormProps) {
                 <Select
                   disabled={isPending}
                   value={field.value}
-                  defaultValue='none'
                   onValueChange={field.onChange}
                 >
                   <FormControl>

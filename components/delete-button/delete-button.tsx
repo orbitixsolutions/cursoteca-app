@@ -90,9 +90,9 @@ export function DeleteButton(props: DeleteButtonProps) {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+              <AlertDialogTitle>¿Estás seguro/a?</AlertDialogTitle>
               <AlertDialogDescription>
-                Esta acción no se puede deshacer. Si estas seguro, presiona el
+                Esta acción no se puede deshacer. Si estas seguro/a, presiona el
                 botón de eliminar.
               </AlertDialogDescription>
             </AlertDialogHeader>

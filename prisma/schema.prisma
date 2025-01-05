@@ -29,11 +29,16 @@ enum CATEGORIES_ENUM {
 }
 
 enum EDUCATIONAL_LEVELS_ENUM {
-  NONE
   PRIMARY
-  BASIC_CYCLE
-  SECONDARY
-  UNIVERSITY
+  FIRST
+  SECOND
+  THIRD
+  FOURTH
+  SEVENTH
+  EIGHTH
+  NINTH
+  THIRD_STUDIES
+  NONE
 }
 
 enum STATUS_ENUM {
@@ -114,13 +119,14 @@ model Enrollment {
   inscriptionId String
   courseId      String
   eca           String
+  isCandidate Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  enrollmentStatus  EnrollmentStatus[]
   inscription       Inscriptions        @relation(fields: [inscriptionId], references: [documentId], onDelete: Cascade)
   course            Course              @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollmentStatus  EnrollmentStatus[]
   enrollmentComment EnrollmentComment[]
 
   @@index([courseId, inscriptionId])

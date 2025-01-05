@@ -5,21 +5,42 @@ import { ColumnDef } from '@tanstack/react-table'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { getCategoryName } from '@/helpers/get-course-category'
 import { CopyField } from '@/components/shared/general/copy-field'
-import { InscriptionDelete } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-delete'
-import { InscriptionStatus } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-status'
-import { InscriptionComment } from '@/app/[eca]/dashboard/inscriptions/_components/inscription-comment'
 import { Badge } from '@/components/ui/badge'
+import { ConvertCandidateButton } from '@/app/[eca]/dashboard/inscriptions/_components/convert-candidate-button'
+import { Checkbox } from '@/components/ui/checkbox'
 
-export const InscriptionColumns: ColumnDef<
-  Prisma.EnrollmentGetPayload<{
-    include: {
-      inscription: true
-      course: true
-      enrollmentStatus: true
-      enrollmentComment: true
-    }
-  }>
->[] = [
+type InscriptionProps = Prisma.EnrollmentGetPayload<{
+  include: {
+    inscription: true
+    course: true
+    enrollmentStatus: true
+    enrollmentComment: true
+  }
+}>
+
+export const InscriptionColumns: ColumnDef<InscriptionProps>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label='Select all'
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label='Select row'
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: 'course',
     header: 'Curso',
@@ -77,41 +98,19 @@ export const InscriptionColumns: ColumnDef<
     },
   },
   {
-    accessorKey: 'comments',
-    header: 'Comentarios',
+    accessorKey: 'actions',
+    header: 'Acciones',
     cell: ({ row }) => {
-      const { enrollmentComment, id } = row.original
+      const { isCandidate, id } = row.original
 
       return (
-        <InscriptionComment
-          id={id}
-          comments={enrollmentComment}
-        />
+        <ConvertCandidateButton
+          isCandidate={isCandidate}
+          candidateId={id}
+        >
+          Convertir a candidato
+        </ConvertCandidateButton>
       )
-    },
-  },
-  {
-    accessorKey: 'status',
-    header: 'Estados',
-    cell: ({ row }) => {
-      const { id, enrollmentStatus } = row.original
-
-      return (
-        <InscriptionStatus
-          id={id}
-          status={enrollmentStatus}
-        />
-      )
-    },
-  },
-  {
-    accessorKey: 'delete',
-    header: '',
-    cell: ({ row }) => {
-      const { inscription } = row.original
-      const INSCRIPTION_ID = inscription.id
-
-      return <InscriptionDelete id={INSCRIPTION_ID} />
     },
   },
 ]

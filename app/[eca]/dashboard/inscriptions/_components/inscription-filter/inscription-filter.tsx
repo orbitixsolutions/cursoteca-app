@@ -1,15 +1,14 @@
 'use client'
 
 import {
+  EDUCATIONAL_LEVELS,
+  SELECT_PROVINCES,
+} from '@/constants'
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import {
-  EDUCATIONAL_LEVELS,
-  INSCRIPTION_STATUS,
-  SELECT_PROVINCES,
-} from '@/constants'
 import { RangeBar } from '@/components/shared/general/range-bar/range-bar'
 import { SearchBar } from '@/components/shared/general/search-bar'
 import { SelectSearchBar } from '@/components/shared/general/select-search-bar'
@@ -18,6 +17,11 @@ import { Button } from '@/components/ui/button'
 export function InscriptionFilter() {
   return (
     <div className='grid grid-cols-2 lg:grid-cols-3 gap-4'>
+      <SearchBar
+        queryParam='course'
+        placeholder='Buscar curso'
+      />
+
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -41,11 +45,6 @@ export function InscriptionFilter() {
         </PopoverContent>
       </Popover>
 
-      <SearchBar
-        queryParam='course'
-        placeholder='Buscar curso'
-      />
-
       <RangeBar queryParam='age' />
 
       <SelectSearchBar
@@ -55,15 +54,9 @@ export function InscriptionFilter() {
       />
 
       <SelectSearchBar
-        queryParam='status'
-        placeholder='Filtrar por estado'
-        items={INSCRIPTION_STATUS}
-      />
-
-      <SelectSearchBar
         queryParam='educationalLevel'
         placeholder='Filtrar por nivel educativo'
-        items={EDUCATIONAL_LEVELS.slice(1, 5)}
+        items={EDUCATIONAL_LEVELS}
       />
     </div>
   )

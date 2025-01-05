@@ -2,7 +2,7 @@
 
 import { currentRole } from '@/lib/session'
 import { STATUS_ENUM } from '@prisma/client'
-import { InscriptionComentSchema } from '@/schemas'
+import { CandidateComentSchema } from '@/schemas'
 import { z } from 'zod'
 import db from '@/lib/db'
 
@@ -31,7 +31,7 @@ export async function createInscriptionStatus(
 }
 
 export async function createInscriptionComment(
-  data: z.infer<typeof InscriptionComentSchema>,
+  data: z.infer<typeof CandidateComentSchema>,
   enrollmentId: string
 ) {
   const ROLE = await currentRole()
@@ -40,7 +40,7 @@ export async function createInscriptionComment(
     return { status: 400, message: 'No tienes permisos' }
   }
 
-  const VALIDATION = InscriptionComentSchema.safeParse(data)
+  const VALIDATION = CandidateComentSchema.safeParse(data)
 
   if (!VALIDATION.success) {
     return { status: 400, message: 'Campos invalidos.' }

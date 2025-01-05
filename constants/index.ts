@@ -1,28 +1,48 @@
 export const EDUCATIONAL_LEVELS = [
   {
-    label: 'Ninguno',
-    value: 'NONE',
+    label: 'Primaria',
+    value: 'PRIMARY',
     id: 0,
   },
   {
-    label: 'Primaria',
-    value: 'PRIMARY',
+    label: '1º',
+    value: 'FIRST',
     id: 1,
   },
   {
-    label: 'Ciclo Básico',
-    value: 'BASIC_CYCLE',
+    label: '2º',
+    value: 'SECOND',
     id: 2,
   },
   {
-    label: 'Secundaria',
-    value: 'SECONDARY',
+    label: '3º',
+    value: 'THIRD',
     id: 3,
   },
   {
-    label: 'Universitaria',
-    value: 'UNIVERSITY',
+    label: '4º',
+    value: 'FOURTH',
     id: 4,
+  },
+  {
+    label: '7º',
+    value: 'SEVENTH',
+    id: 5,
+  },
+  {
+    label: '8º',
+    value: 'EIGHTH',
+    id: 6,
+  },
+  {
+    label: '9º',
+    value: 'NINTH',
+    id: 7,
+  },
+  {
+    label: 'Estudios Terciarios',
+    value: 'THIRD_STUDIES',
+    id: 8,
   },
 ]
 
@@ -47,24 +67,7 @@ export const SELECT_COURSE_CATEGORIES = [
 
 export const SELECT_PROVINCES = [
   { label: 'Montevideo', value: 'MONTEVIDEO' },
-  { label: 'Artigas', value: 'ARTIGAS' },
   { label: 'Canelones', value: 'CANELONES' },
-  { label: 'Cerro Largo', value: 'CERRO_LARGO' },
-  { label: 'Colonia', value: 'COLONIA' },
-  { label: 'Durazno', value: 'DURAZNO' },
-  { label: 'Flores', value: 'FLORES' },
-  { label: 'Florida', value: 'FLORIDA' },
-  { label: 'Lavalleja', value: 'LAVALLEJA' },
-  { label: 'Maldonado', value: 'MALDONADO' },
-  { label: 'Paysandú', value: 'PAYSANDU' },
-  { label: 'Río Negro', value: 'RIO_NEGRO' },
-  { label: 'Rivera', value: 'RIVERA' },
-  { label: 'Rocha', value: 'ROCHA' },
-  { label: 'Salto', value: 'SALTO' },
-  { label: 'San José', value: 'SAN_JOSE' },
-  { label: 'Soriano', value: 'SORIANO' },
-  { label: 'Tacuarembó', value: 'TACUAREMBO' },
-  { label: 'Treinta y Tres', value: 'TREINTA_Y_TRES' },
 ]
 
 export const INSCRIPTION_STATUS = [

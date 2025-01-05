@@ -1,7 +1,8 @@
 import { currentRole } from '@/lib/session'
+import { Prisma } from '@prisma/client'
 import db from '@/lib/db'
 
-type ParamsProps = {
+type FilterProps = {
   firstName: string
   secondName: string
   course: string
@@ -11,31 +12,69 @@ type ParamsProps = {
   status: string
 }
 
-function verifiedByYearsOld(fechaNacimiento: Date, edadEsperada: number) {
-  // Convertimos la edad en un año aproximado de nacimiento
-  const CONVERT_DATE = fechaNacimiento.toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
+type InscriptionProps = Prisma.EnrollmentGetPayload<{
+  include: {
+    inscription: true
+    course: true
+    enrollmentStatus: true
+    enrollmentComment: true
+  }
+}>
+
+function filterInscriptions(
+  inscriptions: Array<InscriptionProps>,
+  filters: FilterProps
+) {
+  const {
+    age,
+    course,
+    educationalLevel,
+    firstName,
+    province,
+    secondName,
+    status,
+  } = filters
+
+  return inscriptions.filter((i) => {
+    const matches = [
+      age
+        ? i.inscription.dateOfBorn.getFullYear() ===
+          new Date().getFullYear() - age
+        : true,
+      course
+        ? i.course.title.toLowerCase().includes(course.toLowerCase())
+        : true,
+      educationalLevel
+        ? i.inscription.educationalLevel
+            .toLowerCase()
+            .includes(educationalLevel.toLowerCase())
+        : true,
+      firstName
+        ? i.inscription.firstNames
+            .toLowerCase()
+            .includes(firstName.toLowerCase())
+        : true,
+      province
+        ? i.inscription.province.toLowerCase().includes(province.toLowerCase())
+        : true,
+      secondName
+        ? i.inscription.lastNames
+            .toLowerCase()
+            .includes(secondName.toLowerCase())
+        : true,
+      status
+        ? i.enrollmentStatus
+            .at(-1)
+            ?.status.toLowerCase()
+            .includes(status.toLowerCase())
+        : true,
+    ]
+
+    return matches.every(Boolean)
   })
-
-  console.log('asd')
-
-  const CURRENT_DATE = new Date()
-  const CALCULATE_YEAR = CURRENT_DATE.getFullYear() - edadEsperada
-
-  // Extraemos la fecha proporcionada en un formato manejable
-  const [DAY, MONTH, YEAR] = CONVERT_DATE.split('/').map(Number)
-  const CALCULATE_DATE = new Date(CALCULATE_YEAR, MONTH - 1, DAY)
-
-  return (
-    CALCULATE_DATE.getFullYear() === YEAR &&
-    CALCULATE_DATE.getMonth() + 1 === MONTH &&
-    CALCULATE_DATE.getDate() === DAY
-  )
 }
 
-export async function getInscriptions(eca: string, params: ParamsProps) {
+export async function getInscriptions(eca: string, params: FilterProps) {
   const {
     firstName,
     secondName,
@@ -47,15 +86,13 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
   } = params
 
   const ROLE = await currentRole()
-
-  if (ROLE === 'USER') {
-    return null
-  }
+  if (ROLE === 'USER') return null
 
   try {
     const INSCRIPTIONS = await db.enrollment.findMany({
       where: {
         eca,
+        isCandidate: false,
       },
       include: {
         inscription: true,
@@ -65,63 +102,41 @@ export async function getInscriptions(eca: string, params: ParamsProps) {
       },
     })
 
-    if (
-      !course &&
-      !firstName &&
-      !secondName &&
-      !age &&
-      !province &&
-      !educationalLevel &&
-      !status
-    ) {
-      return INSCRIPTIONS
-    }
-
-    const FILTERED_INSCRIPTIONS = INSCRIPTIONS.filter((inscription) => {
-      const COURSE_NAME = inscription.course.title
-
-      const { inscription: STUDENT, enrollmentStatus: STATUS_HISTORY } =
-        inscription
-
-      const STATUS_FILTER = STATUS_HISTORY.at(-1)
-        ?.status?.toLowerCase()
-        .includes(status?.toLowerCase())
-
-      const FIRST_NAME_FILTER = STUDENT.firstNames
-        .toLowerCase()
-        .includes(firstName?.toLowerCase())
-
-      const SECOND_NAME_FILTER = STUDENT.lastNames
-        .toLowerCase()
-        .includes(secondName?.toLowerCase())
-
-      const COURSE_FILTER = COURSE_NAME.toLowerCase().includes(
-        course?.toLowerCase()
-      )
-
-      const PROVINCE_FILTER = STUDENT.province
-        .toLowerCase()
-        .includes(province?.toLowerCase())
-
-      const EDUCATIONAL_LEVEL_FILTER = STUDENT.educationalLevel
-        .toLowerCase()
-        .includes(educationalLevel?.toLowerCase())
-
-      const AGE_FILTER = verifiedByYearsOld(STUDENT.dateOfBorn, age)
-
-      // Retorna true si cualquier filtro coincide
-      return (
-        FIRST_NAME_FILTER ||
-        SECOND_NAME_FILTER ||
-        PROVINCE_FILTER ||
-        COURSE_FILTER ||
-        AGE_FILTER ||
-        EDUCATIONAL_LEVEL_FILTER ||
-        STATUS_FILTER
-      )
+    const FILTERED_INSCRIPTIONS = filterInscriptions(INSCRIPTIONS, {
+      firstName,
+      secondName,
+      age,
+      province,
+      educationalLevel,
+      status,
+      course,
     })
 
     return FILTERED_INSCRIPTIONS
+  } catch {
+    return null
+  }
+}
+
+export async function getCourses(eca: string) {
+  const ROLE = await currentRole()
+  if (ROLE === 'USER') return null
+
+  try {
+    const COURSES = await db.course.findMany({
+      where: {
+        ecaId: eca,
+      },
+      include: {
+        enrollment: {
+          include: {
+            course: true,
+          },
+        },
+      },
+    })
+
+    return COURSES
   } catch {
     return null
   }

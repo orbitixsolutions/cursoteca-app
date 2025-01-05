@@ -36,7 +36,7 @@ export async function cloudinaryUpload(props: CloudinaryUploadProps) {
         .upload_stream(
           {
             folder,
-            public_id: `${path}-${itemId}`,
+            public_id: `/cursoteca/${path}-${itemId}`,
           },
           function (error, result) {
             if (error) {

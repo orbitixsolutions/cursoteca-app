@@ -1,4 +1,4 @@
-import { Box, Lock, Settings2, Users } from 'lucide-react'
+import { Box, Lock, Users, Users2 } from 'lucide-react'
 
 export const SIDEBAR_DATA = {
   sidebar_items: [
@@ -18,9 +18,9 @@ export const SIDEBAR_DATA = {
       icon: Users,
     },
     {
-      title: 'Configuraciones',
-      url: 'dashboard/settings',
-      icon: Settings2,
+      title: 'Candidatos',
+      url: 'dashboard/candidates',
+      icon: Users2,
     },
   ],
 }

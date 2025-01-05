@@ -56,15 +56,17 @@ export function SelectSearchBar(props: SelectSearchbarProps) {
         </Select>
       </div>
 
-      <Button
-        variant='ghost'
-        size='icon'
-        disabled={!DEFAULT_VALUE}
-        className='rounded-full'
-        onClick={() => onChange('')}
-      >
-        <X />
-      </Button>
+      {DEFAULT_VALUE && (
+        <Button
+          variant='ghost'
+          size='icon'
+          disabled={!DEFAULT_VALUE}
+          className='rounded-full'
+          onClick={() => onChange('')}
+        >
+          <X />
+        </Button>
+      )}
     </div>
   )
 }

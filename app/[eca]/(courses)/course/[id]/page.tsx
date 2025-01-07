@@ -23,7 +23,7 @@ export default async function CoursePage({
     COURSE.imageUrl === 'NO_IMAGE' ? CoursePlaceholderImg.src : COURSE.imageUrl
 
   const EDUCATIONAL_LEVEL = getEducationalLevelName(COURSE?.educationalLevel)
-  const AGE_RANGE = COURSE?.ageRange.join(' a ') // [18, 25] => 18 a 25
+  const AGE_RANGE = COURSE?.ageRange.join(' a ')
 
   return (
     <section className='flex flex-col md:flex-row justify-between gap-12'>

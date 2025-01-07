@@ -1,14 +1,10 @@
-import {
-  getCandidates,
-  getCourses,
-} from '@/app/[eca]/dashboard/candidates/_services/fetch'
+import { getCandidates } from '@/app/[eca]/dashboard/candidates/_services/fetch'
 import { ContentLayout } from '@/components/shared/dashboard/content-layout'
 import { getEcaName } from '@/helpers/get-eca-name'
 import { ExportButton } from '@/components/shared/dashboard/export-button'
 import { CandidateFilter } from '@/app/[eca]/dashboard/candidates/_components/candidate-filter'
 import { CandidateTable } from '@/app/[eca]/dashboard/candidates/_components/candidate-table/candidate-table'
 import { CandidateColumns } from '@/app/[eca]/dashboard/candidates/_components/candidate-table/candidate-column'
-import { InscriptionChart } from '@/components/inscription-chart/inscription-chart'
 
 interface CandidatesPageProps {
   params: {
@@ -29,10 +25,7 @@ export default async function Candidates(props: CandidatesPageProps) {
   const { params, searchParams: PARAMS } = props
   const { DOMAIN } = getEcaName(params.eca)
 
-  const [CANDIDATES, COURSES] = await Promise.all([
-    getCandidates(DOMAIN, PARAMS),
-    getCourses(DOMAIN),
-  ])
+  const CANDIDATES = await getCandidates(DOMAIN, PARAMS)
 
   return (
     <ContentLayout title='Candidatos'>
@@ -54,8 +47,6 @@ export default async function Candidates(props: CandidatesPageProps) {
           data={CANDIDATES ?? []}
           columns={CandidateColumns}
         />
-
-        <InscriptionChart data={COURSES ?? []} />
       </div>
     </ContentLayout>
   )

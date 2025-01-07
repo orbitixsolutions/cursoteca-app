@@ -2,41 +2,37 @@ export const EDUCATIONAL_LEVELS = [
   {
     label: 'Primaria',
     value: 'PRIMARY',
-    id: 0,
-  },
-  {
-    label: '1º',
-    value: 'FIRST',
     id: 1,
   },
   {
-    label: '2º',
-    value: 'SECOND',
+    label: 'Septimo Grado 7º',
+    value: 'SEVENTH',
     id: 2,
   },
   {
-    label: '3º',
-    value: 'THIRD',
+    label: 'Octavo grado 8º',
+    value: 'EIGHTH',
     id: 3,
   },
   {
-    label: '4º',
-    value: 'FOURTH',
+    label: 'Noveno grado 9º',
+    value: 'NINTH',
     id: 4,
   },
   {
-    label: '7º',
-    value: 'SEVENTH',
+    label: '1º de Bachillerato',
+    value: 'FIRST',
     id: 5,
   },
   {
-    label: '8º',
-    value: 'EIGHTH',
+    label: '2º de Bachillerato',
+    value: 'SECOND',
     id: 6,
   },
+
   {
-    label: '9º',
-    value: 'NINTH',
+    label: '3º de Bachilletaro',
+    value: 'THIRD',
     id: 7,
   },
   {

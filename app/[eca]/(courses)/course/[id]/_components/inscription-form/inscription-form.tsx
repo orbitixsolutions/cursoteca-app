@@ -246,7 +246,7 @@ export function InscriptionForm() {
                     name='province'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Provincia</FormLabel>
+                        <FormLabel>Departamento</FormLabel>
                         <Select
                           disabled={isPending}
                           value={field.value}
@@ -254,12 +254,12 @@ export function InscriptionForm() {
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder='Selecciona una provincia' />
+                              <SelectValue placeholder='Selec. un departamento' />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
                             <SelectGroup>
-                              <SelectLabel>Provincias</SelectLabel>
+                              <SelectLabel>Departamentos</SelectLabel>
                               <SelectSeparator />
 
                               {SELECT_DEPARTAMENTS.map((provice) => (

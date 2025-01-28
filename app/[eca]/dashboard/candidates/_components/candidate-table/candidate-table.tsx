@@ -48,7 +48,7 @@ export function CandidateTable<TData, TValue>({
     <div>
       <TablePagination
         table={table}
-        title='Inscripciones'
+        title='Candidatos'
         pages={PAGES}
       />
       <div className='rounded-md border overflow-hidden'>
@@ -105,7 +105,7 @@ export function CandidateTable<TData, TValue>({
       </div>
       <TablePagination
         table={table}
-        title='Inscripciones'
+        title='Candidatos'
         pages={PAGES}
       />
     </div>

@@ -26,7 +26,7 @@ export const EDUCATIONAL_LEVELS = [
   },
   {
     label: '5º de Bachillerato',
-    value: 'FIVTH_SECONDARY',
+    value: 'FIFTH_SECONDARY',
     id: 6,
   },
 

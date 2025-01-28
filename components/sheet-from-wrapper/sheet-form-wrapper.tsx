@@ -45,7 +45,7 @@ export function SheetFormWrapper(props: SheetFormWrapperProps) {
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
 
-        <ScrollArea className='w-full h-[800px]'>
+        <ScrollArea className='w-full'>
           <div className='px-1'>{children}</div>
         </ScrollArea>
 

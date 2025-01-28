@@ -1,9 +1,6 @@
 'use client'
 
-import {
-  EDUCATIONAL_LEVELS,
-  SELECT_PROVINCES,
-} from '@/constants'
+import { EDUCATIONAL_LEVELS, SELECT_DEPARTAMENTS } from '@/constants'
 import {
   Popover,
   PopoverContent,
@@ -48,9 +45,9 @@ export function InscriptionFilter() {
       <RangeBar queryParam='age' />
 
       <SelectSearchBar
-        queryParam='province'
-        placeholder='Filtrar por ubicación'
-        items={SELECT_PROVINCES}
+        queryParam='departament'
+        placeholder='Filtrar por departameto'
+        items={SELECT_DEPARTAMENTS}
       />
 
       <SelectSearchBar

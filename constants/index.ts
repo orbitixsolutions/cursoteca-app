@@ -5,38 +5,38 @@ export const EDUCATIONAL_LEVELS = [
     id: 1,
   },
   {
-    label: 'Septimo Grado 7º',
-    value: 'SEVENTH',
+    label: '1° de Ciclo Básico',
+    value: 'FIRST_BASIC',
     id: 2,
   },
   {
-    label: 'Octavo grado 8º',
-    value: 'EIGHTH',
+    label: '2° de Ciclo Básico',
+    value: 'SECOND_BASIC',
     id: 3,
   },
   {
-    label: 'Noveno grado 9º',
-    value: 'NINTH',
+    label: '3° de Ciclo Básico',
+    value: 'THIRD_BASIC',
     id: 4,
   },
   {
-    label: '1º de Bachillerato',
-    value: 'FIRST',
+    label: '4º de Bachillerato',
+    value: 'FOURTH_SECONDARY',
     id: 5,
   },
   {
-    label: '2º de Bachillerato',
-    value: 'SECOND',
+    label: '5º de Bachillerato',
+    value: 'FIVTH_SECONDARY',
     id: 6,
   },
 
   {
-    label: '3º de Bachilletaro',
-    value: 'THIRD',
+    label: '6º de Bachilletaro',
+    value: 'SIXTH_SECONDARY',
     id: 7,
   },
   {
-    label: 'Estudios Terciarios',
+    label: 'Universidad o Carrera Terciaria',
     value: 'THIRD_STUDIES',
     id: 8,
   },
@@ -61,7 +61,7 @@ export const SELECT_COURSE_CATEGORIES = [
   },
 ]
 
-export const SELECT_PROVINCES = [
+export const SELECT_DEPARTAMENTS = [
   { label: 'Montevideo', value: 'MONTEVIDEO' },
   { label: 'Canelones', value: 'CANELONES' },
 ]

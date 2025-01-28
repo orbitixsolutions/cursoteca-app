@@ -7,7 +7,7 @@ type FilterProps = {
   secondName: string
   course: string
   age: number
-  province: string
+  departament: string
   educationalLevel: string
   status: string
 }
@@ -30,7 +30,7 @@ function filterInscriptions(
     course,
     educationalLevel,
     firstName,
-    province,
+    departament,
     secondName,
     status,
   } = filters
@@ -54,8 +54,8 @@ function filterInscriptions(
             .toLowerCase()
             .includes(firstName.toLowerCase())
         : true,
-      province
-        ? i.inscription.province.toLowerCase().includes(province.toLowerCase())
+      departament
+        ? i.inscription.province.toLowerCase().includes(departament.toLowerCase())
         : true,
       secondName
         ? i.inscription.lastNames
@@ -79,7 +79,7 @@ export async function getInscriptions(eca: string, params: FilterProps) {
     firstName,
     secondName,
     age,
-    province,
+    departament,
     educationalLevel,
     status,
     course,
@@ -106,7 +106,7 @@ export async function getInscriptions(eca: string, params: FilterProps) {
       firstName,
       secondName,
       age,
-      province,
+      departament,
       educationalLevel,
       status,
       course,

@@ -37,7 +37,7 @@ import { InscriptionSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { DatePicker } from '@/components/ui/date-picker'
-import { EDUCATIONAL_LEVELS, SELECT_PROVINCES } from '@/constants'
+import { EDUCATIONAL_LEVELS, SELECT_DEPARTAMENTS } from '@/constants'
 import { useParams, useRouter } from 'next/navigation'
 import { getEcaName } from '@/helpers/get-eca-name'
 import { toast } from 'sonner'
@@ -262,7 +262,7 @@ export function InscriptionForm() {
                               <SelectLabel>Provincias</SelectLabel>
                               <SelectSeparator />
 
-                              {SELECT_PROVINCES.map((provice) => (
+                              {SELECT_DEPARTAMENTS.map((provice) => (
                                 <SelectItem
                                   key={provice.value}
                                   value={provice.value}

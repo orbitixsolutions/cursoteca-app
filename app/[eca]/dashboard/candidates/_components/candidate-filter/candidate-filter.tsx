@@ -3,7 +3,7 @@
 import {
   EDUCATIONAL_LEVELS,
   INSCRIPTION_STATUS,
-  SELECT_PROVINCES,
+  SELECT_DEPARTAMENTS,
 } from '@/constants'
 import {
   Popover,
@@ -55,9 +55,9 @@ export function CandidateFilter() {
       />
 
       <SelectSearchBar
-        queryParam='province'
-        placeholder='Filtrar por ubicación'
-        items={SELECT_PROVINCES}
+        queryParam='departament'
+        placeholder='Filtrar por departamento'
+        items={SELECT_DEPARTAMENTS}
       />
 
       <SelectSearchBar

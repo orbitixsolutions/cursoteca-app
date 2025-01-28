@@ -15,7 +15,7 @@ interface CandidatesPageProps {
     secondName: string
     course: string
     age: number
-    province: string
+    departament: string
     educationalLevel: string
     status: string
   }

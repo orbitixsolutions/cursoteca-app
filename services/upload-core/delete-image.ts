@@ -23,7 +23,7 @@ export const deleteImage = async (props: DeleteAvatarProps) => {
   if (ROLE === 'USER') return { message: 'No tienes permisos.', status: 403 }
 
   try {
-    cloudinary.uploader.destroy(`/cursoteca/${folder}/${path}-${itemId}`, {
+    cloudinary.uploader.destroy(`cursoteca-app/${folder}/${path}-${itemId}`, {
       invalidate: true,
     })
 

@@ -12,16 +12,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { SIDEBAR_DATA } from '@/data/menu-list'
+import { SIDEBAR_DIRECTIVE_ITEMS, SIDEBAR_ADMIN_ITEMS } from '@/data/menu-list'
 import { GalleryVerticalEnd } from 'lucide-react'
 import { SidebarDropdown } from '@/components/shared/dashboard/sidebar-dropdown'
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { getEcaName } from '@/helpers/get-eca-name'
+import { useAuth } from '@/providers/auth-provider'
+import Link from 'next/link'
 
 export function SidebarDashboard() {
   const { eca } = useParams<{ eca: string }>()
   const { DOMAIN, ECA_NAME } = getEcaName(eca)
+  const { user } = useAuth()
+
+  const ROLE = user?.role
 
   return (
     <Sidebar>
@@ -52,16 +56,29 @@ export function SidebarDashboard() {
           <SidebarGroupLabel>Administrar</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {SIDEBAR_DATA.sidebar_items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={`/${DOMAIN}/${item.url}`}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {ROLE === 'DIRECTIVE' &&
+                SIDEBAR_DIRECTIVE_ITEMS.sidebar_items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={`/${DOMAIN}/${item.url}`}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+
+              {ROLE === 'ADMIN' &&
+                SIDEBAR_ADMIN_ITEMS.sidebar_items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={`/${DOMAIN}/${item.url}`}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

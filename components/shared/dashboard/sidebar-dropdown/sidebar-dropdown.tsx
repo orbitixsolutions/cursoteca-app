@@ -15,17 +15,17 @@ import {
 import { ChevronsUpDown, House, LogOut, Moon, Sun } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Switch } from '@/components/ui/switch'
-import { useCurrentUser } from '@/hooks/use-session'
 import { useTheme } from 'next-themes'
 import { handleSignout } from '@/helpers/sign-out'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/providers/auth-provider'
 import Link from 'next/link'
 
 export function SidebarDropdown() {
-  const SESSION = useCurrentUser()
+  const { user } = useAuth()
   const { push } = useRouter()
 
-  const FIRST_LETTER_NAME = SESSION?.name?.slice(0, 1)
+  const FIRST_LETTER_NAME = user?.name?.slice(0, 1)
 
   const { theme, setTheme } = useTheme()
   const IS_DARK_MODE = theme === 'dark'
@@ -38,7 +38,7 @@ export function SidebarDropdown() {
     }
   }
 
-  if (!SESSION) return null
+  if (!user) return null
 
   return (
     <SidebarMenu>
@@ -55,8 +55,8 @@ export function SidebarDropdown() {
                 </AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
-                <span className='truncate font-semibold'>{SESSION.name}</span>
-                <span className='truncate text-xs'>{SESSION.email}</span>
+                <span className='truncate font-semibold'>{user.name}</span>
+                <span className='truncate text-xs'>{user.email}</span>
               </div>
               <ChevronsUpDown className='ml-auto size-4' />
             </SidebarMenuButton>
@@ -75,8 +75,8 @@ export function SidebarDropdown() {
                   </AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-semibold'>{SESSION.name}</span>
-                  <span className='truncate text-xs'>{SESSION.email}</span>
+                  <span className='truncate font-semibold'>{user.name}</span>
+                  <span className='truncate text-xs'>{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

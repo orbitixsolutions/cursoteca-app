@@ -30,5 +30,9 @@ export const useEca = () => {
 export function EcaProvider(props: EcaProviderProps) {
   const { children, data, courses } = props
 
-  return <EcaContext.Provider value={{ data, courses }}>{children}</EcaContext.Provider>
+  return (
+    <EcaContext.Provider value={{ data, courses }}>
+    {children}
+  </EcaContext.Provider>
+  )
 }

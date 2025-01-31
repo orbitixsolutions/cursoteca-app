@@ -5,7 +5,7 @@ CREATE TYPE "Role" AS ENUM ('DIRECTIVE', 'ADMIN', 'ENROLLED');
 CREATE TYPE "CATEGORIES_ENUM" AS ENUM ('ALL', 'LOGISTICS', 'PHARMACEUTICALS', 'OTHERS', 'NONE');
 
 -- CreateEnum
-CREATE TYPE "EDUCATIONAL_LEVELS_ENUM" AS ENUM ('NONE', 'PRIMARY', 'BASIC_CYCLE', 'SECONDARY', 'UNIVERSITY');
+CREATE TYPE "EDUCATIONAL_LEVELS_ENUM" AS ENUM ('PRIMARY', 'FIRST_BASIC', 'SECOND_BASIC', 'THIRD_BASIC', 'FOURTH_SECONDARY', 'FIFTH_SECONDARY', 'SIXTH_SECONDARY', 'THIRD_STUDIES', 'NONE');
 
 -- CreateEnum
 CREATE TYPE "STATUS_ENUM" AS ENUM ('INTERVIEW', 'STAGE_1', 'STAGE_2', 'STAGE_3', 'APPROVED', 'NOT_APPROVED', 'ALTERNATE', 'NONE');
@@ -67,10 +67,22 @@ CREATE TABLE "Enrollment" (
     "inscriptionId" TEXT NOT NULL,
     "courseId" TEXT NOT NULL,
     "eca" TEXT NOT NULL,
+    "isCandidate" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Enrollment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EnrollmentComment" (
+    "id" TEXT NOT NULL,
+    "enrollmentId" TEXT NOT NULL,
+    "comment" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "EnrollmentComment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -98,6 +110,9 @@ ALTER TABLE "Enrollment" ADD CONSTRAINT "Enrollment_inscriptionId_fkey" FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE "Enrollment" ADD CONSTRAINT "Enrollment_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "EnrollmentComment" ADD CONSTRAINT "EnrollmentComment_enrollmentId_fkey" FOREIGN KEY ("enrollmentId") REFERENCES "Enrollment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "EnrollmentStatus" ADD CONSTRAINT "EnrollmentStatus_enrollmentId_fkey" FOREIGN KEY ("enrollmentId") REFERENCES "Enrollment"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -54,15 +54,13 @@ export const CreateCourseSchema = z.object({
   educationalLevel: z.enum(
     [
       'PRIMARY',
-      'FIRST',
-      'SECOND',
-      'THIRD',
-      'FOURTH',
-      'SEVENTH',
-      'EIGHTH',
-      'NINTH',
+      'FIRST_BASIC',
+      'SECOND_BASIC',
+      'THIRD_BASIC',
+      'FOURTH_SECONDARY',
+      'FIFTH_SECONDARY',
+      'SIXTH_SECONDARY',
       'THIRD_STUDIES',
-      'NONE',
     ],
     {
       message: 'Selecciona un nivel educativo.',
@@ -104,15 +102,13 @@ export const InscriptionSchema = z.object({
   educationalLevel: z.enum(
     [
       'PRIMARY',
-      'FIRST',
-      'SECOND',
-      'THIRD',
-      'FOURTH',
-      'SEVENTH',
-      'EIGHTH',
-      'NINTH',
+      'FIRST_BASIC',
+      'SECOND_BASIC',
+      'THIRD_BASIC',
+      'FOURTH_SECONDARY',
+      'FIFTH_SECONDARY',
+      'SIXTH_SECONDARY',
       'THIRD_STUDIES',
-      'NONE',
     ],
     {
       message: 'Debes seleccionar un nivel educativo.',

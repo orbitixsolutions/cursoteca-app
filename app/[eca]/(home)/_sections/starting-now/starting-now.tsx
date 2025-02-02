@@ -21,7 +21,7 @@ export function StartingNow() {
           </h2>
 
           <p className='text-xs md:text-3xl opacity-60'>
-            Inscríbete en nuestros cursos especiales para lograr tener más
+            Inscríbete en nuestros cursos para lograr tener más
             oportunidades
           </p>
 

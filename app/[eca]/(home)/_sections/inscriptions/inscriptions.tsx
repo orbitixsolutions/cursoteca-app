@@ -12,11 +12,6 @@ export function Inscriptions() {
           <h2 className='text-lg md:text-[72px] md:leading-[72px] font-bold'>
             ¿Como inscribirse?
           </h2>
-
-          <p className='text-sm md:text-3xl opacity-60'>
-            Si tienes dudas de como ingresar a nuestros cursos gratuitos
-            aquí te contamos como hacerlo
-          </p>
         </article>
 
         <InscriptionSteps />

@@ -14,7 +14,7 @@ export function Inscriptions() {
           </h2>
 
           <p className='text-sm md:text-3xl opacity-60'>
-            Si tienes dudas de como ingresar a nuestros mejores cursos gratuitos
+            Si tienes dudas de como ingresar a nuestros cursos gratuitos
             aquí te contamos como hacerlo
           </p>
         </article>

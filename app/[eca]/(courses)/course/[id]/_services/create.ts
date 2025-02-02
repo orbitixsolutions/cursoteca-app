@@ -8,6 +8,7 @@ import {
 } from '@/app/[eca]/(courses)/course/[id]/_services/fetch'
 import { EDUCATIONAL_LEVELS } from '@/constants'
 import { Course } from '@prisma/client'
+import { getExactAge } from '@/helpers/get-date-of-born'
 import db from '@/lib/db'
 
 type InscriptionProps = {
@@ -18,11 +19,10 @@ type InscriptionProps = {
 
 // Verificar si cumple la edad requerida
 function isAgeValid(dateOfBorn: Date, COURSE: Course) {
-  const CALCULATED_AGE = new Date().getFullYear() - dateOfBorn.getFullYear()
+  const CALCULATED_AGE = getExactAge(dateOfBorn)
+  const IS_VALID_AGE = CALCULATED_AGE < COURSE.ageRange[0] || CALCULATED_AGE > COURSE.ageRange[1]
 
-  return (
-    CALCULATED_AGE < COURSE.ageRange[0] || CALCULATED_AGE > COURSE.ageRange[1]
-  )
+  return IS_VALID_AGE
 }
 
 // Verificar si cumple el nivel educacional
@@ -75,51 +75,51 @@ export async function createInscription(
 
   // #4 Verificacion de requisitos
   const COMPARE_AGE = isAgeValid(dateOfBorn, COURSE)
-
   if (COMPARE_AGE) {
     return { status: 404, message: 'No cumple con la edad requerida.' }
   }
 
   const COMPARE_LEVELS = isEducationalLevelValid(educationalLevel, COURSE)
-
   if (COMPARE_LEVELS) {
     return { status: 400, message: 'No cumple con el nivel educativo.' }
   }
 
-  if (!INSCRIPTION) {
-    await db.inscriptions.create({
-      data: {
-        documentId,
-        address,
-        province,
-        lastNameInstitution,
-        educationalLevel,
-        phoneNumber,
-        firstNames,
-        lastNames,
-        email,
-        dateOfBorn,
-        eca,
-      },
-    })
+  return { status: 201, message: 'Inscripto correctamente!' }
 
-    await db.enrollment.create({
-      data: {
-        courseId: courseId,
-        inscriptionId: documentId,
-        eca: ecaId,
-      },
-    })
+  try {
+    if (!INSCRIPTION) {
+      await db.inscriptions.create({
+        data: {
+          documentId,
+          address,
+          province,
+          lastNameInstitution,
+          educationalLevel,
+          phoneNumber,
+          firstNames,
+          lastNames,
+          email,
+          dateOfBorn,
+          eca,
+        },
+      })
 
-    return { status: 201, message: 'Inscripto correctamente!' }
-  }
+      await db.enrollment.create({
+        data: {
+          courseId: courseId,
+          inscriptionId: documentId,
+          eca: ecaId,
+        },
+      })
 
-  // #6 Actualizar datos en caso de que exista
-  const STUDENT = INSCRIPTION?.enrollment.find((i) => i.courseId === courseId)
-  const ALREADY_THIS_COURSE = STUDENT?.courseId === courseId
+      return { status: 201, message: 'Inscripto correctamente!' }
+    }
 
-  if (ALREADY_THIS_COURSE) {
-    try {
+    // #6 Actualizar datos en caso de que exista
+    const STUDENT = INSCRIPTION?.enrollment.find((i) => i.courseId === courseId)
+    const ALREADY_THIS_COURSE = STUDENT?.courseId === courseId
+
+    if (ALREADY_THIS_COURSE) {
       await db.inscriptions.update({
         where: {
           documentId,
@@ -139,12 +139,8 @@ export async function createInscription(
       })
 
       return { status: 201, message: 'Informacion actualizada!' }
-    } catch {
-      return { status: 500, message: 'Ha ocurrido un error!' }
     }
-  }
 
-  try {
     await db.enrollment.create({
       data: {
         courseId: courseId,

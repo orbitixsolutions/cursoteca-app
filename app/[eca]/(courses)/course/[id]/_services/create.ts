@@ -20,7 +20,8 @@ type InscriptionProps = {
 // Verificar si cumple la edad requerida
 function isAgeValid(dateOfBorn: Date, COURSE: Course) {
   const CALCULATED_AGE = getExactAge(dateOfBorn)
-  const IS_VALID_AGE = CALCULATED_AGE < COURSE.ageRange[0] || CALCULATED_AGE > COURSE.ageRange[1]
+  const IS_VALID_AGE =
+    CALCULATED_AGE < COURSE.ageRange[0] || CALCULATED_AGE > COURSE.ageRange[1]
 
   return IS_VALID_AGE
 }
@@ -83,8 +84,6 @@ export async function createInscription(
   if (COMPARE_LEVELS) {
     return { status: 400, message: 'No cumple con el nivel educativo.' }
   }
-
-  return { status: 201, message: 'Inscripto correctamente!' }
 
   try {
     if (!INSCRIPTION) {

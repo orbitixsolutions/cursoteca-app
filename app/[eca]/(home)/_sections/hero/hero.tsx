@@ -29,11 +29,11 @@ export function Hero() {
 
           <article className='w-[700px] max-w-full mx-auto absolute inset-0 flex flex-col justify-center text-center space-y-4 md:space-y-8 text-white px-5'>
             <h1 className='text-[20px] md:text-[72px] md:leading-[72px] font-bold'>
-              Tu educación es lo más importante
+              Educación para un mejor empleo
             </h1>
 
             <p className='text-xs md:text-xl leading-xl'>
-              Encuentra el curso que haz estado esperando e inscríbete para
+              Encuentra el curso que deseas e inscríbete para
               lograr tus metas
             </p>
 

@@ -24,7 +24,7 @@ export const INSCRIPTIONS_STEPS = [
     arrow: true,
   },
   {
-    title: '2. Llena el formulario',
+    title: '2. Completa el formulario',
     description:
       'Después de seleccionar tu curso de interés, completa el formulario correspondiente para postularte al mismo.',
     button: false,
@@ -32,7 +32,7 @@ export const INSCRIPTIONS_STEPS = [
     arrow: true,
   },
   {
-    title: '3. Etapa de ingreso',
+    title: '3. Etapa de selección',
     description:
       'Después de completar el formulario se te comunicará a través de WhatsApp las convocatorias para las instancias de selección.',
     button: false,

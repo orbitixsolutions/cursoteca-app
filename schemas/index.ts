@@ -91,7 +91,7 @@ export const InscriptionSchema = z.object({
     message: 'Ingrese la fecha de nacimiento.',
   }),
   province: z.string().min(1, {
-    message: 'Ingrese el provincia.',
+    message: 'Ingrese un departamento.',
   }),
   address: z.string().min(1, {
     message: 'Ingrese la dirección.',

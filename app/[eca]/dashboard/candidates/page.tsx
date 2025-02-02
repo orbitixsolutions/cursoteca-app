@@ -38,7 +38,7 @@ export default async function Candidates(props: CandidatesPageProps) {
             </article>
           </div>
 
-          <ExportButton data={CANDIDATES ?? []} />
+          <ExportButton name='Candidatos' data={CANDIDATES ?? []} />
         </div>
 
         <CandidateFilter />

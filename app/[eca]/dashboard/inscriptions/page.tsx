@@ -45,7 +45,7 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
             </article>
           </div>
 
-          <ExportButton data={INSCRIPTIONS ?? []} />
+          <ExportButton name='Inscriptos' data={INSCRIPTIONS ?? []} />
         </div>
 
         <InscriptionFilter />

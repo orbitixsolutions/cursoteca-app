@@ -18,7 +18,7 @@ export const INSCRIPTIONS_STEPS = [
   {
     title: '1. Sitio de inscripciones',
     description:
-      'Primero ingresa al sitio oficial donde encontraras todos los cursos disponibles que encontraras en el siguiente botón.',
+      'Primero ingresa al sitio oficial donde encontrarás todos los cursos disponibles actualmente además de los requisitos necesarios para cada curso.',
     button: true,
     button_text: 'Cursos disponibles',
     arrow: true,
@@ -26,7 +26,7 @@ export const INSCRIPTIONS_STEPS = [
   {
     title: '2. Llena el formulario',
     description:
-      'Después de escoger tu curso, llena un simple formulario para postularse a la vacante.',
+      'Después de seleccionar tu curso de interés, completa el formulario correspondiente para postularte al mismo.',
     button: false,
     button_text: null,
     arrow: true,
@@ -34,7 +34,7 @@ export const INSCRIPTIONS_STEPS = [
   {
     title: '3. Etapa de ingreso',
     description:
-      'Después de llenar el formulario se te avisará por medio de tu cuenta si haz sido aceptado o si aún no eres el tipo de estudiante que busca el curso.',
+      'Después de completar el formulario se te comunicará a través de WhatsApp las convocatorias para las instancias de selección.',
     button: false,
     button_text: null,
     arrow: false,

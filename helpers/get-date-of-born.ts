@@ -17,3 +17,18 @@ export function getAge(date: Date) {
 
   return CALCULATE_YEAR
 }
+
+export function getExactAge(dateOfBirth: Date) {
+  const TODAY = new Date()
+  let AGE = TODAY.getFullYear() - dateOfBirth.getFullYear()
+  const MONTH_DIFF = TODAY.getMonth() - dateOfBirth.getMonth()
+
+  if (
+    MONTH_DIFF < 0 ||
+    (MONTH_DIFF === 0 && TODAY.getDate() < dateOfBirth.getDate())
+  ) {
+    AGE--
+  }
+
+  return AGE
+}

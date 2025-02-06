@@ -109,9 +109,12 @@ export async function EcaHeader(props: EcaHeaderProps) {
                 <DropdownMenuItem asChild>
                   <Link href={`/${data.path}/courses`}>Cursos</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href={`/${data.path}/dashboard`}>Dashboard</Link>
-                </DropdownMenuItem>
+
+                {ROLE !== 'USER' && ROLE && (
+                  <DropdownMenuItem>
+                    <Link href={`/${data.path}/dashboard`}>Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

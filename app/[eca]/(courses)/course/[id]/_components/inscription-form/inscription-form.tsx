@@ -129,7 +129,7 @@ export function InscriptionForm() {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <ScrollArea className='px-6 pb-4 w-full h-[540px] space-y-6'>
+          <ScrollArea className='px-5 pb-4 w-full h-[540px] space-y-6'>
             <DrawerHeader>
               <DrawerTitle>¡Primero ingresa tus datos!</DrawerTitle>
               <DrawerDescription>
@@ -142,7 +142,7 @@ export function InscriptionForm() {
               <form
                 id='inscription-form'
                 onSubmit={onSubmit}
-                className='grid gap-6'
+                className='grid gap-6 px-1'
               >
                 <div className='space-y-6'>
                   <h2 className='text-base font-bold'>Datos personales</h2>
@@ -642,7 +642,7 @@ export function InscriptionForm() {
               <div className='space-y-4'>
                 <h2 className='text-base font-bold'>Datos educativos</h2>
 
-                <div className='grid grid-cols-2 gap-4'>
+                <div className='grid grid-cols-2 gap-2'>
                   <FormField
                     control={form.control}
                     name='lastNameInstitution'

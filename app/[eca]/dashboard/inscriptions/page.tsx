@@ -45,7 +45,13 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
             </article>
           </div>
 
-          <ExportButton name='Inscriptos' data={INSCRIPTIONS ?? []} />
+          <div className='space-x-2'>
+            <ExportButton
+              name='Inscriptos'
+              data={INSCRIPTIONS ?? []}
+            />
+            <InscriptionChart data={COURSES ?? []} />
+          </div>
         </div>
 
         <InscriptionFilter />
@@ -54,8 +60,6 @@ export default async function InscriptionsPage(props: InscriptionsPageProps) {
           data={INSCRIPTIONS ?? []}
           columns={InscriptionColumns}
         />
-
-        <InscriptionChart data={COURSES ?? []} />
       </div>
     </ContentLayout>
   )

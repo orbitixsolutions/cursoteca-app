@@ -87,7 +87,7 @@ export const InscriptionSchema = z.object({
   eca: z.string().min(1, {
     message: 'La ECA es obligatoria.',
   }),
-  dateOfBorn: z.date({
+  dateOfBorn: z.string().min(1, {
     message: 'Ingrese la fecha de nacimiento.',
   }),
   province: z.string().min(1, {

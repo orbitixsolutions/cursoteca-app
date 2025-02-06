@@ -18,8 +18,10 @@ type InscriptionProps = {
 }
 
 // Verificar si cumple la edad requerida
-function isAgeValid(dateOfBorn: Date, COURSE: Course) {
-  const CALCULATED_AGE = getExactAge(dateOfBorn)
+function isAgeValid(dateOfBorn: string, COURSE: Course) {
+  const DATE_OF_BORN = new Date(dateOfBorn)
+  const CALCULATED_AGE = getExactAge(DATE_OF_BORN)
+
   const IS_VALID_AGE =
     CALCULATED_AGE < COURSE.ageRange[0] || CALCULATED_AGE > COURSE.ageRange[1]
 
@@ -74,6 +76,8 @@ export async function createInscription(
     eca,
   } = VALIDATION.data
 
+  const DATE_OF_BORN = new Date(dateOfBorn)
+
   // #4 Verificacion de requisitos
   const COMPARE_AGE = isAgeValid(dateOfBorn, COURSE)
   if (COMPARE_AGE) {
@@ -98,7 +102,7 @@ export async function createInscription(
           firstNames,
           lastNames,
           email,
-          dateOfBorn,
+          dateOfBorn: DATE_OF_BORN,
           eca,
         },
       })
@@ -132,7 +136,7 @@ export async function createInscription(
           firstNames,
           lastNames,
           email,
-          dateOfBorn,
+          dateOfBorn: DATE_OF_BORN,
           eca,
         },
       })

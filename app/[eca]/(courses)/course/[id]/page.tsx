@@ -1,11 +1,10 @@
 import { getCourseById } from '@/app/[eca]/(courses)/course/[id]/_services/fetch'
 import { CoursePlaceholderImg } from '@/assets/misc'
-import { Separator } from '@/components/ui/separator'
-import { BorderBeam } from '@/components/ui/border-beam'
 import { getEducationalLevelName } from '@/helpers/get-educational-level-name'
 import { Badge } from '@/components/ui/badge'
 import { InscriptionForm } from '@/app/[eca]/(courses)/course/[id]/_components/inscription-form'
 import { redirect } from 'next/navigation'
+import { CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 
@@ -27,41 +26,42 @@ export default async function CoursePage({
 
   return (
     <section className='flex flex-col md:flex-row justify-between gap-12'>
-      <figure className='flex flex-1 relative rounded-lg overflow-hidden'>
-        <Image
-          src={IMAGE_EXISTS}
-          alt='Curso'
-          priority
-          width={1600}
-          height={900}
-          className='aspect-square size-full object-cover'
-        />
+      <div className='mx-auto w-full'>
+        <div className='grid gap-8 md:gap-16 md:grid-cols-[400px_1fr]'>
+          <figure className='relative aspect-square rounded-lg overflow-hidden'>
+            <Image
+              src={IMAGE_EXISTS}
+              alt={COURSE.title}
+              fill
+              className='object-cover'
+              priority
+            />
+          </figure>
 
-        <BorderBeam />
-      </figure>
+          <div className='space-y-6'>
+            <CardHeader className='p-0 space-y-4'>
+              <h2 className='text-[36px] md:text-[56px] md:leading-[56px] font-bold text-balance'>
+                {COURSE?.title}
+              </h2>
 
-      <div className='flex flex-1 flex-col justify-between'>
-        <article className='space-y-5'>
-          <h2 className='text-[36px] md:text-[72px] md:leading-[72px] font-bold text-balance'>
-            {COURSE?.title}
-          </h2>
+              <div className='space-y-2'>
+                <h2 className='text-base font-bold'>Requisitos:</h2>
+                <div className='space-x-2'>
+                  <Badge className='font-bold'>{EDUCATIONAL_LEVEL}</Badge>
+                  <Badge className='font-bold'>{AGE_RANGE} Años</Badge>
+                </div>
+              </div>
+            </CardHeader>
 
-          <Separator />
+            <CardContent className='space-y-6 p-0'>
+              <div className='tiptap !mb-2'>{parse(COURSE?.description)}</div>
+            </CardContent>
 
-          <div className='space-y-2'>
-            <h2 className='text-base font-bold'>Requisitos:</h2>
-            <div className='space-x-2'>
-              <Badge className='font-bold'>{EDUCATIONAL_LEVEL}</Badge>
-              <Badge className='font-bold'>{AGE_RANGE} Años</Badge>
-            </div>
+            <CardFooter className='mt-6 p-0'>
+              <InscriptionForm />
+            </CardFooter>
           </div>
-
-          <Separator />
-
-          <div className='tiptap !mb-2'>{parse(COURSE?.description)}</div>
-        </article>
-
-        <InscriptionForm />
+        </div>
       </div>
     </section>
   )

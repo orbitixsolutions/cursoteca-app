@@ -51,7 +51,7 @@ export async function deleteInscriptions(rows: string[]) {
   }
 
   try {
-    await db.inscriptions.deleteMany({
+    await db.enrollment.deleteMany({
       where: {
         id: {
           in: rows,
@@ -59,7 +59,10 @@ export async function deleteInscriptions(rows: string[]) {
       },
     })
 
-    return { status: 201, message: 'Inscripcione(s) descartada(s) correctamente.' }
+    return {
+      status: 201,
+      message: 'Inscripcione(s) descartada(s) correctamente.',
+    }
   } catch {
     return { status: 500, message: 'Ha ocurrido un error.' }
   }

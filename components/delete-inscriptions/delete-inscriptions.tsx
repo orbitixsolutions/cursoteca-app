@@ -23,6 +23,8 @@ export function DeleteInscriptions(props: DeleteInscriptionsProps) {
   const { items } = props
   const NEW_ITEMS = items.map((item) => item.id)
 
+  console.log(NEW_ITEMS)
+
   const CURRENT_ROWS = items.length === 0
   const CURRENT_ITEMS = items.length
 
@@ -52,7 +54,7 @@ export function DeleteInscriptions(props: DeleteInscriptionsProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2 }}
-          className='fixed max-w-[720px] w-full mx-auto bottom-24 left-[16rem] right-0 bg-card p-4 rounded-lg shadow-2xl shadow-destructive/15 border border-destructive/20'
+          className='fixed max-w-[720px] w-full mx-auto bottom-24 left-[16rem] right-0 bg-card p-4 rounded-lg shadow-2xl shadow-destructive/15 border border-destructive/20 z-40'
         >
           <div className='container mx-auto flex items-center justify-between'>
             <p className='text-sm'>

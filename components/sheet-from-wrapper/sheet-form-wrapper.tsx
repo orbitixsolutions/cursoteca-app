@@ -41,32 +41,31 @@ export function SheetFormWrapper(props: SheetFormWrapperProps) {
         )}
       </SheetTrigger>
       <SheetContent className='sm:max-w-[640px]'>
-        <SheetHeader>
+        <SheetHeader className='mb-4'>
           <SheetTitle>{title}</SheetTitle>
         </SheetHeader>
 
-        <ScrollArea className='w-full'>
+        <ScrollArea className='w-full h-[calc(100%_-_4rem)]'>
           <div className='px-1'>{children}</div>
-        </ScrollArea>
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button
+                variant='secondary'
+                type='reset'
+              >
+                Cancelar
+              </Button>
+            </SheetClose>
 
-        <SheetFooter>
-          <SheetClose asChild>
             <Button
-              variant='secondary'
-              type='reset'
+              disabled={disabled}
+              type='submit'
+              form={formId}
             >
-              Cancelar
+              {isEditing ? 'Guardar' : 'Crear'}
             </Button>
-          </SheetClose>
-
-          <Button
-            disabled={disabled}
-            type='submit'
-            form={formId}
-          >
-            {isEditing ? 'Guardar' : 'Crear'}
-          </Button>
-        </SheetFooter>
+          </SheetFooter>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )

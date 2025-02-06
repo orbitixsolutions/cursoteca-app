@@ -33,7 +33,7 @@ export default async function CoursePage({
         <div className='mx-auto w-full'>
           <Link
             href={`/${eca}/courses`}
-            className='text-primary flex items-center space-x-2 hover:underline mb-8'
+            className='flex items-center space-x-2 hover:underline mb-8'
           >
             <ChevronLeft />
             <span>Volver a los cursos</span>

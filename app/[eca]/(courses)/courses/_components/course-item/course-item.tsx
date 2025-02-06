@@ -6,20 +6,21 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { CourseItemProps } from './course-item.type'
-import parse from 'html-react-parser'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
+import parse from 'html-react-parser'
+import Image from 'next/image'
+import Link from 'next/link'
+import { BorderBeam } from '@/components/ui/border-beam'
 
 export function CourseItem(props: CourseItemProps) {
   const { id, title, ecaId: eca, description, imageUrl } = props
 
   return (
-    <Card>
+    <Card className='relative'>
       <CardHeader>
-        <AspectRatio ratio={16 / 9}>
+        <AspectRatio ratio={1 / 1}>
           <Image
             src={imageUrl}
             alt={`Curso: ${title}`}
@@ -45,6 +46,7 @@ export function CourseItem(props: CourseItemProps) {
           <Link href={`/${eca}/course/${id}`}>Ver curso</Link>
         </Button>
       </CardFooter>
+      <BorderBeam />
     </Card>
   )
 }

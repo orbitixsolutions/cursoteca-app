@@ -129,7 +129,7 @@ export function InscriptionForm() {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <ScrollArea className='px-5 pb-4 w-full h-[540px] space-y-6'>
+          <ScrollArea className='px-5 pb-4 w-full h-[640px] space-y-6'>
             <DrawerHeader>
               <DrawerTitle>¡Primero ingresa tus datos!</DrawerTitle>
               <DrawerDescription>

@@ -6,11 +6,19 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { InscriptionChartProps } from '@/components/inscription-chart/inscription-chart.type'
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 
 const CONFIG = {
   inscriptions: {
@@ -31,11 +39,14 @@ export function InscriptionChart(props: InscriptionChartProps) {
   }))
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
+    <Dialog>
+      <DialogTrigger asChild>
         <Button>Ver estadisticas</Button>
-      </PopoverTrigger>
-      <PopoverContent className='w-[480px]'>
+      </DialogTrigger>
+      <DialogContent className='md:max-w-[640px]'>
+        <DialogHeader>
+          <DialogTitle>Estadisticas de inscriptos</DialogTitle>
+        </DialogHeader>
         <Card className='w-full'>
           <CardHeader>
             <CardTitle>Inscriptos - Cursos</CardTitle>
@@ -94,7 +105,12 @@ export function InscriptionChart(props: InscriptionChartProps) {
             </ChartContainer>
           </CardContent>
         </Card>
-      </PopoverContent>
-    </Popover>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button>Cerrar</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

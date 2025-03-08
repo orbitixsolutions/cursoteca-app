@@ -1,9 +1,19 @@
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { ConvertCandidateButtonProps } from './convert-candidate-button.type'
 import { useTransition } from 'react'
-import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { convertCandidate } from '@/app/[eca]/dashboard/inscriptions/_services/update'
+import { toast } from 'sonner'
 
 export function ConvertCandidateButton(props: ConvertCandidateButtonProps) {
   const { isCandidate, candidateId, children } = props
@@ -29,11 +39,31 @@ export function ConvertCandidateButton(props: ConvertCandidateButtonProps) {
   }
 
   return (
-    <Button
-      onClick={onConvert}
-      disabled={isPending}
-    >
-      {children}
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant='outline'>{children}</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Convertir a candidato</AlertDialogTitle>
+        </AlertDialogHeader>
+
+        <p>
+          ¿Deseas convertir a candidato a este inscripto? <br />
+          <span className='font-semibold'>NOTA:</span> Una vez convertido no
+          puedes revertir esta acción.
+        </p>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={onConvert}
+            disabled={isPending}
+          >
+            Aceptar
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

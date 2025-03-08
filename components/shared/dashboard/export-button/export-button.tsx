@@ -29,6 +29,7 @@ export function ExportButton(props: ExportButtonProps) {
     'Cursos',
     'Categorias',
     'Nombres',
+    'Apellidos',
     'Telefonos',
     'Correos',
     'Fechas de Nacimiento',
@@ -43,7 +44,8 @@ export function ExportButton(props: ExportButtonProps) {
     return data.map(({ inscription, course }) => ({
       Curso: course.title,
       Categoria: getCategoryName(course.category),
-      Nombre: `${inscription.firstNames} ${inscription.lastNames}`,
+      Nombres: inscription.firstNames,
+      Apellidos: inscription.lastNames,
       Telefono: inscription.phoneNumber,
       Correo: inscription.email,
       'Dia de Nacimiento': formatDateToString(inscription.dateOfBorn),

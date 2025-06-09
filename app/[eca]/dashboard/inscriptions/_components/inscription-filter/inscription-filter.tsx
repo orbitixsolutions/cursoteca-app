@@ -1,6 +1,10 @@
 'use client'
 
-import { EDUCATIONAL_LEVELS, SELECT_DEPARTAMENTS } from '@/constants'
+import {
+  EDUCATIONAL_LEVELS,
+  SELECT_DEPARTAMENTS,
+  SELECT_GENDER,
+} from '@/constants'
 import {
   Popover,
   PopoverContent,
@@ -54,6 +58,12 @@ export function InscriptionFilter() {
         queryParam='educationalLevel'
         placeholder='Filtrar por nivel educativo'
         items={EDUCATIONAL_LEVELS}
+      />
+
+      <SelectSearchBar
+        queryParam='gender'
+        placeholder='Filtrar por nivel sexo'
+        items={SELECT_GENDER}
       />
     </div>
   )

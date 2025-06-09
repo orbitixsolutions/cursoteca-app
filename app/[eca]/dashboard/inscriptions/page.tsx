@@ -22,6 +22,7 @@ interface InscriptionsPageProps {
     departament: string
     educationalLevel: string
     status: string
+    gender: string
   }
 }
 

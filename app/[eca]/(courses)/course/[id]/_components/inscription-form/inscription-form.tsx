@@ -46,7 +46,11 @@ import { useForm } from 'react-hook-form'
 import { InscriptionSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
-import { EDUCATIONAL_LEVELS, SELECT_DEPARTAMENTS } from '@/constants'
+import {
+  EDUCATIONAL_LEVELS,
+  SELECT_DEPARTAMENTS,
+  SELECT_GENDER,
+} from '@/constants'
 import { useParams, useRouter } from 'next/navigation'
 import { getEcaName } from '@/helpers/get-eca-name'
 import { toast } from 'sonner'
@@ -86,6 +90,7 @@ export function InscriptionForm() {
       address: '',
       lastNameInstitution: '',
       educationalLevel: undefined,
+      gender: undefined,
     },
   })
 
@@ -129,7 +134,7 @@ export function InscriptionForm() {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <ScrollArea className='px-5 pb-4 w-full h-[640px] space-y-6'>
+          <ScrollArea className='px-5 pb-4 w-full h-[720px] space-y-6'>
             <DrawerHeader>
               <DrawerTitle>¡Primero ingresa tus datos!</DrawerTitle>
               <DrawerDescription>
@@ -145,14 +150,14 @@ export function InscriptionForm() {
                 className='grid gap-6 px-1'
               >
                 <div className='space-y-6'>
-                  <h2 className='text-base font-bold'>Datos personales</h2>
+                  <h2 className='text-base font-bold'>Datos personales A</h2>
 
-                  <div className='grid grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-4 gap-4'>
                     <FormField
                       control={form.control}
                       name='firstNames'
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='col-span-2'>
                           <FormLabel className='line-clamp-1'>
                             Nombres
                           </FormLabel>
@@ -172,7 +177,7 @@ export function InscriptionForm() {
                       control={form.control}
                       name='lastNames'
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='col-span-2'>
                           <FormLabel className='line-clamp-1'>
                             Apellidos
                           </FormLabel>
@@ -190,9 +195,48 @@ export function InscriptionForm() {
 
                     <FormField
                       control={form.control}
-                      name='phoneNumber'
+                      name='gender'
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel className='flex items-start'>
+                            Genero
+                          </FormLabel>
+                          <Select
+                            disabled={isPending}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder='Selec. un genero' />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Generos</SelectLabel>
+                                <SelectSeparator />
+
+                                {SELECT_GENDER.map((gender) => (
+                                  <SelectItem
+                                    key={gender.value}
+                                    value={gender.value}
+                                  >
+                                    {gender.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='phoneNumber'
+                      render={({ field }) => (
+                        <FormItem className='col-span-2'>
                           <FormLabel className='line-clamp-1'>
                             Número de teléfono
                           </FormLabel>
@@ -213,7 +257,7 @@ export function InscriptionForm() {
                       control={form.control}
                       name='email'
                       render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='col-span-2'>
                           <FormLabel className='line-clamp-1'>
                             Correo electrónico
                           </FormLabel>
@@ -230,6 +274,7 @@ export function InscriptionForm() {
                       )}
                     />
                   </div>
+
                   <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
                     <FormField
                       control={form.control}
@@ -448,12 +493,12 @@ export function InscriptionForm() {
               <div className='space-y-4'>
                 <h2 className='text-base font-bold'>Datos personales</h2>
 
-                <div className='grid grid-cols-2 gap-4'>
+                <div className='grid grid-cols-4 gap-4'>
                   <FormField
                     control={form.control}
                     name='firstNames'
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className='col-span-1'>
                         <FormLabel className='line-clamp-1'>Nombres</FormLabel>
                         <FormControl>
                           <Input
@@ -469,9 +514,27 @@ export function InscriptionForm() {
 
                   <FormField
                     control={form.control}
+                    name='gender'
+                    render={({ field }) => (
+                      <FormItem className='col-span-1'>
+                        <FormLabel className=' line-clamp-1'>Genero</FormLabel>
+                        <FormControl>
+                          <Input
+                            disabled={isPending}
+                            placeholder='Femenino'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
                     name='lastNames'
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className='col-span-2'>
                         <FormLabel className='line-clamp-1'>
                           Apellidos
                         </FormLabel>
@@ -491,7 +554,7 @@ export function InscriptionForm() {
                     control={form.control}
                     name='phoneNumber'
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className='col-span-2'>
                         <FormLabel className='line-clamp-1'>
                           Número de teléfono
                         </FormLabel>
@@ -512,7 +575,7 @@ export function InscriptionForm() {
                     control={form.control}
                     name='email'
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className='col-span-2'>
                         <FormLabel className='line-clamp-1'>
                           Correo electrónico
                         </FormLabel>

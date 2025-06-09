@@ -73,6 +73,7 @@ export async function createInscription(
     lastNames,
     email,
     dateOfBorn,
+    gender,
     eca,
   } = VALIDATION.data
 
@@ -101,6 +102,7 @@ export async function createInscription(
           phoneNumber,
           firstNames,
           lastNames,
+          gender,
           email,
           dateOfBorn: DATE_OF_BORN,
           eca,

@@ -10,6 +10,7 @@ type FilterProps = {
   departament: string
   educationalLevel: string
   status: string
+  gender: string
 }
 
 type InscriptionProps = Prisma.EnrollmentGetPayload<{
@@ -33,6 +34,7 @@ function filterInscriptions(
     departament,
     secondName,
     status,
+    gender,
   } = filters
 
   return inscriptions.filter((i) => {
@@ -55,7 +57,9 @@ function filterInscriptions(
             .includes(firstName.toLowerCase())
         : true,
       departament
-        ? i.inscription.province.toLowerCase().includes(departament.toLowerCase())
+        ? i.inscription.province
+            .toLowerCase()
+            .includes(departament.toLowerCase())
         : true,
       secondName
         ? i.inscription.lastNames
@@ -67,6 +71,9 @@ function filterInscriptions(
             .at(-1)
             ?.status.toLowerCase()
             .includes(status.toLowerCase())
+        : true,
+      gender
+        ? i.inscription.gender.toLowerCase().includes(gender.toLowerCase())
         : true,
     ]
 
@@ -83,6 +90,7 @@ export async function getInscriptions(eca: string, params: FilterProps) {
     educationalLevel,
     status,
     course,
+    gender,
   } = params
 
   const ROLE = await currentRole()
@@ -109,6 +117,7 @@ export async function getInscriptions(eca: string, params: FilterProps) {
       departament,
       educationalLevel,
       status,
+      gender,
       course,
     })
 

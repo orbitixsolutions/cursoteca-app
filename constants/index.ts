@@ -66,6 +66,11 @@ export const SELECT_DEPARTAMENTS = [
   { label: 'Canelones', value: 'CANELONES' },
 ]
 
+export const SELECT_GENDER = [
+  { label: 'Femenino', value: 'FEMALE' },
+  { label: 'Masculino', value: 'MALE' },
+]
+
 export const INSCRIPTION_STATUS = [
   { label: 'Entrevista', value: 'INTERVIEW' },
   { label: 'Etapa 1', value: 'STAGE_1' },

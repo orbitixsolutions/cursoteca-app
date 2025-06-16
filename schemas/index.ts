@@ -100,7 +100,7 @@ export const InscriptionSchema = z.object({
     message: 'Ingrese el nombre de su ultima institución.',
   }),
   gender: z.enum(['MALE', 'FEMALE'], {
-    message: 'Debes seleccionar un sexo.',
+    message: 'Debes seleccionar un genero.',
   }),
   educationalLevel: z.enum(
     [

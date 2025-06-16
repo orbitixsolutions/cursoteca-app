@@ -518,13 +518,32 @@ export function InscriptionForm() {
                     render={({ field }) => (
                       <FormItem className='col-span-1'>
                         <FormLabel className=' line-clamp-1'>Genero</FormLabel>
-                        <FormControl>
-                          <Input
-                            disabled={isPending}
-                            placeholder='Femenino'
-                            {...field}
-                          />
-                        </FormControl>
+                        <Select
+                          disabled={isPending}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Selec. un genero' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Genero</SelectLabel>
+                              <SelectSeparator />
+
+                              {SELECT_GENDER.map((gender) => (
+                                <SelectItem
+                                  key={gender.value}
+                                  value={gender.value}
+                                >
+                                  {gender.label}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}

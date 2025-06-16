@@ -20,6 +20,7 @@ import { getCategoryName } from '@/helpers/get-course-category'
 import { getExactAge } from '@/helpers/get-date-of-born'
 import { formatDateToString } from '@/helpers/get-current-date'
 import { Download } from 'lucide-react'
+import { getGenderName } from '@/helpers/get-gender'
 
 export function ExportButton(props: ExportButtonProps) {
   const { data, name } = props
@@ -30,6 +31,7 @@ export function ExportButton(props: ExportButtonProps) {
     'Categorias',
     'Nombres',
     'Apellidos',
+    'Generos',
     'Telefonos',
     'Correos',
     'Fechas de Nacimiento',
@@ -46,6 +48,7 @@ export function ExportButton(props: ExportButtonProps) {
       Categoria: getCategoryName(course.category),
       Nombres: inscription.firstNames,
       Apellidos: inscription.lastNames,
+      Genero: getGenderName(inscription.gender),
       Telefono: inscription.phoneNumber,
       Correo: inscription.email,
       'Dia de Nacimiento': formatDateToString(inscription.dateOfBorn),

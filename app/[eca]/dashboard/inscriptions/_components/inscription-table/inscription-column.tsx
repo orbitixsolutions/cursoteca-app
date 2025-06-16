@@ -8,6 +8,7 @@ import { CopyField } from '@/components/shared/general/copy-field'
 import { Badge } from '@/components/ui/badge'
 import { ConvertCandidateButton } from '@/app/[eca]/dashboard/inscriptions/_components/convert-candidate-button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { GenderComponent } from '@/components/gender-component'
 
 type InscriptionProps = Prisma.EnrollmentGetPayload<{
   include: {
@@ -64,9 +65,13 @@ export const InscriptionColumns: ColumnDef<InscriptionProps>[] = [
       const { inscription } = row.original
 
       return (
-        <p className='line-clamp-1'>
-          {inscription.firstNames} {inscription.lastNames}
-        </p>
+        <div className='flex items-center gap-2'>
+          <p className='line-clamp-1'>
+            {inscription.firstNames} {inscription.lastNames}
+          </p>
+
+          <GenderComponent gender={inscription.gender} />
+        </div>
       )
     },
   },

@@ -64,6 +64,7 @@ export const SELECT_COURSE_CATEGORIES = [
 export const SELECT_DEPARTAMENTS = [
   { label: 'Montevideo', value: 'MONTEVIDEO' },
   { label: 'Canelones', value: 'CANELONES' },
+  { label: 'Maldonado', value: 'MALDONADO' },
 ]
 
 export const SELECT_GENDER = [

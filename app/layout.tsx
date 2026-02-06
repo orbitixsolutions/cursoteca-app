@@ -1,31 +1,43 @@
-import '@/styles/globals.css'
+import type { Metadata } from 'next'
+import { Toaster } from '@/components/ui/sonner'
 import { Providers } from './providers'
-import { Inter } from 'next/font/google'
-import { Metadata } from 'next'
-import { cn } from '@/lib/utils'
+import { AuthWrapper } from '@/providers/auth-provider/auth.wrapper'
+import localFont from 'next/font/local'
+import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
-const title = 'Cursoteca | Platforms.'
-const description = 'Cursoteca es una plataforma de educación.'
+const geistSans = localFont({
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
+})
+const geistMono = localFont({
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
+})
 
 export const metadata: Metadata = {
-  title,
-  description,
+  title: 'Cursoteca',
+  description:
+    'Una institución educativa dedicada a ofrecer cursos de alta calidad para el desarrollo profesional y personal.',
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html
-      lang='es'
-      suppressHydrationWarning
-    >
-      <body className={cn(inter)}>
-        <Providers>{children}</Providers>
+    <html lang='en'>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} relative w-full min-h-screen bg-background antialiased`}
+      >
+        <AuthWrapper>
+          <Providers>
+            <Toaster />
+            {children}
+          </Providers>
+        </AuthWrapper>
       </body>
     </html>
   )

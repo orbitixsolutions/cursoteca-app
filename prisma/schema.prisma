@@ -10,18 +10,153 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+// --------------------------------------
+// ENUMS //
+// --------------------------------------
+
+enum Role {
+  DIRECTIVE
+  ADMIN
+  ENROLLED
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+enum CATEGORIES_ENUM {
+  ALL
+  LOGISTICS
+  PHARMACEUTICALS
+  OTHERS
+  NONE
+}
+
+enum EDUCATIONAL_LEVELS_ENUM {
+  PRIMARY
+  FIRST_BASIC
+  SECOND_BASIC
+  THIRD_BASIC
+  FOURTH_SECONDARY
+  FIFTH_SECONDARY
+  SIXTH_SECONDARY
+  THIRD_STUDIES
+  NONE
+}
+
+enum STATUS_ENUM {
+  INTERVIEW
+  STAGE_1
+  STAGE_2
+  STAGE_3
+  APPROVED
+  NOT_APPROVED
+  ALTERNATE
+  NONE
+}
+
+enum GENDER_ENUM {
+  MALE
+  FEMALE
+  NONE
+}
+
+// --------------------------------------
+// USER TABLE //
+// --------------------------------------
+
+model User {
+  id       String  @id @default(uuid())
+  name     String?
+  email    String  @unique
+  password String
+  eca      String?
+  role     Role    @default(ENROLLED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --------------------------------------
+// COURSE TABLE //
+// --------------------------------------
+
+model Course {
+  id               String                  @id @default(uuid())
+  title            String
+  description      String
+  ecaId            String
+  isVisible        Boolean                 @default(false)
+  imageUrl         String                  @default("NO_IMAGE")
+  category         CATEGORIES_ENUM         @default(NONE)
+  ageRange         Int[]                   @default([10, 20])
+  educationalLevel EDUCATIONAL_LEVELS_ENUM @default(NONE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollment Enrollment[]
+}
+
+// --------------------------------------
+// STUDENTS TABLE //
+// --------------------------------------
+
+model Inscriptions {
+  id                  String                  @id @default(uuid())
+  firstNames          String
+  lastNames           String
+  phoneNumber         String
+  email               String
+  documentId          String                  @unique
+  eca                 String
+  dateOfBorn          DateTime
+  province            String
+  address             String
+  gender              GENDER_ENUM             @default(NONE)
+  lastNameInstitution String
+  educationalLevel    EDUCATIONAL_LEVELS_ENUM @default(NONE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollment Enrollment[]
+}
+
+model Enrollment {
+  id String @id @default(uuid())
+
+  inscriptionId String
+  courseId      String
+  eca           String
+  isCandidate   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inscription       Inscriptions        @relation(fields: [inscriptionId], references: [documentId], onDelete: Cascade)
+  course            Course              @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollmentStatus  EnrollmentStatus[]
+  enrollmentComment EnrollmentComment[]
+
+  @@index([courseId, inscriptionId])
+}
+
+model EnrollmentComment {
+  id           String @id @default(uuid())
+  enrollmentId String
+
+  comment String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+}
+
+model EnrollmentStatus {
+  id           String @id @default(uuid())
+  enrollmentId String
+
+  status    STATUS_ENUM @default(NONE)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  enrollment Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
 }
